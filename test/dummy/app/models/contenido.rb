@@ -8,7 +8,9 @@ class Contenido < ActiveRecord::Base
   belongs_to :subtipo
   belongs_to :abuelo, class_name: 'Contenido', foreign_key: 'inicial_id'
   belongs_to :padre, class_name: 'Contenido', foreign_key: 'parent_id'
+  belongs_to :blog
   has_one :veces_leido, as: :leido
+  has_many :fotos, order: 'orden, id', dependent: :destroy, conditions: 'publicado = true'
 
   LONG_MAX_TITULO = 120
   TIMEOUT_EDICION = 90.minutes
@@ -75,4 +77,22 @@ class Contenido < ActiveRecord::Base
   scope :busca_titulo_o_permalink, lambda { |txt| where("titulo LIKE ? OR permalink LIKE ?", "%#{txt}%", "%#{txt}%") }
   scope :in_locale, lambda { |locale| where(locale => true) }
 
+  def factor_corrector_para_nuevos
+    (self.created_at > 6.hours.ago) ? 3.0 : (self.created_at > 1.day.ago) ? 2.0 : 1.0
+  end
+
+  def dominio
+    if !attribute_present?('subtipo_id')
+      Antifail.create(tipo: Antifail::RESOLVER_DOMINIO, detalles: "Falta cargar subtipo_id: #{ inspect }")
+      HTTP_DOMINIOS[:es]
+    elsif subtipo_id == Subtipo::POSTS and attribute_present?('blog_id')
+      blog.dominio
+    else
+      Antifail.create(tipo: Antifail::RESOLVER_DOMINIO, detalles: "falta cargar blog_id: #{ inspect }") if subtipo_id == Subtipo::POSTS
+      mi_cache('dominio_por_subtipo_id', 'GET', subtipo_id)
+    end
+  end
+  def contenido_dominio_link
+    contenido_link[0..3] == 'http' ? contenido_link : "#{dominio}#{contenido_link}"
+  end
 end

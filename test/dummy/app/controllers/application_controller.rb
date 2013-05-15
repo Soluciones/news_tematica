@@ -21,17 +21,7 @@ class ApplicationController < ActionController::Base
 
   # Redirecciona a la pantalla de login, con un mensaje de aviso
   def envia_a_login(mensaje)
-    session[:pagina_destino] = request.fullpath
-    flash[:notice] = mensaje
-    respond_to do |format|
-      format.html { redirect_to login_path }
-      format.js do
-        render :update do |page|
-          page.redirect_to login_path
-        end
-      end
-    end
-    return false
+    puts mensaje
   end
 
   # Impide el acceso a usuarios no registrados

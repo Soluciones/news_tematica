@@ -27,7 +27,7 @@ module NewsTematica
       @temas = (@news_tematica.temas - @masleidos)[0..4]
       @banner_lateral = @news_tematica.banner_lateral
       @banner_inferior = @news_tematica.banner_inferior
-      @news_tematica.html = Premailer.new(render_to_string('news_tematicas/_preview', layout: false), with_html_string: true).to_inline_css
+      @news_tematica.html = Premailer.new(render_to_string('news_tematica/news_tematicas/_preview', layout: false), with_html_string: true).to_inline_css
       if @news_tematica.save
         redirect_to edit_news_tematica_path(@news_tematica)
       else
@@ -72,7 +72,7 @@ module NewsTematica
       @temas = @news_tematica.prioriza contenido_class.where(id: params[:temas].split(','))
       @banner_lateral = @news_tematica.banner_lateral
       @banner_inferior = @news_tematica.banner_inferior
-      @news_tematica.update_attribute('html', Premailer.new(render_to_string('news_tematicas/_preview', layout: false), with_html_string: true).to_inline_css)
+      @news_tematica.update_attribute('html', Premailer.new(render_to_string('news_tematica/news_tematicas/_preview', layout: false), with_html_string: true).to_inline_css)
       redirect_to edit_news_tematica_path(@news_tematica)
     end
 

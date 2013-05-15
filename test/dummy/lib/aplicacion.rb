@@ -1,5 +1,13 @@
 # coding: utf-8
 
+HTTP_DOMINIOS = {
+  ar: "http://www.rankia.com.ar",
+  cl: "http://www.rankia.cl",
+  co: "http://www.rankia.co",
+  es: "http://www.rankia.com",
+  mx: "http://www.rankia.mx",
+  pe: "http://www.rankia.pe" }
+
 PAISES = [:ar, :cl, :co, :es, :mx, :pe]
 
 class String
@@ -33,5 +41,18 @@ class String
   def lanza_sql(modo = nil)
     # El modo update devuelve el nº de registros afectados; sin él, recibiríamos NIL.
     (modo == 'update') ? ActiveRecord::Base.connection.update(self) : ActiveRecord::Base.connection.execute(self)
+  end
+  # Si una cadena es blank, se cambia por la alternativa
+  def o_si_no(alternativa)
+    self.strip.blank? ? alternativa : self
+  end
+
+end
+
+
+class NilClass
+  # Si una cadena es blank o nil, se cambia por la alternativa
+  def o_si_no(alternativa)
+    alternativa
   end
 end
