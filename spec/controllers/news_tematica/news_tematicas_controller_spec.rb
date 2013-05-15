@@ -11,7 +11,7 @@ describe NewsTematicas::NewsTematicasController do
     it "sólo pueden acceder admins" do
       login_controller(FactoryGirl.create(:usuario))
       post :contenidos_elegidos, id: news_tematica.id
-      response.should redirect_to login_path
+      response.should redirect_to main_app.login_path
     end
 
     it "debe generar un HTML con dichos contenidos, en el orden correcto" do
@@ -37,7 +37,7 @@ describe NewsTematicas::NewsTematicasController do
     it "sólo pueden acceder admins" do
       login_controller(FactoryGirl.create(:usuario))
       post :update, id: news_tematica.id
-      response.should redirect_to login_path
+      response.should redirect_to main_app.login_path
     end
 
     it "debe prohibir cambiar news ya enviadas" do
