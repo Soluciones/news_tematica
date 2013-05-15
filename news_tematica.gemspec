@@ -55,4 +55,10 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'simplecov'
   s.add_development_dependency 'launchy'
 
+  s.add_development_dependency 'mailcatcher' # Set your app to deliver to smtp://127.0.0.1:1025 instead of your default SMTP server, then check out http://127.0.0.1:1080 to see the mail.
+  s.add_development_dependency 'debugger'
+  s.add_development_dependency 'rspec-rails' # Neceario para crear los specs automáticamente con los comandos 'rails generate'
+  s.add_development_dependency 'jasmine'
+  s.add_development_dependency 'jasmine-headless-webkit'
+
 end

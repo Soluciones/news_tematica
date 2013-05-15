@@ -15,3 +15,26 @@ gem "jquery-rails"
 
 # To use debugger
 # gem 'debugger'
+
+gem 'draper'
+
+group :test do
+  gem 'rspec-html-matchers'
+  gem 'rspec-instafail'
+  gem 'shoulda-matchers'
+  gem 'database_cleaner'
+  gem 'timecop'
+  gem 'factory_girl_rails'
+  gem 'ffaker'
+  gem 'capybara'
+  gem 'simplecov', require: false
+  gem 'launchy'
+end
+
+group :development, :test do
+  gem 'mailcatcher' # Set your app to deliver to smtp://127.0.0.1:1025 instead of your default SMTP server, then check out http://127.0.0.1:1080 to see the mail.
+  gem 'debugger'
+  gem 'rspec-rails' # Neceario para crear los specs automáticamente con los comandos 'rails generate'
+  gem 'jasmine'
+  gem 'jasmine-headless-webkit'
+end
