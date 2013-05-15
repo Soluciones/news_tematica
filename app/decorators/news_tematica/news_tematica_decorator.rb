@@ -2,8 +2,8 @@
 
 module NewsTematica
   class NewsTematicaDecorator < Draper::Decorator
-    delegate_all
     include Clases
+    delegate_all
 
     # Los titulares se apoyan en la sección de titulares, si hay, o si no en la etiqueta correspondiente
     def titulares
