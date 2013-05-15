@@ -174,4 +174,15 @@ module EmergiaHelper
     end
   end
 
+  # Recibe un array de objetos con objeto.id y objeto.nombre
+  def campo_dropdown(form, nombre, opciones, html_options)
+    hash_select = { prompt: opciones[:prompt], include_blank: opciones[:include_blank] }
+    hash_select = hash_select.merge(selected: opciones[:selected]) if opciones[:selected]  # Necesario si el id no es de tipo numérico, habrá que hacerle "to_i"
+    if opciones[:agrupar_por]
+      form.grouped_collection_select(nombre, opciones[:agrupar_por], opciones[:datos], :nombre, :id, :nombre, opciones, html_options)
+    else
+      form.collection_select(nombre, opciones[:datos], :id, :nombre, hash_select, html_options )
+    end
+  end
+
 end

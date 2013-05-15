@@ -14,12 +14,13 @@ module NewsTematica
     def new
       @tematica = tematica_class.find(params[:tematica_id])
       @titulo = "Nueva newsletter de #{ @tematica.nombre }"
-      @news_tematica = NewsTematica::NewsTematica.new(tematica_id: @tematica.id, fecha_hasta: Time.now, fecha_envio: 6.hours.from_now)
+      @news_tematica = NewsTematica.new(tematica_id: @tematica.id, fecha_hasta: Time.now, fecha_envio: 6.hours.from_now)
       @news_tematica.calcula_fecha_desde
+      @tematicas_dropdown = tematica_class.datos_dropdown
     end
 
     def create
-      @news_tematica = NewsTematicaDecorator.decorate(NewsTematica::NewsTematica.new(params[:news_tematica]))
+      @news_tematica = NewsTematicaDecorator.decorate(NewsTematica.new(params[:news_tematica]))
       todos_los_titulares = @news_tematica.titulares
       @titulares = todos_los_titulares[0..4]
       @otros_titulares = (todos_los_titulares - @titulares)[0..4]
@@ -32,6 +33,7 @@ module NewsTematica
         redirect_to edit_news_tematica_path(@news_tematica)
       else
         @titulo = "Nueva newsletter temática"
+        @tematicas_dropdown = tematica_class.datos_dropdown
         render 'new'
       end
     end

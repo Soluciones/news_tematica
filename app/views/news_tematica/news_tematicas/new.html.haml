@@ -3,7 +3,7 @@
 = form_for @news_tematica do |f|
   = render 'web/muestra_errores_form', variable: @news_tematica
   %table
-    = campo f, 'tematica_id', tipo: 'dropdown', datos: NewsTematica::Clases.tematica_class.datos_dropdown, prompt: 'Selecciona una'
+    = campo f, 'tematica_id', tipo: 'dropdown', datos: @tematicas_dropdown, prompt: 'Selecciona una'
     = campo f, 'titulo', class: 'grande', autofocus: true
     = campo f, 'fecha_envio', tipo: 'datetime'
     = campo f, 'fecha_desde', tipo: 'datetime'
