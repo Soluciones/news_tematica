@@ -3,9 +3,10 @@
 module NewsTematica
   class NewsTematica < ActiveRecord::Base
 
-    include NewsletterHelper
+    extend Clases
+    include newsletter_helper_class
 
-    belongs_to :tematica
+    belongs_to :tematica, class: NewsTematica.tematica
 
     validates :tematica_id, :titulo, presence: true
 

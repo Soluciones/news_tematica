@@ -2,6 +2,7 @@
 
 module NewsTematica
   class NewsTematicasController < ApplicationController
+    include Clases
     before_filter :admin_required
 
     def index
@@ -11,7 +12,7 @@ module NewsTematica
     end
 
     def new
-      @tematica = Tematica.find(params[:tematica_id])
+      @tematica = tematica_class.find(params[:tematica_id])
       @titulo = "Nueva newsletter de #{ @tematica.nombre }"
       @news_tematica = NewsTematica.new(tematica_id: @tematica.id, fecha_hasta: Time.now, fecha_envio: 6.hours.from_now)
       @news_tematica.calcula_fecha_desde
@@ -64,11 +65,11 @@ module NewsTematica
 
     def contenidos_elegidos
       @news_tematica = NewsTematicaDecorator.decorate(NewsTematica.find(params[:id]))
-      titulares = @news_tematica.prioriza Contenido.where(id: params[:titulares].split(','))
+      titulares = @news_tematica.prioriza contenido_class.where(id: params[:titulares].split(','))
       @titulares = titulares[0..4]
       @otros_titulares = titulares[5..9]
-      @masleidos = Contenido.where(id: params[:masleidos].split(',')).all.sort_by { |msg| 100 - msg.veces_leido.contador * msg.factor_corrector_para_nuevos }
-      @temas = @news_tematica.prioriza Contenido.where(id: params[:temas].split(','))
+      @masleidos = contenido_class.where(id: params[:masleidos].split(',')).all.sort_by { |msg| 100 - msg.veces_leido.contador * msg.factor_corrector_para_nuevos }
+      @temas = @news_tematica.prioriza contenido_class.where(id: params[:temas].split(','))
       @banner_lateral = @news_tematica.banner_lateral
       @banner_inferior = @news_tematica.banner_inferior
       @news_tematica.update_attribute('html', Premailer.new(render_to_string('news_tematicas/_preview', layout: false), with_html_string: true).to_inline_css)
