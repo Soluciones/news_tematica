@@ -1,0 +1,250 @@
+:sass
+  $gris: #6C6C6C
+  $gris_claro: #878787
+  $gris_oscuro: #595252
+  $azul: #6698D8
+  $azul_palido: #E4E5EB
+  $azul_oscuro: #0C517E
+  $naranja: #CA7826
+  .wrapper
+    font-family: 'Trebuchet MS',Trebuchet,Arial,Verdana,Sans-serif
+  .header
+    width: 100%
+    border-collapse: collapse
+    td
+      vertical-align: bottom
+      border-bottom: solid 3px $azul
+    .logo
+      padding-bottom: 35px
+    .titulo_news
+      padding-bottom: 23px
+      text-align: right
+      font-size: 26px
+  .titulo_tematica
+    text-transform: uppercase
+    font-weight: normal
+    font-size: 26px
+    padding: 30px 12px 0
+    margin: 0
+  .content
+    padding: 0 10px
+  .right_column, .left_column
+    vertical-align: top
+  .left_column
+    width: 55%
+  .right_column
+    width: 45%
+    padding-left: 30px
+  .bloque
+    td
+      vertical-align: top
+    padding: 20px 15px
+    background: $azul_palido
+    color: $gris_oscuro
+    margin: 30px 0
+    border-radius: 5px
+    .titulo_bloque
+      text-transform: uppercase
+      font-weight: normal
+      color: $gris
+      font-size: 27px
+      margin: 0
+      padding: 0
+    .subtitulo_bloque
+      font-weight: normal
+      font-size: 13px
+      color: $gris_claro
+      margin: 0
+      padding: 0
+    .foto
+      padding-right: 10px
+    .titulo
+      color: $azul_oscuro
+      margin: 0
+      padding: 0
+      font-weight: normal
+    .resumen
+      color: $gris_oscuro
+      margin: 0
+      padding: 0
+      font-size: 13px
+      .leer_mas
+        color: $naranja
+        text-decoration: none
+        position: relative
+  .titular
+    td
+      padding: 10px 0
+    .foto
+      img
+        width: 167px
+    .titulo
+      font-size: 19px
+  .mas_leido, .otro_titular
+    td
+      padding-top: 5px
+      padding-bottom: 5px
+    .foto
+      img
+        width: 100px
+    .texto
+      background: url("/images/li_cuadradito_rojo.png") no-repeat left 7px
+      padding: 5px 20px
+      &.con_foto
+        background: none
+        padding-left: 0
+    .titulo
+      font-weight: bold
+      font-size: 14px
+  .tema
+    td
+      padding-top: 10px
+    .nombre_usuario
+      color: $naranja
+      font-style: italic
+      font-size: 11px
+  .banner_lateral
+    width: 100%
+    text-align: center
+    padding: 0 0 5px 0
+    img
+      max-width: 300px
+      width: 100%
+  .banner_inferior
+    width: 100%
+    text-align: center
+    padding: 0 0 27px 0
+    img
+      max-width: 728px
+      width: 100%
+  .footer
+    background: $azul
+    color: #FFF
+    width: 100%
+    .mas_info
+      font-weight: normal
+      text-align: center
+      font-size: 30px
+      padding: 30px 0 0
+      a
+        text-decoration: none
+        color: $naranja
+    .mail
+      text-align: right
+      a
+        color: #FFF
+        text-decoration: none
+    .mail, .social
+      padding: 45px 35px 55px
+      font-size: 18px
+    .social
+      .texto
+        text-transform: uppercase
+        padding-right: 15px
+        display: inline-block
+      .twitter, .facebook
+        background-size: 100%
+        display: inline-block
+        width: 30px
+        height: 30px
+        img
+          max-width: 100%
+          border-radius: 4px
+
+
+
+
+.wrapper
+  %table.header
+    %tr
+      %td.logo= image_tag 'http://www.rankia.com/images/logo_rankia.png'
+      %td.titulo_news= @news_tematica.titulo
+
+  %h2.titulo_tematica News temática de #{@news_tematica.tematica.nombre}
+
+  .content
+    %table
+      %tr
+        %td.left_column
+          - if @titulares and @titulares.any?
+            %table.bloque.titulares
+              %tr
+                %td{ colspan: 2 }
+                  %h3.titulo_bloque Titulares
+                  %h4.subtitulo_bloque Situación diaria desde el punto de vista fundamental
+              - @titulares.each_with_index do |titular, i|
+                - foto = titular.fotos.first
+                %tr.titular{ id: "titular_#{i}" }
+                  - if foto
+                    %td.foto= image_tag foto.adjunto.url(:col), alt: foto.titulo
+                  %td.texto{ colspan: foto ? nil : 2 }
+                    %h5.titulo= link_to titular.titulo, titular.contenido_dominio_link
+                    %p.resumen
+                      = titular.descripcion
+                      = link_to 'Leer más >>', titular.contenido_dominio_link, class: 'leer_mas'
+
+          - if @masleidos and @masleidos.any?
+            %table.bloque.mas_leidos
+              %tr
+                %td
+                  %h3.titulo_bloque Lo más leído esta semana
+              - @masleidos.each_with_index do |masleido, i|
+                %tr.mas_leido{ id: "masleido_#{i}" }
+                  %td.texto
+                    %h5.titulo= link_to masleido.titulo, masleido.contenido_dominio_link
+                    %p.resumen
+                      = masleido.descripcion
+                      = link_to 'Leer más >>', masleido.contenido_dominio_link, class: 'leer_mas'
+
+        %td.right_column
+          - if @temas and @temas.any?
+            %table.bloque.foro
+              %tr
+                %td{ colspan: 2 }
+                  %h3.titulo_bloque Foro de #{@news_tematica.tematica.nombre}
+              - @temas.each_with_index do |tema, i|
+                - usuario = tema.usuario
+                - foto = usuario.avatar
+                %tr.tema{ id: "tema_#{i}" }
+                  %td.foto= image_tag foto.url(:cthumbnail), alt: usuario.nombre
+                  %td.texto
+                    %h5.titulo= link_to tema.titulo, tema.contenido_dominio_link
+                    %span.nombre_usuario= usuario.nombre
+                    %p.resumen
+                      = tema.descripcion
+
+          - if @banner_lateral
+            .banner_lateral= link_title_img @banner_lateral[:url_imagen], @banner_lateral[:texto_alt], @banner_lateral[:url_destino]
+
+          - if @otros_titulares and @otros_titulares.any?
+            %table.bloque.otros_titulares
+              %tr
+                %td{ colspan: 2 }
+                  %h3.titulo_bloque Otros titulares
+                  - @otros_titulares.each_with_index do |titular, i|
+                    - foto = titular.fotos.first
+                    %tr.otro_titular{ id: "otro_titular_#{i}" }
+                      - if foto
+                        %td.foto= image_tag foto.adjunto.url(:thumb), alt: foto.titulo
+                      %td.texto{ colspan: foto ? nil : 2, class: foto ? 'con_foto' : nil }
+                        %h5.titulo= link_to titular.titulo, titular.contenido_dominio_link
+                        %p.resumen
+                          = titular.descripcion
+                          = link_to 'Leer más >>', titular.contenido_dominio_link, class: 'leer_mas'
+
+  - if @banner_inferior
+    .banner_inferior= link_title_img @banner_inferior[:url_imagen], @banner_inferior[:texto_alt], @banner_inferior[:url_destino]
+
+  %table.footer
+    %tr
+      %td.mas_info{ colspan: 2 }
+        Más información en
+        = link_to 'www.rankia.com', 'http://www.rankia.com'
+    %tr
+      %td.social
+        %span.texto Síguenos en
+        = link_title_img 'https://twitter.com/images/resources/twitter-bird-blue-on-white.png', 'Rankia en Twitter', 'http://twitter.com/Rankia', class: 'twitter'
+        = link_title_img 'http://www.facebookbrand.com/img/assets/asset.f.logo.lg.png', 'Rankia en Facebook', 'http://www.facebook.com/pages/Rankia/27338248988',  class: 'facebook'
+      %td.mail
+        CONTACTO:
+        = link_to 'info@rankia.com', 'mailto:info@rankia.com'

@@ -1,0 +1,19 @@
+%h1= @titulo
+
+= form_for @news_tematica do |f|
+  = render 'web/muestra_errores_form', variable: @news_tematica
+  %table
+    = campo f, 'tematica_id', tipo: 'dropdown', datos: Tematica.datos_dropdown, prompt: 'Selecciona una'
+    = campo f, 'titulo', class: 'grande', autofocus: true
+    = campo f, 'fecha_envio', tipo: 'datetime'
+    = campo f, 'fecha_desde', tipo: 'datetime'
+    = campo f, 'fecha_hasta', tipo: 'datetime'
+    = campo f, 'banner_1_url_imagen', class: 'grande', placeholder: 'http://www.zanox-affiliate.de/ppv/images/programs/9853/expansion/728x90_zanox.gif', label: '<br/><h4>Banner 300x250</h4><br/>URL imagen', prefijo: '<br/><br/><h4> &nbsp;</h4>'
+    = campo f, 'banner_1_url_destino', class: 'mediogrande', placeholder: 'http://bit.ly/13fDOE0', label: 'URL destino'
+    = campo f, 'banner_1_texto_alt', class: 'mediogrande', placeholder: 'Cuenta Expansión del Banco Sabadell', label: 'Texto alt'
+    = campo f, 'banner_2_url_imagen', class: 'grande', placeholder: 'http://www.zanox-affiliate.de/ppv/images/programs/9853/expansion/728x90_zanox.gif', label: '<br/><h4>Banner 728x90</h4><br/>URL imagen', prefijo: '<br/><br/><h4> &nbsp;</h4>'
+    = campo f, 'banner_2_url_destino', class: 'mediogrande', placeholder: 'http://bit.ly/13fDOE0', label: 'URL destino'
+    = campo f, 'banner_2_texto_alt', class: 'mediogrande', placeholder: 'Cuenta Expansión del Banco Sabadell', label: 'Texto alt'
+
+  = submit_tag('Generar')
+

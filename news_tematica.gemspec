@@ -18,6 +18,11 @@ Gem::Specification.new do |s|
 
   s.add_dependency "rails", "~> 3.1.12"
 
+  # Gema para transformar bello HTML y CSS en odioso código para emails
+  s.add_dependency 'premailer-rails'
+
+  s.add_dependency 'draper'
+
   # s.add_dependency "jquery-rails"
 
   s.add_development_dependency "sqlite3"

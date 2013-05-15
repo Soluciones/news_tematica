@@ -1,0 +1,18 @@
+%h1= @titulo
+
+.flota_der= link_to('Seleccionar contenidos', elegir_contenidos_news_tematica_path(@news_tematica))
+
+= form_for @news_tematica do |f|
+  %table
+    = campo f, 'titulo', class: 'grande'
+    = campo f, 'fecha_envio', tipo: 'datetime'
+    = campo f, 'html', tipo: 'area', autofocus: true
+  - if @news_tematica.enviada
+    %p Esta newsletter ya ha sido enviada, no puede modificarse ni volverse a enviar.
+  - else
+    = submit_tag('Guardar')
+    = submit_tag('Guardar y Enviar vía SendGrid', class: 'boton_azul_claro_reborde', onclick: "return confirm('¿Enviar a Sendgrid?');")
+
+= javascript_include_tag '/ckeditor/ckeditor.js'
+:javascript
+  CKEDITOR.replace('news_tematica_html');
