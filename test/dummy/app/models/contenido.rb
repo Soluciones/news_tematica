@@ -4,6 +4,7 @@ class Contenido < ActiveRecord::Base
 
   attr_accessor :etiqueta_automatica
 
+  belongs_to :usuario
   belongs_to :subtipo
   belongs_to :abuelo, class_name: 'Contenido', foreign_key: 'inicial_id'
   belongs_to :padre, class_name: 'Contenido', foreign_key: 'parent_id'

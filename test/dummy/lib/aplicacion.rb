@@ -18,6 +18,18 @@ class String
     String.new(self.quita_acentos.downcase.simbolos2guion)
   end
 
+  def quita_nokeyws
+    array_limpio = (self.split("-").compact.uniq || [])
+    # Ojo, no concatenar operaciones de delete, que lo que hacen es tocar el original, no devolver el resultado
+    array_limpio.delete("")
+    array_limpio.quita_nokeys.join("-")
+  end
+
+  # Monta la URL con las keywords, unidas con guiones, y quitando las ñ y ç que no deben ir en URLs
+  def to_url
+    self.tag2url.quita_nokeyws
+  end
+
   def lanza_sql(modo = nil)
     # El modo update devuelve el nº de registros afectados; sin él, recibiríamos NIL.
     (modo == 'update') ? ActiveRecord::Base.connection.update(self) : ActiveRecord::Base.connection.execute(self)
