@@ -54,6 +54,8 @@ module Dummy
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    require 'aplicacion.rb' # Precarga de los nuevos metodos que ponemos a las clases estándar: String, Fixnum, etc
   end
 end
 

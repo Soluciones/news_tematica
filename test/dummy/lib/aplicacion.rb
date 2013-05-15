@@ -1,0 +1,25 @@
+# coding: utf-8
+
+PAISES = [:ar, :cl, :co, :es, :mx, :pe]
+
+class String
+  def quita_acentos
+    result = self.gsub(/[áàäâå]/, 'a').gsub(/[éèëê]/, 'e').gsub(/[íìïî]/, 'i').gsub(/[óòöô]/, 'o').gsub(/[úùüû]/, 'u')
+    result = result.gsub(/[ÁÀÄÂÅ]/, 'A').gsub(/[ÉÈËÊ]/, 'E').gsub(/[ÍÌÏÎ]/, 'I').gsub(/[ÓÒÖÔ]/, 'O').gsub(/[ÚÙÜÛ]/, 'U')
+    result = result.gsub(/[ýÿ]/, 'y').gsub(/[Ñ]/, 'N').gsub(/[ñ]/, 'n').gsub(/[Ç]/, 'C').gsub(/[ç]/, 'c')
+  end
+
+  def simbolos2guion
+    sin_simbolos = self.gsub(/[^a-zA-Z0-9-]/, '-').gsub('----', '-').gsub('---', '-').gsub('--', '-')
+    sin_guion_ppio_ni_final = sin_simbolos.sub(/\A-(.*)/, '\1').sub(/(.*)-\z/, '\1')
+  end
+
+  def tag2url
+    String.new(self.quita_acentos.downcase.simbolos2guion)
+  end
+
+  def lanza_sql(modo = nil)
+    # El modo update devuelve el nº de registros afectados; sin él, recibiríamos NIL.
+    (modo == 'update') ? ActiveRecord::Base.connection.update(self) : ActiveRecord::Base.connection.execute(self)
+  end
+end
