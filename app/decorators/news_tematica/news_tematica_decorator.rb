@@ -1,7 +1,7 @@
 # coding: UTF-8
 
 module NewsTematica
-  class NewsTematicaDecorator < ApplicationDecorator
+  class NewsTematicaDecorator < Draper::Decorator
     delegate_all
     include Clases
 

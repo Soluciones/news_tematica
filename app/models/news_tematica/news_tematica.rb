@@ -6,7 +6,7 @@ module NewsTematica
     extend Clases
     include newsletter_helper_class
 
-    belongs_to :tematica, class: NewsTematica.tematica
+    belongs_to :tematica, class_name: ::NewsTematica::Clases.tematica
 
     validates :tematica_id, :titulo, presence: true
 

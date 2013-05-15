@@ -1,0 +1,5 @@
+NewsTematica::Clases.newsletter_helper = 'NewsletterHelper'
+NewsTematica::Clases.tematica = 'Tematica'
+NewsTematica::Clases.contenido = 'Contenido'
+NewsTematica::Clases.antifail = 'Antifail'
+NewsTematica::Clases.tagging = 'Tagging'

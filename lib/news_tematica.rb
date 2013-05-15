@@ -6,7 +6,7 @@ module NewsTematica
       mattr_accessor klass
 
       define_method "#{klass}_class" do
-        NewsTematica.send(klass).constantize
+        ::NewsTematica::Clases.send(klass).constantize
       end
     end
   end
