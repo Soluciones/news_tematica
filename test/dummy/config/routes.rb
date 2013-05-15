@@ -2,7 +2,7 @@
 
 Dummy::Application.routes.draw do
 
-  mount NewsTematica::Engine => "/news_tematica"
+  mount NewsTematica::Engine, at: "/news_tematica", as: 'engine_news'
   # scope :news_tematica do
   #   resources :news_tematica
   # end
