@@ -9,9 +9,8 @@ describe NewsTematica::NewsTematicasController do
 
   describe "contenidos_elegidos" do
     it "sólo pueden acceder admins" do
-      login_controller(FactoryGirl.create(:usuario))
+      ApplicationController.any_instance.should_receive(:admin_required)
       post :contenidos_elegidos, id: mi_news_tematica.id
-      response.should redirect_to main_app.login_path
     end
 
     it "debe generar un HTML con dichos contenidos, en el orden correcto" do
@@ -35,9 +34,8 @@ describe NewsTematica::NewsTematicasController do
 
   describe "update" do
     it "sólo pueden acceder admins" do
-      login_controller(FactoryGirl.create(:usuario))
+      ApplicationController.any_instance.should_receive(:admin_required)
       post :update, id: mi_news_tematica.id
-      response.should redirect_to main_app.login_path
     end
 
     it "debe prohibir cambiar news ya enviadas" do
@@ -70,8 +68,14 @@ describe NewsTematica::NewsTematicasController do
       post :update, id: mi_news_tematica.id, news_tematica: { titulo: 'SendGrid' }, commit: 'Guardar y Enviar vía SendGrid'
       mi_news_tematica.reload
       mi_news_tematica.titulo.should == 'SendGrid'
-      response.should redirect_to news_tematica.news_tematicas_path
+      response.should redirect_to news_tematicas_path
     end
+  end
 
+  describe "index" do
+    it "sólo pueden acceder admins" do
+      ApplicationController.any_instance.should_receive(:admin_required)
+      get :index
+    end
   end
 end
