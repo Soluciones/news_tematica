@@ -41,6 +41,4 @@ group :development, :test do
   gem 'mailcatcher' # Set your app to deliver to smtp://127.0.0.1:1025 instead of your default SMTP server, then check out http://127.0.0.1:1080 to see the mail.
   gem 'debugger'
   gem 'rspec-rails' # Neceario para crear los specs automáticamente con los comandos 'rails generate'
-  gem 'jasmine'
-  gem 'jasmine-headless-webkit'
 end
