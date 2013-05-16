@@ -698,11 +698,34 @@ ActiveRecord::Schema.define(:version => 20130515192618) do
   add_index "favoritismos", ["usuario_id", "favoritable_type", "favoritable_id"], :name => "ak_favoritismos_usuario_favorito"
   add_index "favoritismos", ["usuario_id", "tipo"], :name => "index_favoritismos_on_usuario_id_and_tipo"
 
-# Could not dump table "fotos" because of following ActiveRecord::StatementInvalid
-#   Interrupt: : SHOW KEYS FROM `fotos`
+  create_table "fotos", :force => true do |t|
+    t.integer  "contenido_id"
+    t.integer  "producto_id"
+    t.integer  "usuario_id",           :default => 50596
+    t.boolean  "publicado",            :default => true
+    t.integer  "orden"
+    t.string   "titulo"
+    t.string   "adjunto_file_name"
+    t.string   "adjunto_content_type"
+    t.integer  "adjunto_file_size"
+    t.datetime "adjunto_updated_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "image_remote_url"
+  end
 
-# Could not dump table "fragmentos" because of following ActiveRecord::StatementInvalid
-#   Interrupt: : SHOW KEYS FROM `fragmentos`
+  add_index "fotos", ["contenido_id"], :name => "index_fotos_on_contenido_id"
+  add_index "fotos", ["created_at"], :name => "index_fotos_on_created_at"
+  add_index "fotos", ["producto_id"], :name => "index_fotos_on_producto_id"
+
+  create_table "fragmentos", :force => true do |t|
+    t.integer  "contenido_id"
+    t.text     "texto_renderizado"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "fragmentos", ["contenido_id"], :name => "index_fragmentos_on_contenido_id", :unique => true
 
   create_table "frases", :force => true do |t|
     t.string   "texto"
@@ -899,8 +922,19 @@ ActiveRecord::Schema.define(:version => 20130515192618) do
   add_index "leads", ["promocion_id", "created_at"], :name => "index_leads_on_promocion_id_and_created_at"
   add_index "leads", ["usuario_id"], :name => "index_leads_on_usuario_id"
 
-# Could not dump table "lecturas" because of following ActiveRecord::StatementInvalid
-#   Interrupt: : SHOW KEYS FROM `lecturas`
+  create_table "lecturas", :force => true do |t|
+    t.integer  "seccion"
+    t.integer  "subtipo_id"
+    t.integer  "destino_id"
+    t.date     "dia"
+    t.integer  "veces_leido"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "lecturas", ["dia", "seccion", "destino_id"], :name => "index_lecturas_on_dia_and_seccion_and_destino_id"
+  add_index "lecturas", ["dia", "subtipo_id", "destino_id"], :name => "index_lecturas_on_dia_and_subtipo_id_and_destino_id"
+  add_index "lecturas", ["seccion", "destino_id", "dia"], :name => "index_lecturas_on_seccion_and_destino_id_and_dia", :unique => true
 
   create_table "likerts", :force => true do |t|
     t.string   "producto"
@@ -915,8 +949,14 @@ ActiveRecord::Schema.define(:version => 20130515192618) do
 
   add_index "likerts", ["producto", "elemento_a_valorar", "nota"], :name => "index_likerts_on_producto_and_elemento_a_valorar_and_nota"
 
-# Could not dump table "log_envio_masivos" because of following ActiveRecord::StatementInvalid
-#   Interrupt: : SHOW KEYS FROM `log_envio_masivos`
+  create_table "log_envio_masivos", :force => true do |t|
+    t.integer  "usuario_id"
+    t.integer  "apuntao_id"
+    t.string   "email",         :null => false
+    t.integer  "newsletter_id", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "logproductos", :force => true do |t|
     t.integer  "producto_id"
@@ -1227,6 +1267,9 @@ ActiveRecord::Schema.define(:version => 20130515192618) do
     t.text     "html2"
     t.text     "html3"
     t.integer  "ultimo_html",                  :default => 1
+    t.string   "copy_boton",                   :default => "Enviar"
+    t.string   "color_boton"
+    t.string   "tipo_boton"
   end
 
   create_table "provincias", :force => true do |t|
@@ -1526,11 +1569,96 @@ ActiveRecord::Schema.define(:version => 20130515192618) do
   add_index "ultimos", ["usuario_id", "created_at"], :name => "ix_ultimos_on_usuario_id_and_created_at"
   add_index "ultimos", ["usuario_id", "tipo_publicacion", "created_at"], :name => "ix_ultimos_on_usuario_id_and_tipo_publicacion_and_created_at"
 
-# Could not dump table "usuarios" because of following ActiveRecord::StatementInvalid
-#   Interrupt: : SHOW KEYS FROM `usuarios`
+  create_table "usuarios", :force => true do |t|
+    t.integer  "estado_id",                                  :default => 0,      :null => false
+    t.string   "nick",                                                           :null => false
+    t.string   "nick_limpio",                                                    :null => false
+    t.string   "pass_sha"
+    t.string   "email",                                                          :null => false
+    t.string   "nombre",                                                         :null => false
+    t.string   "apellidos",                                                      :null => false
+    t.string   "direccion"
+    t.string   "poblacion"
+    t.string   "cod_postal"
+    t.integer  "provincia_id",                               :default => 53
+    t.integer  "pais_id",                                                        :null => false
+    t.string   "telefono"
+    t.string   "web"
+    t.text     "descripcion"
+    t.string   "firma"
+    t.boolean  "foro_alertas",                               :default => true
+    t.boolean  "producto_alertas",                           :default => true
+    t.datetime "ultimo_acceso"
+    t.integer  "perfil",                                     :default => 1
+    t.boolean  "juego_bolsa"
+    t.integer  "posicion_ranking",                           :default => 999999
+    t.integer  "posicion_ranking_anual",                     :default => 999999
+    t.integer  "puntos",                                     :default => 0
+    t.integer  "puntos_anual",                               :default => 0
+    t.string   "token_autorizacion"
+    t.datetime "token_fecha"
+    t.integer  "num_fans",                                   :default => 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "correo_defectuoso",                          :default => false
+    t.datetime "usuario_del_dia"
+    t.datetime "fecha_juego"
+    t.integer  "votos_count",                                :default => 0
+    t.integer  "veces_votado",                               :default => 0
+    t.boolean  "avisar_fan",                                 :default => true
+    t.boolean  "avisar_msg_recomendado",                     :default => true
+    t.boolean  "avisar_msg_guardado",                        :default => true
+    t.datetime "fecha_ping"
+    t.integer  "id_carteras"
+    t.datetime "ultimo_login_carteras"
+    t.datetime "alta_carteras"
+    t.string   "alta_adwords"
+    t.string   "created_ip",                 :limit => 39
+    t.string   "ultimo_acceso_ip",           :limit => 39
+    t.integer  "envios_count",                               :default => 0
+    t.string   "anotaciones",                :limit => 4000
+    t.integer  "usuarios_count",                             :default => 0
+    t.integer  "contenidos_guardados_count",                 :default => 0
+    t.integer  "productos_guardados_count",                  :default => 0
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
+    t.string   "origen"
+    t.boolean  "nuevo_juego"
+    t.string   "nick_impok"
+    t.boolean  "juego_bolsa_activado"
+    t.integer  "perfil_forex"
+    t.string   "dominio_de_alta"
+    t.string   "perfil_inversor",            :limit => 15
+  end
 
-# Could not dump table "veces_leidos" because of following ActiveRecord::StatementInvalid
-#   Interrupt: : SHOW KEYS FROM `veces_leidos`
+  add_index "usuarios", ["alta_carteras"], :name => "index_usuarios_on_alta_carteras"
+  add_index "usuarios", ["created_at"], :name => "index_usuarios_on_created_at"
+  add_index "usuarios", ["email"], :name => "index_usuarios_on_email", :unique => true
+  add_index "usuarios", ["nick"], :name => "index_usuarios_on_nick", :unique => true
+  add_index "usuarios", ["nick_limpio"], :name => "index_usuarios_on_nick_limpio", :unique => true
+  add_index "usuarios", ["pais_id"], :name => "pais_id"
+  add_index "usuarios", ["posicion_ranking"], :name => "index_usuarios_on_posicion_ranking"
+  add_index "usuarios", ["posicion_ranking_anual"], :name => "index_usuarios_on_posicion_ranking_anual"
+  add_index "usuarios", ["provincia_id"], :name => "provincia_id"
+  add_index "usuarios", ["token_autorizacion"], :name => "index_usuarios_on_token_autorizacion"
+  add_index "usuarios", ["usuario_del_dia", "posicion_ranking"], :name => "index_usuarios_on_usuario_del_dia_and_posicion_ranking"
+  add_index "usuarios", ["veces_votado"], :name => "index_usuarios_on_veces_votado"
+
+  create_table "veces_leidos", :force => true do |t|
+    t.string   "leido_type"
+    t.integer  "leido_id"
+    t.integer  "grupo"
+    t.integer  "contador",     :default => 0
+    t.integer  "leido_dia",    :default => 0
+    t.integer  "leido_semana", :default => 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "veces_leidos", ["grupo", "contador"], :name => "index_veces_leidos_on_grupo_and_contador"
+  add_index "veces_leidos", ["leido_id", "leido_type"], :name => "index_veces_leidos_on_leido_id_and_leido_type", :unique => true
 
   create_table "visitas", :force => true do |t|
     t.integer  "redirection_id", :null => false
