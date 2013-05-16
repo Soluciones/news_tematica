@@ -9,7 +9,6 @@ FactoryGirl.define do
 
     before(:create) do |tema, evaluator|
       tema.stub(:asigna_visibilidad) unless evaluator.visibilidad_por_defecto
-      tema.tag_list.blank? ? tema.auto_tag : tema.limpia_tag_list
     end
 
     after(:create) do |tema, evaluator|

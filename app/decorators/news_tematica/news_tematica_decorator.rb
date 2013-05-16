@@ -1,9 +1,9 @@
 # coding: UTF-8
 
 module NewsTematica
-  class NewsTematicaDecorator < ApplicationDecorator
-    delegate_all
+  class NewsTematicaDecorator < Draper::Decorator
     include Clases
+    delegate_all
 
     # Los titulares se apoyan en la sección de titulares, si hay, o si no en la etiqueta correspondiente
     def titulares
