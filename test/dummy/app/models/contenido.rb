@@ -95,4 +95,16 @@ class Contenido < ActiveRecord::Base
   def contenido_dominio_link
     contenido_link[0..3] == 'http' ? contenido_link : "#{dominio}#{contenido_link}"
   end
+
+  def acepta_contenido(opciones={})
+    autor = opciones[:autor] || self.usuario
+    if !self.publicado
+      subtipo = opciones[:subtipo] || self.subtipo
+      valor_tema = opciones[:tema] || self.subtipo_id  # Será subtipo (para inicio hilo) o 0 (para respuestas) en los foros, y subtipo en los demás
+      valor_tema = 0 if Subtipo::ARRAY_FOROS.include?(self.subtipo_id) and self.id != self.inicial_id
+      self.update_attributes(publicado:  true, tema: valor_tema, usuario_id: autor.id, usr_nick: autor.nick, usr_nick_limpio: autor.nick_limpio, ultima_respuesta_id: self.id)
+    end
+    nil
+  end
+
 end

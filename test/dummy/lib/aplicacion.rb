@@ -55,4 +55,15 @@ class NilClass
   def o_si_no(alternativa)
     alternativa
   end
+  def downcase
+    ''
+  end
 end
+
+class Array
+  # Le quita a un array de palabras las que no voy a considerar keywords para la URL (diccionario de nokeys propio)
+  def quita_nokeys
+    self - %w(a ademas al algo algun alguno ante aquel aqui bajo bien cabe con cuya cuyo cuyas cuyos de da del desde e el en entre es ese este ha han hasta la las le les lo los me mi muy nos o os pero quot quote se sin sobre su tan te tras tu u un una unos unas y ya yo)
+  end
+end
+

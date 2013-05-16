@@ -51,7 +51,7 @@ describe NewsTematica::NewsTematicasController do
       post :update, id: mi_news_tematica.id, news_tematica: { titulo: 'Cambio' }
       mi_news_tematica.reload
       mi_news_tematica.titulo.should == 'Cambio'
-      response.should redirect_to news_tematica.edit_news_tematica_path(mi_news_tematica)
+      response.should redirect_to edit_news_tematica_path(mi_news_tematica)
     end
 
     it "debe editar de nuevo si falla al guardar" do
