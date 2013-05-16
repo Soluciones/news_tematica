@@ -1,3 +1,5 @@
+# coding: UTF-8
+
 $:.push File.expand_path("../lib", __FILE__)
 
 # Maintain your gem's version:
@@ -7,11 +9,11 @@ require "news_tematica/version"
 Gem::Specification.new do |s|
   s.name        = "news_tematica"
   s.version     = NewsTematica::VERSION
-  s.authors     = ["TODO: Your name"]
-  s.email       = ["TODO: Your email"]
+  s.authors     = ["Fernan2 & Abby - Rankia"]
+  s.email       = ["fernando@emergia.net"]
   s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of NewsTematica."
-  s.description = "TODO: Description of NewsTematica."
+  s.summary     = "Permite crear newsletters temáticas y enviarlas por SendGrid."
+  s.description = "Se apoya en los modelos Suscripcion y Tematica."
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["test/**/*"]
