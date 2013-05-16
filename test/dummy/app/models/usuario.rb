@@ -37,6 +37,21 @@ class Usuario < ActiveRecord::Base
   attr_accessor :telefono_obligatorio
   attr_protected :posicion_ranking, :puntos, :posicion_ranking_anual, :puntos_anual, :estado_id, :token_autorizacion
 
+  has_attached_file :avatar, styles: {
+                                        dia: "100x100>",
+                                        thumbnail: "50x50>",
+                                        cthumbnail: "50x50#",
+                                        coment: "75x75>",
+                                        ccoment: "75x75#",
+                                        grande: "150x150>"
+                                      },
+                                      default_url: "/images/avatar_:style.gif",
+                                      url: ":s3_eu_url",
+                                      storage: :s3,
+                                      s3_credentials: S3_CONFIG,
+                                      path: "/images/avatar/:id_:style.:extension"
+
+  validates_attachment_content_type :avatar, :content_type=>['image/jpeg', 'image/jpg', 'image/png', 'image/gif', "image/pjpeg", "image/x-png"], :message => '- No es un formato reconocido'
   validates :pais_id, presence: { message: "Falta seleccionar el país" }
 
   def nombre_apellidos

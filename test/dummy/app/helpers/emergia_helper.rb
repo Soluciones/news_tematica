@@ -185,4 +185,9 @@ module EmergiaHelper
     end
   end
 
+  # Sustituye al link_to image_tag(iii, :alt => xxx), yyy, :title => xxx
+  def link_title_img(img, txt, url, opciones = {})
+    link_to(image_tag(img, alt: txt), url, {title: txt}.merge(opciones))
+  end
+
 end
