@@ -78,6 +78,8 @@ Spork.prefork do
     end
 
     config.include UsuariosHelper
+
+     config.before(:each) { @routes = NewsTematica::Engine.routes }
   end
 end
 
