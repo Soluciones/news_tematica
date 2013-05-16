@@ -39,11 +39,11 @@ module NewsTematica
     end
 
     def banner_lateral
-      { url_imagen: 'http://placekitten.com/300/250', texto_alt: 'Gato', url_destino: 'http://placekitten.com' }
+      { url_imagen: source.banner_1_url_imagen, texto_alt: source.banner_1_texto_alt, url_destino: source.banner_1_url_destino }
     end
 
     def banner_inferior
-      { url_imagen: 'http://placekitten.com/728/90', texto_alt: 'Gato', url_destino: 'http://placekitten.com' }
+      { url_imagen: source.banner_2_url_imagen, texto_alt: source.banner_2_texto_alt, url_destino: source.banner_2_url_destino }
     end
 
     def prioriza(contenidos)
