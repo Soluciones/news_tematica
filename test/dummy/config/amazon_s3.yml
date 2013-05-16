@@ -1,0 +1,17 @@
+development:
+  bucket: estaticos-rnk-pruebas
+  access_key_id: AKIAIKEKRP7NW3OAWSHA
+  secret_access_key: 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
+  server: s3-eu-west-1.amazonaws.com
+
+test:
+  bucket: estaticos-rnk-pruebas
+  access_key_id: AKIAIKEKRP7NW3OAWSHA
+  secret_access_key: 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
+  server: s3-eu-west-1.amazonaws.com
+
+production:
+  bucket: rankia
+  access_key_id: AKIAIKEKRP7NW3OAWSHA
+  secret_access_key: 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
+  server: s3-eu-west-1.amazonaws.com

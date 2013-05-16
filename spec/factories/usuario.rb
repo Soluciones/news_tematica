@@ -9,8 +9,8 @@ FactoryGirl.define do
     email             { Faker::Internet.email }
     password          "123456"
     pass_sha          "7c4a8d09ca3762af61e59520943dc26494f8941b" # El resultado de codificar 123456
-    pais              { Pais.find_or_create_by_nombre(nombre: "España")}
-    provincia_id      1
+    pais              { Pais.find_or_create_by_nombre("España") }
+    provincia         { Provincia.find_or_create_by_pais_id_and_nombre(pais.id, "Valencia") }
     estado_id         { Usuario::ESTADO_NORMAL }
     puntos            { rand(100) }
     cod_postal        '28080'
@@ -41,23 +41,6 @@ FactoryGirl.define do
       telefono '961234567'
       juego_bolsa true
       juego_bolsa_activado true
-    end
-
-    factory :usuario_con_estadisticas do
-      ignore do
-        estadisticas_totales 5
-      end
-      after(:create) do |usuario, evaluator|
-        subtipo = Subtipo.first || FactoryGirl.create(:subtipo)
-        FactoryGirl.create_list(:estadistica, evaluator.estadisticas_totales, usuario: usuario, subtipo: subtipo)
-      end
-    end
-
-    factory :usuario_con_favoritos do
-      after(:create) do |usuario, evaluator|
-        usuario.favoritismos << FactoryGirl.create(:favoritismo_usuario, usuario: usuario)
-        usuario.save
-      end
     end
 
     factory :usuario_baneado do
