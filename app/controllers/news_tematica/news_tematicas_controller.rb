@@ -67,11 +67,11 @@ module NewsTematica
 
     def contenidos_elegidos
       @news_tematica = NewsTematicaDecorator.decorate(NewsTematica.find(params[:id]))
-      titulares = @news_tematica.prioriza contenido_class.where(id: params[:titulares].to_s.split(','))
+      titulares = @news_tematica.prioriza contenido_class.where(id: params[:titulares])
       @titulares = titulares[0..4]
       @otros_titulares = titulares[5..9]
-      @masleidos = contenido_class.where(id: params[:masleidos].to_s.split(',')).all.sort_by { |msg| 100 - msg.veces_leido.contador * msg.factor_corrector_para_nuevos }
-      @temas = @news_tematica.prioriza contenido_class.where(id: params[:temas].to_s.split(','))
+      @masleidos = contenido_class.where(id: params[:masleidos]).all.sort_by { |msg| 100 - msg.veces_leido.contador * msg.factor_corrector_para_nuevos }
+      @temas = @news_tematica.prioriza contenido_class.where(id: params[:temas])
       @banner_lateral = @news_tematica.banner_lateral
       @banner_inferior = @news_tematica.banner_inferior
       @news_tematica.update_attribute('html', Premailer.new(render_to_string('news_tematica/news_tematicas/_preview', layout: false), with_html_string: true).to_inline_css)
