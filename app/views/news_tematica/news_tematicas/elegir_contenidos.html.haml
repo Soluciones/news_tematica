@@ -1,9 +1,9 @@
 %h1= @titulo
 
-= form_tag contenidos_elegidos_news_tematica_path(@news_tematica), class: 'elegir-contenidos' do |f|
+= form_tag contenidos_elegidos_news_tematica_path(@news_tematica) do |f|
 
   %h3 Titulares
-  %ul
+  %ul.lista-sin-puntitos
     - @titulares.each_with_index do |msg, i|
       %li
         %input{ id: "titular_#{msg.id}", type: "checkbox", name: "titulares[]", value: msg.id, checked: i < 10 ? 'checked' : nil }
