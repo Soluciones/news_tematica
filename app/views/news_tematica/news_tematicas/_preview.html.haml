@@ -81,6 +81,7 @@
     .foto
       width: 25%
       img
+        width: 160px
         max-width: 100%
     .titulo
       font-size: 19px
@@ -188,7 +189,7 @@
                 - foto = titular.fotos.first
                 %tr.titular{ id: "titular_#{i}" }
                   - if foto
-                    %td.foto= image_tag foto.adjunto.url(:news), alt: foto.titulo
+                    %td.foto= image_tag foto.adjunto.url(:col), alt: foto.titulo
                   %td.texto{ colspan: foto ? nil : 2 }
                     %h5.titulo= link_to titular.titulo, titular.contenido_dominio_link
                     %p.resumen
