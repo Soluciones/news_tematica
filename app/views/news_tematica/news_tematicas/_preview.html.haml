@@ -63,6 +63,9 @@
       margin: 0
       padding: 0
       font-weight: normal
+      a
+        color: inherit
+        text-decoration: none
     .resumen
       color: $gris_oscuro
       margin: 0
@@ -76,20 +79,27 @@
     td
       padding: 10px 0
     .foto
+      width: 25%
       img
-        width: 167px
+        max-width: 100%
     .titulo
       font-size: 19px
   .mas_leido, .otro_titular
     td
       padding-top: 5px
       padding-bottom: 5px
-    .foto
+    .cuadrado
       img
-        width: 100px
+        color: red
+        font-size: 71px
+        line-height: 16px
+        width: 9px
+    .foto
+      width: 25%
+      img
+        max-width: 100%
     .texto
-      background: url("/images/li_cuadradito_rojo.png") no-repeat left 7px
-      padding: 5px 20px
+      padding: 5px 0
       &.con_foto
         background: none
         padding-left: 0
@@ -137,27 +147,29 @@
     .mail, .social
       padding: 45px 35px 55px
       font-size: 18px
+    .mail
+      padding-left: 0
     .social
-      .texto
-        text-transform: uppercase
-        padding-right: 15px
+      padding-right: 0
+      text-transform: uppercase
+      .texto, .iconos
         display: inline-block
-      .twitter, .facebook
-        background-size: 100%
-        display: inline-block
-        width: 30px
-        height: 30px
-        img
-          max-width: 100%
-          border-radius: 4px
-
-
-
+        float: left
+      .iconos
+        margin-left: 20px
+        .icono
+          display: inline-block
+          width: 30px
+          height: 30px
+          font-size: 8px
+          img
+            max-width: 100%
+            border-radius: 4px
 
 .wrapper
   %table.header
     %tr
-      %td.logo= image_tag 'http://www.rankia.com/images/logo_rankia.png'
+      %td.logo= image_tag 'http://www.rankia.com/images/logo_rankia.png', alt: 'Rankia'
       %td.titulo_news= @news_tematica.titulo
 
   %h2.titulo_tematica News temática de #{@news_tematica.tematica.nombre}
@@ -176,7 +188,7 @@
                 - foto = titular.fotos.first
                 %tr.titular{ id: "titular_#{i}" }
                   - if foto
-                    %td.foto= image_tag foto.adjunto.url(:col), alt: foto.titulo
+                    %td.foto= image_tag foto.adjunto.url(:news), alt: foto.titulo
                   %td.texto{ colspan: foto ? nil : 2 }
                     %h5.titulo= link_to titular.titulo, titular.contenido_dominio_link
                     %p.resumen
@@ -186,10 +198,11 @@
           - if @masleidos and @masleidos.any?
             %table.bloque.mas_leidos
               %tr
-                %td
+                %td{ colspan: 2 }
                   %h3.titulo_bloque Lo más leído esta semana
               - @masleidos.each_with_index do |masleido, i|
                 %tr.mas_leido{ id: "masleido_#{i}" }
+                  %td.cuadrado= image_tag 'http://www.rankia.com/images/li_cuadradito_rojo.png', alt: '·'
                   %td.texto
                     %h5.titulo= link_to masleido.titulo, masleido.contenido_dominio_link
                     %p.resumen
@@ -243,8 +256,9 @@
     %tr
       %td.social
         %span.texto Síguenos en
-        = link_title_img 'https://twitter.com/images/resources/twitter-bird-blue-on-white.png', 'Rankia en Twitter', 'http://twitter.com/Rankia', class: 'twitter'
-        = link_title_img 'http://www.facebookbrand.com/img/assets/asset.f.logo.lg.png', 'Rankia en Facebook', 'http://www.facebook.com/pages/Rankia/27338248988',  class: 'facebook'
+        .iconos
+          = link_title_img 'http://twitter.com/images/resources/twitter-bird-blue-on-white.png', 'Twitter', 'http://twitter.com/Rankia', class: 'icono'
+          = link_title_img 'http://www.facebookbrand.com/img/assets/asset.f.logo.lg.png', 'Facebook', 'http://www.facebook.com/pages/Rankia/27338248988',  class: 'icono'
       %td.mail
         CONTACTO:
         = link_to 'info@rankia.com', 'mailto:info@rankia.com'
