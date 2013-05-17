@@ -1,3 +1,5 @@
+# coding: UTF-8
+
 require 'rubygems'
 gemfile = File.expand_path('../../../../Gemfile', __FILE__)
 

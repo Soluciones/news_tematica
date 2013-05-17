@@ -1,4 +1,4 @@
-# coding: utf-8
+# coding: UTF-8
 
 HTTP_DOMINIOS = {
   ar: "http://www.rankia.com.ar",
