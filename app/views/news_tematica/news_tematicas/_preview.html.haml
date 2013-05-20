@@ -247,7 +247,7 @@
                       %td.texto{ colspan: foto ? nil : 2, class: foto ? 'con_foto' : nil }
                         %h5.titulo= link_to titular.titulo, titular.contenido_dominio_link
                         %p.resumen
-                          = titular.descripcion
+                          = max_caracteres_con_palabras_enteras(titular.descripcion, 150)
                           = link_to 'Leer más >>', titular.contenido_dominio_link, class: 'leer_mas'
 
   - if @banner_inferior
