@@ -6,7 +6,7 @@
   %table
     = campo f, 'titulo', class: 'grande'
     = campo f, 'fecha_envio', tipo: 'datetime', label: 'Fecha&nbsp;envío'
-    = campo f, 'html', tipo: 'area', autofocus: true
+    = campo f, 'html', tipo: 'area', autofocus: true, tr_style: 'vertical-align: top'
   - if @news_tematica.enviada
     %p Esta newsletter ya ha sido enviada, no puede modificarse ni volverse a enviar.
   - else
