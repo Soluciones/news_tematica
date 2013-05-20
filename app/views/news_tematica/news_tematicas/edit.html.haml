@@ -1,6 +1,6 @@
 %h1= @titulo
 
-.flota_der= link_to('Seleccionar contenidos', elegir_contenidos_news_tematica_path(@news_tematica))
+.flota_der= link_to('Seleccionar contenidos', elegir_contenidos_news_tematica_path(@news_tematica), title: 'Permite seleccionar los titulares y mensajes que van a ser incluidos en la newsletter, quitando los duplicados y/o que no interesen.')
 
 = form_for @news_tematica do |f|
   %table
