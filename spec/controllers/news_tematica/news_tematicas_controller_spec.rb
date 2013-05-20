@@ -5,7 +5,7 @@ require 'spec_helper'
 describe NewsTematica::NewsTematicasController do
   render_views  # Necesario para que funcione el render_to_string usado para generar el html
 
-  let(:mi_news_tematica) { FactoryGirl.create(:news_tematica, tematica: Tematica.find_by_nombre('Bolsa')) }
+  let(:mi_news_tematica) { FactoryGirl.create(:news_tematica, tematica: Tematica.find_by_nombre('Bolsa'), fecha_desde: 7.days.ago, fecha_hasta: 1.minute.ago) }
 
   describe "contenidos_elegidos" do
     it "sólo pueden acceder admins" do
@@ -15,9 +15,9 @@ describe NewsTematica::NewsTematicasController do
 
     it "debe generar un HTML con dichos contenidos, en el orden correcto" do
       login_controller(FactoryGirl.create(:admin))
-      mensaje_raso = FactoryGirl.create(:tema, created_at: 3.days.ago)
-      titular_muy_leido = FactoryGirl.create(:tema_titular, fecha_titulares: 1.hour.ago, created_at: 3.hours.ago, bolsa: true)
-      mensaje_muy_recomendado = FactoryGirl.create(:tema, created_at: 3.days.ago, votos_count: 20, respuestas_count: 3)
+      mensaje_raso = FactoryGirl.create(:tema, created_at: 3.days.ago, titulo: 'CAF paga dividendo hoy')
+      titular_muy_leido = FactoryGirl.create(:tema_titular, fecha_titulares: 1.hour.ago, created_at: 3.hours.ago, bolsa: true, titulo: 'Gana 2% semanal')
+      mensaje_muy_recomendado = FactoryGirl.create(:tema, created_at: 3.days.ago, votos_count: 20, respuestas_count: 3, titulo: 'El quinto elemento')
       FactoryGirl.create(:veces_leido, leido: titular_muy_leido, contador: 5000)
       FactoryGirl.create(:veces_leido, leido: mensaje_muy_recomendado, contador: 100)
       FactoryGirl.create(:veces_leido, leido: mensaje_raso, contador: 100)
