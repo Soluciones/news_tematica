@@ -248,7 +248,7 @@
                         %h5.titulo= link_to titular.titulo, titular.contenido_dominio_link
                         %p.resumen
                           = max_caracteres_con_palabras_enteras(titular.descripcion, 150)
-                          = link_to 'Leer más >>', titular.contenido_dominio_link, class: 'leer_mas'
+                          = link_to 'Leer&nbsp;más&nbsp;>>'.html_safe, titular.contenido_dominio_link, class: 'leer_mas'
 
   - if @banner_inferior
     .banner_inferior= link_title_img @banner_inferior[:url_imagen], @banner_inferior[:texto_alt], @banner_inferior[:url_destino]
