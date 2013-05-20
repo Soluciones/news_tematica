@@ -21,7 +21,7 @@ describe NewsTematica::NewsTematicasController do
       FactoryGirl.create(:veces_leido, leido: titular_muy_leido, contador: 5000)
       FactoryGirl.create(:veces_leido, leido: mensaje_muy_recomendado, contador: 100)
       FactoryGirl.create(:veces_leido, leido: mensaje_raso, contador: 100)
-      post :contenidos_elegidos, id: mi_news_tematica.id, titulares: "#{mensaje_muy_recomendado.id},#{mensaje_raso.id}", masleidos:  "#{mensaje_muy_recomendado.id},#{titular_muy_leido.id}", temas: mensaje_raso.id.to_s
+      post :contenidos_elegidos, id: mi_news_tematica.id, titulares: [mensaje_muy_recomendado.id.to_s, mensaje_raso.id.to_s], masleidos:  [mensaje_muy_recomendado.id.to_s, titular_muy_leido.id.to_s], temas: [mensaje_raso.id.to_s]
       response.should redirect_to edit_news_tematica_path(mi_news_tematica)
       mi_news_tematica.reload
       mi_news_tematica.html.should have_css("#titular_0 a[href='http://www.rankia.com#{ mensaje_muy_recomendado.contenido_link }']")
