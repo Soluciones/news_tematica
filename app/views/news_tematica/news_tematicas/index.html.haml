@@ -1,25 +1,12 @@
 %h1= @titulo
 
-- unless @pendientes.blank?
-  %h3 Pendientes:
+- unless @news_tematicas.blank?
   %table.ranking
-    = ths(%w(Título Temática fecha_envío))
-    - @pendientes.each do |news_tematica|
-      %tr
+    = ths(%w(Título Temática fecha_envío enviada))
+    - @news_tematicas.each do |news_tematica|
+      %tr{ class: news_tematica.enviada ? 'par' : nil }
         %td= link_to news_tematica.titulo, edit_news_tematica_path(news_tematica)
         %td= news_tematica.tematica.nombre
         %td= l news_tematica.fecha_envio, format: :short
+        %td.center= news_tematica.enviada ? 'Sí' : 'No'
 
-%br/
-%br/
-%br/
-
-- unless @enviadas.blank?
-  %h3 Enviadas:
-  %table.ranking
-    = ths(%w(Título Temática fecha_envío))
-    - @enviadas.each do |news_tematica|
-      %tr
-        %td= link_to news_tematica.titulo, edit_news_tematica_path(news_tematica)
-        %td= news_tematica.tematica.nombre
-        %td= l news_tematica.fecha_envio, format: :short

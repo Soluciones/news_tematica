@@ -7,8 +7,7 @@ module NewsTematica
 
     def index
       @titulo = 'Newsletters temáticas'
-      @pendientes = NewsTematica.where(enviada: false).order('fecha_envio')
-      @enviadas = NewsTematica.enviada.order('fecha_envio DESC')
+      @news_tematicas = NewsTematica.order('fecha_envio DESC')
     end
 
     def new
