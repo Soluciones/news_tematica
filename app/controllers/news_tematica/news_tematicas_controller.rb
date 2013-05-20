@@ -14,7 +14,7 @@ module NewsTematica
     def new
       @tematica = tematica_class.find(params[:tematica_id])
       @titulo = "Nueva newsletter de #{ @tematica.nombre }"
-      @news_tematica = NewsTematica.new(tematica_id: @tematica.id, fecha_hasta: Time.now, fecha_envio: 6.hours.from_now)
+      @news_tematica = NewsTematica.new(tematica_id: @tematica.id, fecha_hasta: Time.zone.now, fecha_envio: 6.hours.from_now)
       @news_tematica.calcula_fecha_desde
       @tematicas_dropdown = tematica_class.datos_dropdown
     end
