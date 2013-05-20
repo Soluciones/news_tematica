@@ -12,7 +12,7 @@
         &nbsp; &nbsp; &nbsp; Rec: #{ msg.votos_count }, Leído: #{ msg.veces_leido.contador }, Respuestas: #{ msg.respuestas_count }, Corrección por fecha: #{ msg.factor_corrector_para_nuevos }, Puntos: #{ number_with_precision msg.cotizacion, precision: 2 }
 
   %h3 Temas
-  %ul
+  %ul.lista-sin-puntitos
     - @temas.each_with_index do |msg, i|
       %li
         %input{ id: "tema_#{msg.id}", type: "checkbox", name: "temas[]", value: msg.id, checked: i < 5 ? 'checked' : nil }
@@ -21,7 +21,7 @@
         &nbsp; &nbsp; &nbsp; Rec: #{ msg.votos_count }, Leído: #{ msg.veces_leido.contador }, Respuestas: #{ msg.respuestas_count }, Corrección por fecha: #{ msg.factor_corrector_para_nuevos }, Puntos: #{ number_with_precision msg.cotizacion, precision: 2 }
 
   %h3 Más leídos
-  %ul
+  %ul.lista-sin-puntitos
     - @masleidos.each_with_index do |msg, i|
       %li
         %input{ id: "masleido_#{msg.id}", type: "checkbox", name: "masleidos[]", value: msg.id, checked: i < 5 ? 'checked' : nil }
