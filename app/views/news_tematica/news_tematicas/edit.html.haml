@@ -7,11 +7,14 @@
     = campo f, 'titulo', class: 'grande'
     = campo f, 'fecha_envio', tipo: 'datetime', label: 'Fecha&nbsp;envío'
     = campo f, 'html', tipo: 'area', autofocus: true, tr_style: 'vertical-align: top'
-  - if @news_tematica.enviada
-    %p Esta newsletter ya ha sido enviada, no puede modificarse ni volverse a enviar.
-  - else
-    = submit_tag('Guardar')
-    = submit_tag('Guardar y Enviar vía SendGrid', class: 'boton_azul_claro_reborde', onclick: "return confirm('¿Enviar a Sendgrid?');")
+    %tr
+      %th
+      %td
+        - if @news_tematica.enviada
+          %p Esta newsletter ya ha sido enviada, no puede modificarse ni volverse a enviar.
+        - else
+          = submit_tag('Guardar', class: 'boton_reborde_naranja_grande')
+          = submit_tag('Guardar y Enviar vía SendGrid', class: 'boton_azul_claro_reborde', onclick: "return confirm('¿Enviar a Sendgrid?');")
 
 = javascript_include_tag '/ckeditor/ckeditor.js'
 :javascript
