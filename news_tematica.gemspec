@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.version     = NewsTematica::VERSION
   s.authors     = ["Fernan2 & Abby - Rankia"]
   s.email       = ["fernando@emergia.net"]
-  s.homepage    = "TODO"
+  s.homepage    = "https://github.com/Soluciones/news_tematica"
   s.summary     = "Permite crear newsletters temáticas y enviarlas por SendGrid."
   s.description = "Se apoya en los modelos Suscripcion y Tematica."
 
