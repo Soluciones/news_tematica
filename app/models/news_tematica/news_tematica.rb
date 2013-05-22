@@ -8,7 +8,7 @@ module NewsTematica
 
     belongs_to :tematica, class_name: ::NewsTematica::Clases.tematica_extern
 
-    validates :tematica_id, :titulo, presence: true
+    validates :tematica_id, :titulo, :banner_1_url_imagen, :banner_1_url_destino, :banner_1_texto_alt, :banner_2_url_imagen, :banner_2_url_destino, :banner_2_texto_alt, presence: true
 
     scope :enviada, where(enviada: true)
 
