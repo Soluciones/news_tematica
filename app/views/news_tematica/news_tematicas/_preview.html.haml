@@ -188,7 +188,6 @@
               %tr
                 %td{ colspan: 2 }
                   %h3.titulo_bloque Titulares
-                  %h4.subtitulo_bloque Situación diaria desde el punto de vista fundamental
               - @titulares.each_with_index do |titular, i|
                 - foto = titular.fotos.first
                 %tr.titular{ id: "titular_#{i}" }
