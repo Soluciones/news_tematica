@@ -223,10 +223,10 @@
                 - usuario = tema.usuario
                 - foto = usuario.avatar
                 %tr.tema{ id: "tema_#{i}" }
-                  %td.foto= image_tag foto.url(:cthumbnail), alt: usuario.nombre
+                  %td.foto= image_tag foto.url(:cthumbnail), alt: usuario.nick
                   %td.texto
                     %h5.titulo= link_to tema.titulo, tema.contenido_dominio_link
-                    %span.nombre_usuario= usuario.nombre
+                    %span.nombre_usuario= usuario.nick
                     %p.resumen
                       = tema.descripcion
 
