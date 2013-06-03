@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    news_tematica (0.0.9)
+    news_tematica (0.0.10)
       draper
       haml-rails
       marginalia
