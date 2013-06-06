@@ -29,7 +29,7 @@ module NewsTematica
       if source.tematica.subtipo_id
         q = contenido_class.where(tema: source.tematica.subtipo_id).where(created_at: source.fecha_desde..source.fecha_hasta)
       elsif source.tematica.tag_id
-        taggings = tagging_class.where(tag_id: source.tematica.tag_id).where(tema: Subtipo::ARRAY_FOROS_NORMALES).where(fecha_titulares: source.fecha_desde..source.fecha_hasta)
+        taggings = tagging_class.where(tag_id: source.tematica.tag_id).where(tema: Subtipo::ARRAY_FOROS_NORMALES).where(created_at: source.fecha_desde..source.fecha_hasta)
         q = contenido_class.where(id: taggings.map(&:taggable_id))
       else
         antifail_class.create(tipo: 'Temática sin foro configurado', detalles: source.tematica.inspect)
