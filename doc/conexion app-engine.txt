@@ -1,0 +1,12 @@
+En el engine:
+-----------------
+
+lib/news_tematica  -> Aquí metemos las clases externas con las que vamos a interactuar
+
+la clase estará disponible como xxx_class
+
+
+
+En la app:
+-----------------
+config/initializers/engines.rb  -> Aquí se le pasan las clases externas que el engine necesita, en formato NewsTematica::Clases.xxx_extern = 'Xxx'

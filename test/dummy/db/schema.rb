@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130516082407) do
+ActiveRecord::Schema.define(:version => 20130626151549) do
 
   create_table "abiertos", :force => true do |t|
     t.integer  "newsletter_id"
@@ -1298,7 +1298,10 @@ ActiveRecord::Schema.define(:version => 20130516082407) do
     t.string   "nota"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "news_tematica_id"
   end
+
+  add_index "redirections", ["news_tematica_id", "url"], :name => "index_redirections_on_news_tematica_id_and_url"
 
   create_table "relacionados", :force => true do |t|
     t.integer  "contenido_id"
