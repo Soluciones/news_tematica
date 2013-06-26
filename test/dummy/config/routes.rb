@@ -7,5 +7,6 @@ Dummy::Application.routes.draw do
   #   resources :news_tematica
   # end
   match 'login' => 'usuarios#login', as: 'login'
+  resources :redirections
 
 end

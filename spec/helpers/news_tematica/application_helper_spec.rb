@@ -11,4 +11,25 @@ describe NewsTematica::ApplicationHelper do
       max_caracteres_con_palabras_enteras('Hola mundo', 7).should == 'Hola'
     end
   end
+
+  describe "link_to_con_estadisticas" do
+    let(:redirection_class) { ::NewsTematica::Clases.redirection_extern.constantize }
+    let(:mi_news_tematica) { FactoryGirl.create(:news_tematica) }
+    # before { ActiveRecord::Base.connection.execute("TRUNCATE table redirections") }
+
+    it "debe crear la redirección, si no existe, y devolver enlace que usa la redireccion" do
+      result = link_to_con_estadisticas(mi_news_tematica, 'Hola Poldo', '/ejemplo', class: 'link-ppal')
+      redirection_class.count.should == 1
+      redirection_class.where(url: '/ejemplo', news_tematica_id: mi_news_tematica.id).count.should == 1
+      result.should == link_to('Hola Poldo', "http://test.host/redirections/#{redirection_class.first.id}", class: 'link-ppal')
+    end
+
+    it "debe usar la redirección que ya existe, y devolver enlace que usa la redireccion" do
+      result = link_to_con_estadisticas(mi_news_tematica, 'Hola Poldo', '/ejemplo', class: 'link-ppal')
+      result2 = link_to_con_estadisticas(mi_news_tematica, 'Adiós Poldo', '/ejemplo', class: 'pingback')
+      redirection_class.count.should == 1
+      redirection_class.where(url: '/ejemplo', news_tematica_id: mi_news_tematica.id).count.should == 1
+      result2.should == link_to('Adiós Poldo', "http://test.host/redirections/#{redirection_class.first.id}", class: 'pingback')
+    end
+  end
 end
