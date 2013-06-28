@@ -5,4 +5,5 @@ NewsTematica::Engine.routes.draw do
     post :contenidos_elegidos, on: :member
     get :elegir_contenidos, on: :member
   end
+  resources :redirections, only: :show
 end
