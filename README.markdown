@@ -47,6 +47,8 @@ En `lib/news_tematica/version.rb`:
 
     VERSION = "0.1.0"
 
+En `changelog.txt`, se comentan las características que se han añadido en esta versión.
+
 En la línea de comandos, desde el directorio del engine:
 
     git commit -m blablabla
