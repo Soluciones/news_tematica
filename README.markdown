@@ -45,21 +45,21 @@ Luego, habrá que importar las migraciones a la app principal que vaya a usar el
 
 ## Control de versiones
 
-Cuando el cambio ya está terminado, es hora de incrementar el contador de versiones para hacer la subida:
+1. Cuando el cambio ya está terminado, es hora de incrementar el contador de versiones para hacer la subida:
 
 En `lib/news_tematica/version.rb`:
 
     VERSION = "0.1.0"
 
-En `changelog.txt`, se comentan las características que se han añadido en esta versión.
+2. En `changelog.txt`, se comentan las características que se han añadido en esta versión.
 
-En la línea de comandos, desde el directorio del engine:
+3. En la línea de comandos, desde el directorio del engine:
 
     > git commit -m blablabla
     > git tag 0.1.0
     > git push origin 0.1.0
 
-Y cuando en el engine ya se ha mergeado a master esta versión, es hora de buscar la nueva versión desde la app principal:
+4. Y cuando en el engine ya se ha mergeado a master esta versión, es hora de buscar la nueva versión desde la app principal:
 
     > rnk
     > bundle update news_tematicas
