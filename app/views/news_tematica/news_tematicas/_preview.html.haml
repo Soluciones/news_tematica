@@ -194,10 +194,10 @@
                   - if foto
                     %td.foto= image_tag foto.adjunto.url(:col), alt: foto.titulo
                   %td.texto{ colspan: foto ? nil : 2 }
-                    %h5.titulo= link_to titular.titulo, titular.contenido_dominio_link
+                    %h5.titulo= link_to_con_estadisticas @news_tematica, titular.titulo, titular.contenido_dominio_link
                     %p.resumen
                       = titular.descripcion
-                      = link_to 'Leer más >>', titular.contenido_dominio_link, class: 'leer_mas'
+                      = link_to_con_estadisticas @news_tematica, 'Leer más >>', titular.contenido_dominio_link, class: 'leer_mas'
 
           - if @masleidos and @masleidos.any?
             %table.bloque.mas_leidos
@@ -208,10 +208,10 @@
                 %tr.mas_leido{ id: "masleido_#{i}" }
                   %td.cuadrado= image_tag 'http://www.rankia.com/images/li_cuadradito_rojo.png', alt: '·'
                   %td.texto
-                    %h5.titulo= link_to masleido.titulo, masleido.contenido_dominio_link
+                    %h5.titulo= link_to_con_estadisticas @news_tematica, masleido.titulo, masleido.contenido_dominio_link
                     %p.resumen
                       = masleido.descripcion
-                      = link_to 'Leer más >>', masleido.contenido_dominio_link, class: 'leer_mas'
+                      = link_to_con_estadisticas @news_tematica, 'Leer más >>', masleido.contenido_dominio_link, class: 'leer_mas'
 
         %td.right_column
           - if @temas and @temas.any?
@@ -225,13 +225,13 @@
                 %tr.tema{ id: "tema_#{i}" }
                   %td.foto= image_tag foto.url(:cthumbnail), alt: usuario.nick
                   %td.texto
-                    %h5.titulo= link_to tema.titulo, tema.contenido_dominio_link
+                    %h5.titulo= link_to_con_estadisticas @news_tematica, tema.titulo, tema.contenido_dominio_link
                     %span.nombre_usuario= usuario.nick
                     %p.resumen
                       = tema.descripcion
 
           - if @banner_lateral
-            .banner_lateral= link_title_img @banner_lateral[:url_imagen], @banner_lateral[:texto_alt], @banner_lateral[:url_destino]
+            .banner_lateral= link_to_con_estadisticas @news_tematica, image_tag(@banner_lateral[:url_imagen], alt: @banner_lateral[:texto_alt]), @banner_lateral[:url_destino]
 
           - if @otros_titulares and @otros_titulares.any?
             %table.bloque.otros_titulares
@@ -244,28 +244,28 @@
                       - if foto
                         %td.foto= image_tag foto.adjunto.url(:thumb), alt: foto.titulo
                       %td.texto{ colspan: foto ? nil : 2, class: foto ? 'con_foto' : nil }
-                        %h5.titulo= link_to titular.titulo, titular.contenido_dominio_link
+                        %h5.titulo= link_to_con_estadisticas @news_tematica, titular.titulo, titular.contenido_dominio_link
                         %p.resumen
                           = max_caracteres_con_palabras_enteras(titular.descripcion, 150)
-                          = link_to 'Leer&nbsp;más&nbsp;>>'.html_safe, titular.contenido_dominio_link, class: 'leer_mas'
+                          = link_to_con_estadisticas @news_tematica, 'Leer&nbsp;más&nbsp;>>'.html_safe, titular.contenido_dominio_link, class: 'leer_mas'
 
   - if @banner_inferior
-    .banner_inferior= link_title_img @banner_inferior[:url_imagen], @banner_inferior[:texto_alt], @banner_inferior[:url_destino]
+    .banner_inferior= link_to_con_estadisticas @news_tematica, image_tag(@banner_inferior[:url_imagen], alt: @banner_inferior[:texto_alt]), @banner_inferior[:url_destino]
 
   %table.footer
     %tr
       %td.mas_info{ colspan: 2 }
         Más información en
-        = link_to 'www.rankia.com', 'http://www.rankia.com'
+        = link_to_con_estadisticas @news_tematica, 'www.rankia.com', 'http://www.rankia.com'
     %tr
       %td.social
         %span.texto Síguenos en
         .iconos
-          = link_title_img 'http://twitter.com/images/resources/twitter-bird-blue-on-white.png', 'Twitter', 'http://twitter.com/Rankia', class: 'icono'
-          = link_title_img 'http://www.facebookbrand.com/img/assets/asset.f.logo.lg.png', 'Facebook', 'http://www.facebook.com/pages/Rankia/27338248988',  class: 'icono'
+          = link_to_con_estadisticas @news_tematica, image_tag('http://twitter.com/images/resources/twitter-bird-blue-on-white.png', alt: 'Twitter'), 'http://twitter.com/Rankia', class: 'icono'
+          = link_to_con_estadisticas @news_tematica, image_tag('http://www.facebookbrand.com/img/assets/asset.f.logo.lg.png', alt: 'Facebook'), 'http://www.facebook.com/pages/Rankia/27338248988',  class: 'icono'
       %td.mail
         CONTACTO:
-        = link_to 'info@rankia.com', 'mailto:info@rankia.com'
+        = link_to_con_estadisticas @news_tematica, 'info@rankia.com', 'mailto:info@rankia.com'
 
 %table{cellpadding: "0", cellspacing: "0", style: "width:100%;background-color:#f1f1f1; margin:0;color:#a9a9a9; font-size:11px;padding-bottom:5px;"}
   %tr
