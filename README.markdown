@@ -45,9 +45,7 @@ Luego, habrá que importar las migraciones a la app principal que vaya a usar el
 
 ## Control de versiones
 
-1. Cuando el cambio ya está terminado, es hora de incrementar el contador de versiones para hacer la subida:
-
-En `lib/news_tematica/version.rb`:
+1. Cuando el cambio ya está terminado, es hora de incrementar el contador de versiones para hacer la subida. En `lib/news_tematica/version.rb`:
 
     VERSION = "0.1.0"
 
