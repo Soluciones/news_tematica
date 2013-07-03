@@ -5,7 +5,8 @@ require 'spec_helper'
 describe NewsTematica::NewsTematicasController do
   render_views  # Necesario para que funcione el render_to_string usado para generar el html
 
-  let(:mi_news_tematica) { FactoryGirl.create(:news_tematica, tematica: Tematica.find_by_nombre('Bolsa'), fecha_desde: 7.days.ago, fecha_hasta: 1.minute.ago) }
+  let!(:mi_news_tematica) { FactoryGirl.create(:news_tematica, tematica: Tematica.find_by_nombre('Bolsa'), fecha_desde: 7.days.ago, fecha_hasta: 1.minute.ago) }
+  let(:dominio) { 'test.host' }
 
   describe "contenidos_elegidos" do
     it "sólo pueden acceder admins" do
@@ -24,11 +25,19 @@ describe NewsTematica::NewsTematicasController do
       post :contenidos_elegidos, id: mi_news_tematica.id, titulares: [mensaje_muy_recomendado.id.to_s, mensaje_raso.id.to_s], masleidos:  [mensaje_muy_recomendado.id.to_s, titular_muy_leido.id.to_s], temas: [mensaje_raso.id.to_s]
       response.should redirect_to edit_news_tematica_path(mi_news_tematica)
       mi_news_tematica.reload
-      mi_news_tematica.html.should have_css("#titular_0 a[href='http://www.rankia.com#{ mensaje_muy_recomendado.contenido_link }']")
-      mi_news_tematica.html.should have_css("#titular_1 a[href='http://www.rankia.com#{ mensaje_raso.contenido_link }']")
-      mi_news_tematica.html.should have_css("#masleido_0 a[href='http://www.rankia.com#{ titular_muy_leido.contenido_link }']")
-      mi_news_tematica.html.should have_css("#masleido_1 a[href='http://www.rankia.com#{ mensaje_muy_recomendado.contenido_link }']")
-      mi_news_tematica.html.should have_css("#tema_0 a[href='http://www.rankia.com#{ mensaje_raso.contenido_link }']")
+
+      redireccion_mensaje_muy_recomendado = Redirection.find_by_url_and_news_tematica_id("http://www.midominio.com#{mensaje_muy_recomendado.contenido_link}", mi_news_tematica.id)
+      redireccion_mensaje_raso = Redirection.find_by_url_and_news_tematica_id("http://www.midominio.com#{mensaje_raso.contenido_link}", mi_news_tematica)
+      redireccion_titular_muy_leido = Redirection.find_by_url_and_news_tematica_id("http://www.midominio.com#{titular_muy_leido.contenido_link}", mi_news_tematica)
+      redireccion_mensaje_muy_recomendado.should_not be_nil
+      redireccion_mensaje_raso.should_not be_nil
+      redireccion_titular_muy_leido.should_not be_nil
+
+      mi_news_tematica.html.should have_css("#titular_0 a[href='http://#{dominio}/redirections/#{redireccion_mensaje_muy_recomendado.id}']")
+      mi_news_tematica.html.should have_css("#titular_1 a[href='http://#{dominio}/redirections/#{redireccion_mensaje_raso.id}']")
+      mi_news_tematica.html.should have_css("#masleido_0 a[href='http://#{dominio}/redirections/#{redireccion_titular_muy_leido.id}']")
+      mi_news_tematica.html.should have_css("#masleido_1 a[href='http://#{dominio}/redirections/#{redireccion_mensaje_muy_recomendado.id}']")
+      mi_news_tematica.html.should have_css("#tema_0 a[href='http://#{dominio}/redirections/#{redireccion_mensaje_raso.id}']")
     end
   end
 

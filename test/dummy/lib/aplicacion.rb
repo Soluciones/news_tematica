@@ -1,12 +1,12 @@
 # coding: UTF-8
 
 HTTP_DOMINIOS = {
-  ar: "http://www.rankia.com.ar",
-  cl: "http://www.rankia.cl",
-  co: "http://www.rankia.co",
-  es: "http://www.rankia.com",
-  mx: "http://www.rankia.mx",
-  pe: "http://www.rankia.pe" }
+  ar: "http://www.midominio.com.ar",
+  cl: "http://www.midominio.cl",
+  co: "http://www.midominio.co",
+  es: "http://www.midominio.com",
+  mx: "http://www.midominio.mx",
+  pe: "http://www.midominio.pe" }
 
 PAISES = [:ar, :cl, :co, :es, :mx, :pe]
 
