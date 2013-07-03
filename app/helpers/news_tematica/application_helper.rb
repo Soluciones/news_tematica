@@ -4,9 +4,9 @@ module NewsTematica
       frase.match(/\A.{0,#{ncar - 1}}\b/m)[0].strip
     end
 
-    def link_to_con_estadisticas(news_tematica, texto, destino, opciones = {})
-      redireccion = news_tematica.redirections.find_or_create_by_url(destino)
-      link_to texto, redirection_url(redireccion), opciones
+    def link_to_con_estadisticas(texto, destino, config = {}, opciones = {})
+      redireccion = config[:news_tematica].redirections.find_or_create_by_url(destino)
+      link_to texto, "http://#{config[:host]}/redirections/#{redireccion.id}", opciones
     end
   end
 end
