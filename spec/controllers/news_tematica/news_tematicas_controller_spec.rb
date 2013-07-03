@@ -42,6 +42,15 @@ describe NewsTematica::NewsTematicasController do
     end
   end
 
+  describe "edit" do
+    it "debe redirigir al show en las newsletters ya enviadas" do
+      login_controller(admin)
+      mi_news_tematica.update_attribute('enviada', true)
+      get :edit, id: mi_news_tematica.id
+      response.should redirect_to news_tematica_path(mi_news_tematica)
+    end
+  end
+
   describe "update" do
     it "sólo pueden acceder admins" do
       ApplicationController.any_instance.should_receive(:admin_required)
