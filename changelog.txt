@@ -1,3 +1,4 @@
+[0.1.1] Sólo cambios internos: Fix tests, quita ruta duplicada en engine y app
 
 [0.1.0] Añadida documentación  en README y en changelog
 [0.1.0] Los enlaces de la newsletter se crean ahora con redirecciones para medir clics
