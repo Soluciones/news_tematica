@@ -10,6 +10,13 @@ module NewsTematica
       @news_tematicas = NewsTematica.order('fecha_envio DESC')
     end
 
+    def show
+      @news_tematica = NewsTematica.find(params[:id]).decorate
+      redirections = @news_tematica.redirections.collect(&:id)
+      @clics_count = visita_class.where(redirection_id: redirections).count
+      @titulo = @news_tematica.titulo
+    end
+
     def new
       @tematica = tematica_class.find(params[:tematica_id])
       @titulo = "Nueva newsletter de #{ @tematica.nombre }"
@@ -39,6 +46,7 @@ module NewsTematica
 
     def edit
       @news_tematica = NewsTematica.find(params[:id])
+      redirect_to news_tematica_path(@news_tematica) if @news_tematica.enviada
     end
 
     def update
