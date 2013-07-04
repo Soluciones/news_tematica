@@ -11,7 +11,7 @@ module NewsTematica
     end
 
     def show
-      @news_tematica = NewsTematica.find(params[:id])
+      @news_tematica = NewsTematica.find(params[:id]).decorate
       @titulo = @news_tematica.titulo
     end
 

@@ -5,6 +5,16 @@ module NewsTematica
     include Clases
     delegate_all
 
+    def html_con_contadores
+      cachos = source.html.split('/redirections/')
+      fin_de_link_de_redirection = /((\d+).*">)/
+      cachos[1..-1].each_with_index do |cacho_con_redirection, i|
+        cacho_con_redirection.match fin_de_link_de_redirection
+        cachos[i + 1] = cacho_con_redirection.sub(fin_de_link_de_redirection, '\1<span class="cuentaclics">' + visita_class.where(redirection_id: $2.to_i).count.to_s + '</span>')
+      end
+      cachos.join('/redirections/')
+    end
+
     # Los titulares se apoyan en la sección de titulares, si hay, o si no en la etiqueta correspondiente
     def titulares
       if source.tematica.seccion_titulares.present?
