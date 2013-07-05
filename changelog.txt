@@ -1,3 +1,6 @@
+[0.2.2] Quitamos el HTML y body que metía Nokogiri
+[0.2.2] Fix tests
+
 [0.2.1] Usamos Nokogiri para parsear el HTML
 
 [0.2.0] Las news enviadas no tienen edit sino show con contadores de clics - NECESITA CONEXION CON EL MODELO VISITAS
