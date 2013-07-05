@@ -1,0 +1,13 @@
+:sass
+  .cuentaclics
+    background: #FF3
+    color: black
+    padding: 4px
+    margin-right: 8px
+
+%h1= @titulo
+%h4
+  Total de clics:
+  %span.cuentaclics= @clics_count
+
+= @news_tematica.html_con_contadores.html_safe

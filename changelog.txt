@@ -1,3 +1,7 @@
+[0.2.1] Usamos Nokogiri para parsear el HTML
+
+[0.2.0] Las news enviadas no tienen edit sino show con contadores de clics - NECESITA CONEXION CON EL MODELO VISITAS
+
 [0.1.1] Sólo cambios internos: Fix tests, quita ruta duplicada en engine y app
 
 [0.1.0] Añadida documentación  en README y en changelog

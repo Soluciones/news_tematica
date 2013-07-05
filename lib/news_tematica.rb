@@ -2,7 +2,7 @@ require "news_tematica/engine"
 
 module NewsTematica
   module Clases
-    %w(newsletter_helper tematica redirection contenido tagging antifail).each do |klass|
+    %w(newsletter_helper tematica redirection contenido tagging antifail visita).each do |klass|
       mattr_accessor "#{klass}_extern"
 
       define_method "#{klass}_class" do
