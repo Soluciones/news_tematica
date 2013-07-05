@@ -13,7 +13,7 @@ module NewsTematica
         span = doc.create_element("span", contador_visitas, class: 'cuentaclics')
         link.add_previous_sibling(span)
       end
-      doc.to_html.html_safe
+      doc.css('body').inner_html
     end
 
     # Los titulares se apoyan en la sección de titulares, si hay, o si no en la etiqueta correspondiente
