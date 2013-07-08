@@ -174,7 +174,7 @@
 .wrapper
   %table.header
     %tr
-      %td.logo= image_tag 'http://www.rankia.com/images/logo_rankia.png', alt: 'Rankia'
+      %td.logo= ::NewsTematica::Personalizacion.logo.html_safe
       %td.titulo_news= @news_tematica.titulo
 
   %h2.titulo_tematica News temática de #{@news_tematica.tematica.nombre}
@@ -206,7 +206,7 @@
                   %h3.titulo_bloque Lo más leído esta semana
               - @masleidos.each_with_index do |masleido, i|
                 %tr.mas_leido{ id: "masleido_#{i}" }
-                  %td.cuadrado= image_tag 'http://www.rankia.com/images/li_cuadradito_rojo.png', alt: '·'
+                  %td.cuadrado= image_tag 'http://www.rankia.com/assets/li_cuadradito_rojo.png', alt: '·'
                   %td.texto
                     %h5.titulo= link_to_con_estadisticas masleido.titulo, masleido.contenido_dominio_link, config
                     %p.resumen
@@ -256,16 +256,16 @@
     %tr
       %td.mas_info{ colspan: 2 }
         Más información en
-        = link_to_con_estadisticas 'www.rankia.com', 'http://www.rankia.com', config
+        = link_to_con_estadisticas ::NewsTematica::Personalizacion.dominio, "http://#{::NewsTematica::Personalizacion.dominio}", config
     %tr
       %td.social
         %span.texto Síguenos en
         .iconos
-          = link_to_con_estadisticas image_tag('http://twitter.com/images/resources/twitter-bird-blue-on-white.png', alt: 'Twitter'), 'http://twitter.com/Rankia', config, class: 'icono'
-          = link_to_con_estadisticas image_tag('http://www.facebookbrand.com/img/assets/asset.f.logo.lg.png', alt: 'Facebook'), 'http://www.facebook.com/pages/Rankia/27338248988', config,  class: 'icono'
+          = link_to_con_estadisticas image_tag('http://twitter.com/images/resources/twitter-bird-blue-on-white.png', alt: 'Twitter'), ::NewsTematica::Personalizacion.twitter_url, config, class: 'icono'
+          = link_to_con_estadisticas image_tag('http://www.facebookbrand.com/img/assets/asset.f.logo.lg.png', alt: 'Facebook'), ::NewsTematica::Personalizacion.facebook_url, config,  class: 'icono'
       %td.mail
         CONTACTO:
-        = link_to_con_estadisticas 'info@rankia.com', 'mailto:info@rankia.com', config
+        = link_to_con_estadisticas ::NewsTematica::Personalizacion.email_contacto, "mailto:#{::NewsTematica::Personalizacion.email_contacto}", config
 
 %table{cellpadding: "0", cellspacing: "0", style: "width:100%;background-color:#f1f1f1; margin:0;color:#a9a9a9; font-size:11px;padding-bottom:5px;"}
   %tr

@@ -10,5 +10,9 @@ module NewsTematica
       end
     end
   end
+
+  module Personalizacion
+    mattr_accessor :logo, :dominio, :twitter_url, :facebook_url, :email_contacto
+  end
 end
 
