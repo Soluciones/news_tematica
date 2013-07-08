@@ -206,7 +206,7 @@
                   %h3.titulo_bloque Lo más leído esta semana
               - @masleidos.each_with_index do |masleido, i|
                 %tr.mas_leido{ id: "masleido_#{i}" }
-                  %td.cuadrado= image_tag 'http://www.rankia.com/images/li_cuadradito_rojo.png', alt: '·'
+                  %td.cuadrado= image_tag 'http://www.rankia.com/assets/li_cuadradito_rojo.png', alt: '·'
                   %td.texto
                     %h5.titulo= link_to_con_estadisticas masleido.titulo, masleido.contenido_dominio_link, config
                     %p.resumen
