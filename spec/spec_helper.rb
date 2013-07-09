@@ -77,8 +77,6 @@ Spork.prefork do
       DatabaseCleaner.clean
     end
 
-    config.include UsuariosHelper
-
      config.before(:each) { @routes = NewsTematica::Engine.routes }
   end
 end
