@@ -17,6 +17,6 @@
           = submit_tag('Guardar', class: 'boton_reborde_naranja_grande')
           = submit_tag('Guardar y Enviar vía SendGrid', class: 'boton_azul_claro_reborde', onclick: "return confirm('¿Enviar a Sendgrid?');")
 
-= javascript_include_tag '/ckeditor/ckeditor.js'
+= javascript_include_tag 'http://www.rankia.com/ckeditor/ckeditor.js'
 :javascript
   CKEDITOR.replace('news_tematica_html');

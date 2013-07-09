@@ -1,3 +1,5 @@
+[0.3.0] Los datos de Rankia que estaban metidos a fuego irán ahora por parámetros de configuración
+
 [0.2.2] Quitamos el HTML y body que metía Nokogiri
 [0.2.2] Fix tests
 
