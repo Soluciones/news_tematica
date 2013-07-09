@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
 
   # Redirecciona a la pantalla de login, con un mensaje de aviso
   def envia_a_login(mensaje)
-    puts mensaje
+    true
   end
 
   # Impide el acceso a usuarios no registrados

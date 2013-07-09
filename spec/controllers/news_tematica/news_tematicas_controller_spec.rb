@@ -16,7 +16,6 @@ describe NewsTematica::NewsTematicasController do
     end
 
     it "debe generar un HTML con dichos contenidos, en el orden correcto" do
-      login_controller(admin)
       mensaje_raso = FactoryGirl.create(:tema, created_at: 3.days.ago, titulo: 'CAF paga dividendo hoy')
       titular_muy_leido = FactoryGirl.create(:tema_titular, fecha_titulares: 1.hour.ago, created_at: 3.hours.ago, bolsa: true, titulo: 'Gana 2% semanal')
       mensaje_muy_recomendado = FactoryGirl.create(:tema, created_at: 3.days.ago, votos_count: 20, respuestas_count: 3, titulo: 'El quinto elemento')
@@ -43,8 +42,12 @@ describe NewsTematica::NewsTematicasController do
   end
 
   describe "edit" do
+    it "sólo pueden acceder admins" do
+      ApplicationController.any_instance.should_receive(:admin_required)
+      get :edit, id: mi_news_tematica.id
+    end
+
     it "debe redirigir al show en las newsletters ya enviadas" do
-      login_controller(admin)
       mi_news_tematica.update_attribute('enviada', true)
       get :edit, id: mi_news_tematica.id
       response.should redirect_to news_tematica_path(mi_news_tematica)
@@ -58,7 +61,6 @@ describe NewsTematica::NewsTematicasController do
     end
 
     it "debe prohibir cambiar news ya enviadas" do
-      login_controller(admin)
       mi_news_tematica.update_attribute('enviada', true)
       post :update, id: mi_news_tematica.id, news_tematica: { titulo: 'Cambio' }
       mi_news_tematica.reload
@@ -66,7 +68,6 @@ describe NewsTematica::NewsTematicasController do
     end
 
     it "debe permitir cambiar news no enviadas" do
-      login_controller(admin)
       post :update, id: mi_news_tematica.id, news_tematica: { titulo: 'Cambio' }
       mi_news_tematica.reload
       mi_news_tematica.titulo.should == 'Cambio'
@@ -74,7 +75,6 @@ describe NewsTematica::NewsTematicasController do
     end
 
     it "debe editar de nuevo si falla al guardar" do
-      login_controller(admin)
       post :update, id: mi_news_tematica.id, news_tematica: { titulo: '' }
       mi_news_tematica.reload
       mi_news_tematica.titulo.should_not == ''
@@ -82,7 +82,6 @@ describe NewsTematica::NewsTematicasController do
     end
 
     it "debe llamar al envío por sendgrid si se ha usado el botón de sendgrid y todo está bien" do
-      login_controller(admin)
       NewsTematica::NewsTematica.any_instance.should_receive(:a_sendgrid!)
       post :update, id: mi_news_tematica.id, news_tematica: { titulo: 'SendGrid' }, commit: 'Guardar y Enviar vía SendGrid'
       mi_news_tematica.reload
