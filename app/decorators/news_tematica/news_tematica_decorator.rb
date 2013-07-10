@@ -5,6 +5,17 @@ module NewsTematica
     include Clases
     delegate_all
 
+    def html_con_contadores
+      doc = Nokogiri::HTML(source.html)
+      doc.css('a').select{ |link| link['href'].match /\/redirections\// }.each do |link|
+        redirection_id = link['href'].split('/').last
+        contador_visitas = visita_class.where(redirection_id: redirection_id).count.to_s
+        span = doc.create_element("span", contador_visitas, class: 'cuentaclics')
+        link.add_previous_sibling(span)
+      end
+      doc.css('body').inner_html
+    end
+
     # Los titulares se apoyan en la sección de titulares, si hay, o si no en la etiqueta correspondiente
     def titulares
       if source.tematica.seccion_titulares.present?
