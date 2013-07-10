@@ -1,3 +1,4 @@
+[0.1.2] Evita warnings por archivos inexistentes
 [0.1.1] Sólo cambios internos: Fix tests, quita ruta duplicada en engine y app
 
 [0.1.0] Añadida documentación  en README y en changelog
