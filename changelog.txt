@@ -1,3 +1,4 @@
+[0.3.1] Evita warnings por archivos inexistentes
 [0.3.0] Los datos de Rankia que estaban metidos a fuego irán ahora por parámetros de configuración
 
 [0.2.2] Quitamos el HTML y body que metía Nokogiri
