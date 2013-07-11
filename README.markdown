@@ -42,6 +42,16 @@ Luego, habrá que importar las migraciones a la app principal que vaya a usar el
 
 `config/initializers/engines.rb`: Aquí se le pasan las clases externas que el engine necesita, en formato `NewsTematica::Clases.xxx_extern = 'Xxx'`
 
+### Configurar para que use la working copy local
+
+`bundle config local.news_tematica ../news_tematica`
+
+### Deshacer configuración para volver a usar git en lugar de la working copy
+
+Editar el archivo `~/.bundle/config` y eliminar la línea:
+```
+BUNDLE_LOCAL__NEWS_TEMATICA: ../news_tematica
+```
 
 ## Control de versiones
 
