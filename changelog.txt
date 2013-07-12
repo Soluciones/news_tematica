@@ -1,3 +1,5 @@
+[0.4.0] Incluída la opción para añadir estilos personalizados a la newsletter a traves de un partial en la aplicación principal (views/news_tematica/news_tematicas/_preview_app.sass.haml)
+
 [0.3.0] Los datos de Rankia que estaban metidos a fuego irán ahora por parámetros de configuración
 
 [0.2.2] Quitamos el HTML y body que metía Nokogiri
