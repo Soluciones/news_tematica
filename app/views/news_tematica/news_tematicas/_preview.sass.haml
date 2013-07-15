@@ -1,0 +1,168 @@
+:sass
+  $gris: #6C6C6C
+  $gris_claro: #878787
+  $gris_oscuro: #595252
+  $azul: #6698D8
+  $azul_palido: #E4E5EB
+  $azul_oscuro: #0C517E
+  $naranja: #d17402
+  .wrapper
+    font-family: 'Trebuchet MS',Trebuchet,Arial,Verdana,Sans-serif
+  .header
+    width: 100%
+    border-collapse: collapse
+    td
+      vertical-align: bottom
+      border-bottom: solid 3px $azul
+    .logo
+      padding-bottom: 35px
+    .titulo_news
+      padding-bottom: 23px
+      text-align: right
+      font-size: 26px
+  .titulo_tematica
+    text-transform: uppercase
+    font-weight: normal
+    font-size: 26px
+    padding: 30px 12px 0
+    margin: 0
+  .content
+    padding: 0 10px
+  .right_column, .left_column
+    vertical-align: top
+  .left_column
+    width: 55%
+  .right_column
+    width: 45%
+    padding-left: 30px
+  .bloque
+    td
+      vertical-align: top
+    padding: 20px 15px
+    background: $azul_palido
+    color: $gris_oscuro
+    margin: 30px 0
+    border-radius: 5px
+    .titulo_bloque
+      text-transform: uppercase
+      font-weight: normal
+      color: $gris
+      font-size: 27px
+      margin: 0
+      padding: 0
+    .subtitulo_bloque
+      font-weight: normal
+      font-size: 13px
+      color: $gris_claro
+      margin: 0
+      padding: 0
+    .foto
+      padding-right: 10px
+    .titulo
+      color: $azul_oscuro
+      margin: 0
+      padding: 0
+      font-weight: normal
+      a
+        color: inherit
+        text-decoration: none
+    .resumen
+      color: $gris_oscuro
+      margin: 0
+      padding: 0
+      font-size: 13px
+      .leer_mas
+        color: $naranja
+        text-decoration: none
+        position: relative
+  .titular
+    td
+      padding: 10px 0
+    .foto
+      width: 25%
+      img
+        width: 160px
+        max-width: 100%
+    .titulo
+      font-size: 19px
+  .mas_leido, .otro_titular
+    td
+      padding-top: 5px
+      padding-bottom: 5px
+    .cuadrado
+      img
+        color: red
+        font-size: 71px
+        line-height: 16px
+        width: 9px
+    .foto
+      width: 25%
+      img
+        max-width: 100%
+    .texto
+      padding: 5px 0
+      &.con_foto
+        background: none
+        padding-left: 0
+    .titulo
+      font-weight: bold
+      font-size: 14px
+  .tema
+    td
+      padding-top: 10px
+    .nombre_usuario
+      color: $naranja
+      font-style: italic
+      font-size: 11px
+  .banner_lateral
+    width: 100%
+    text-align: center
+    padding: 0 0 5px 0
+    img
+      max-width: 300px
+      width: 100%
+  .banner_inferior
+    width: 100%
+    text-align: center
+    padding: 0 0 27px 0
+    img
+      max-width: 728px
+      width: 100%
+  .footer
+    background: $azul
+    color: #FFF
+    width: 100%
+    .mas_info
+      font-weight: normal
+      text-align: center
+      font-size: 30px
+      padding: 30px 0 0
+      a
+        text-decoration: none
+        color: $naranja
+    .mail
+      text-align: right
+      a
+        color: #FFF
+        text-decoration: none
+    .mail, .social
+      padding: 45px 35px 55px
+      font-size: 18px
+    .mail
+      padding-left: 0
+    .social
+      padding-right: 0
+      text-transform: uppercase
+      .texto, .iconos
+        display: inline-block
+        float: left
+      .iconos
+        margin-left: 20px
+        .icono
+          display: inline-block
+          width: 30px
+          height: 30px
+          font-size: 8px
+          img
+            max-width: 100%
+            border-radius: 4px
