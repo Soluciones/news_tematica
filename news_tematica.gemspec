@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.summary     = "Permite crear newsletters temáticas y enviarlas por SendGrid."
   s.description = "Se apoya en los modelos Suscripcion y Tematica."
 
-  s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
+  s.files = Dir["{app,config,db,lib}/**/*"] + ["Rakefile"]
   s.test_files = Dir["test/**/*"]
 
   s.add_dependency "rails", "~> 3.1.12"
