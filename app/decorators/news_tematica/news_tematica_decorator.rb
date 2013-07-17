@@ -69,5 +69,13 @@ module NewsTematica
     def evita_error_divbyzero(dato)
       dato.zero? ? 1.0 : dato
     end
+
+    def titulo_generico
+      general? ? "News de #{ESTA_WEB}" : "News temática de #{tematica.nombre}"
+    end
+
+    def titulo_de_foro
+      general? ? "Foros" : "Foro de #{tematica.nombre}"
+    end
   end
 end

@@ -10,7 +10,7 @@
       %td.logo= ::NewsTematica::Personalizacion.logo.html_safe
       %td.titulo_news= @news_tematica.titulo
 
-  %h2.titulo_tematica News temática de #{@news_tematica.tematica.nombre}
+  %h2.titulo_tematica= @news_tematica.titulo_generico
 
   .content
     %table
@@ -51,7 +51,7 @@
             %table.bloque.foro
               %tr
                 %td{ colspan: 2 }
-                  %h3.titulo_bloque Foro de #{@news_tematica.tematica.nombre}
+                  %h3.titulo_bloque= @news_tematica.titulo_de_foro
               - @temas.each_with_index do |tema, i|
                 - usuario = tema.usuario
                 - foto = usuario.avatar
