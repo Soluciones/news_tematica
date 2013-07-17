@@ -25,5 +25,9 @@ module NewsTematica
       crear_y_cronificar_newsletter(suscripciones, titulo, html, nombre_newsletter: titulo, momento_envio: fecha_envio) if Rails.env.production?
       self.update_attribute('enviada', true)
     end
+
+    def general?
+      tematica.nombre == tematica.class::NOMBRE_GENERAL
+    end
   end
 end
