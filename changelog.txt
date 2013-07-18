@@ -1,3 +1,6 @@
+[0.4.1] Permite news generales, no sólo temáticas
+[0.4.1] Fotos y nick de usuario con links al mensaje y al perfil del usuario
+
 [0.4.0] Incluída la opción para añadir estilos personalizados a la newsletter a traves de un partial en la aplicación principal (views/news_tematica/news_tematicas/_preview_app.sass.haml)
 
 [0.3.1] Evita warnings por archivos inexistentes
