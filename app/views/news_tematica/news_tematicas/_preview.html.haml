@@ -3,7 +3,6 @@
 %p{style: "background-color: #ffffcf;text-align:center;font-size:11px;"}
   Si el email no se ve correctamente,
   %a{href: "[weblink]", style: "color:#002aff;"} haz clic aquí
-- config = { news_tematica: @news_tematica, host: request.host }
 .wrapper
   %table.header
     %tr
@@ -25,12 +24,12 @@
                 - foto = titular.fotos.first
                 %tr.titular{ id: "titular_#{i}" }
                   - if foto
-                    %td.foto= link_to_con_estadisticas image_tag(foto.adjunto.url(:col), alt: foto.titulo), titular.contenido_dominio_link, config
+                    %td.foto= link_to_con_estadisticas image_tag(foto.adjunto.url(:col), alt: foto.titulo), titular.contenido_dominio_link, @news_tematica
                   %td.texto{ colspan: foto ? nil : 2 }
-                    %h5.titulo= link_to_con_estadisticas titular.titulo, titular.contenido_dominio_link, config
+                    %h5.titulo= link_to_con_estadisticas titular.titulo, titular.contenido_dominio_link, @news_tematica
                     %p.resumen
                       = titular.descripcion
-                      = link_to_con_estadisticas 'Leer más >>', titular.contenido_dominio_link, config, class: 'leer_mas'
+                      = link_to_con_estadisticas 'Leer más >>', titular.contenido_dominio_link, @news_tematica, class: 'leer_mas'
 
           - if @masleidos and @masleidos.any?
             %table.bloque.mas_leidos
@@ -41,10 +40,10 @@
                 %tr.mas_leido{ id: "masleido_#{i}" }
                   %td.cuadrado= image_tag 'http://www.rankia.com/assets/li_cuadradito_rojo.png', alt: '·'
                   %td.texto
-                    %h5.titulo= link_to_con_estadisticas masleido.titulo, masleido.contenido_dominio_link, config
+                    %h5.titulo= link_to_con_estadisticas masleido.titulo, masleido.contenido_dominio_link, @news_tematica
                     %p.resumen
                       = masleido.descripcion
-                      = link_to_con_estadisticas 'Leer más >>', masleido.contenido_dominio_link, config, class: 'leer_mas'
+                      = link_to_con_estadisticas 'Leer más >>', masleido.contenido_dominio_link, @news_tematica, class: 'leer_mas'
 
         %td.right_column
           - if @temas and @temas.any?
@@ -56,14 +55,14 @@
                 - usuario = tema.usuario
                 - foto = usuario.avatar
                 %tr.tema{ id: "tema_#{i}" }
-                  %td.foto= link_to_con_estadisticas image_tag(foto.url(:cthumbnail), alt: usuario.nick), perfil_url(usuario.nick_limpio), config
+                  %td.foto= link_to_con_estadisticas image_tag(foto.url(:cthumbnail), alt: usuario.nick), perfil_url(usuario.nick_limpio), @news_tematica
                   %td.texto
-                    %h5.titulo= link_to_con_estadisticas tema.titulo, tema.contenido_dominio_link, config
-                    %span.nombre_usuario= link_to_con_estadisticas usuario.nick, perfil_url(usuario.nick_limpio), config
+                    %h5.titulo= link_to_con_estadisticas tema.titulo, tema.contenido_dominio_link, @news_tematica
+                    %span.nombre_usuario= link_to_con_estadisticas usuario.nick, perfil_url(usuario.nick_limpio), @news_tematica
                     %p.resumen= tema.descripcion
 
           - if @banner_lateral
-            .banner_lateral= link_to_con_estadisticas image_tag(@banner_lateral[:url_imagen], alt: @banner_lateral[:texto_alt]), @banner_lateral[:url_destino], config
+            .banner_lateral= link_to_con_estadisticas image_tag(@banner_lateral[:url_imagen], alt: @banner_lateral[:texto_alt]), @banner_lateral[:url_destino], @news_tematica
 
           - if @otros_titulares and @otros_titulares.any?
             %table.bloque.otros_titulares
@@ -76,28 +75,28 @@
                       - if foto
                         %td.foto= image_tag foto.adjunto.url(:thumb), alt: foto.titulo
                       %td.texto{ colspan: foto ? nil : 2, class: foto ? 'con_foto' : nil }
-                        %h5.titulo= link_to_con_estadisticas titular.titulo, titular.contenido_dominio_link, config
+                        %h5.titulo= link_to_con_estadisticas titular.titulo, titular.contenido_dominio_link, @news_tematica
                         %p.resumen
                           = max_caracteres_con_palabras_enteras(titular.descripcion, 150)
-                          = link_to_con_estadisticas 'Leer&nbsp;más&nbsp;>>'.html_safe, titular.contenido_dominio_link, config, class: 'leer_mas'
+                          = link_to_con_estadisticas 'Leer&nbsp;más&nbsp;>>'.html_safe, titular.contenido_dominio_link, @news_tematica, class: 'leer_mas'
 
   - if @banner_inferior
-    .banner_inferior= link_to_con_estadisticas image_tag(@banner_inferior[:url_imagen], alt: @banner_inferior[:texto_alt]), @banner_inferior[:url_destino], config
+    .banner_inferior= link_to_con_estadisticas image_tag(@banner_inferior[:url_imagen], alt: @banner_inferior[:texto_alt]), @banner_inferior[:url_destino], @news_tematica
 
   %table.footer
     %tr
       %td.mas_info{ colspan: 2 }
         Más información en
-        = link_to_con_estadisticas ::NewsTematica::Personalizacion.dominio, "http://#{::NewsTematica::Personalizacion.dominio}", config
+        = link_to_con_estadisticas ::NewsTematica::Personalizacion.dominio, "http://#{::NewsTematica::Personalizacion.dominio}", @news_tematica
     %tr
       %td.social
         %span.texto Síguenos en
         .iconos
-          = link_to_con_estadisticas image_tag('http://twitter.com/images/resources/twitter-bird-blue-on-white.png', alt: 'Twitter'), ::NewsTematica::Personalizacion.twitter_url, config, class: 'icono'
-          = link_to_con_estadisticas image_tag('http://www.facebookbrand.com/img/assets/asset.f.logo.lg.png', alt: 'Facebook'), ::NewsTematica::Personalizacion.facebook_url, config,  class: 'icono'
+          = link_to_con_estadisticas image_tag('http://twitter.com/images/resources/twitter-bird-blue-on-white.png', alt: 'Twitter'), ::NewsTematica::Personalizacion.twitter_url, @news_tematica, class: 'icono'
+          = link_to_con_estadisticas image_tag('http://www.facebookbrand.com/img/assets/asset.f.logo.lg.png', alt: 'Facebook'), ::NewsTematica::Personalizacion.facebook_url, @news_tematica,  class: 'icono'
       %td.mail
         CONTACTO:
-        = link_to_con_estadisticas ::NewsTematica::Personalizacion.email_contacto, "mailto:#{::NewsTematica::Personalizacion.email_contacto}", config
+        = link_to_con_estadisticas ::NewsTematica::Personalizacion.email_contacto, "mailto:#{::NewsTematica::Personalizacion.email_contacto}", @news_tematica
 
 %table{cellpadding: "0", cellspacing: "0", style: "width:100%;background-color:#f1f1f1; margin:0;color:#a9a9a9; font-size:11px;padding-bottom:5px;"}
   %tr
