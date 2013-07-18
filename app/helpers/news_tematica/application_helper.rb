@@ -10,7 +10,7 @@ module NewsTematica
     end
 
     def perfil_url(nick_limpio)
-      "#{HTTP_DOMINIOS[:es]}/usuarios/#{nick_limpio}"
+      "#{request.protocol}#{request.host_with_port}/usuarios/#{nick_limpio}"
     end
   end
 end
