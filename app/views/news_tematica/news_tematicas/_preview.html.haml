@@ -21,10 +21,10 @@
                 %td{ colspan: 2 }
                   %h3.titulo_bloque Titulares
               - @titulares.each_with_index do |titular, i|
-                - foto = titular.fotos.first
+                - foto = titular.foto_para_news
                 %tr.titular{ id: "titular_#{i}" }
                   - if foto
-                    %td.foto= link_to_con_estadisticas image_tag(foto.adjunto.url(:col), alt: foto.titulo), titular.contenido_dominio_link, @news_tematica
+                    %td.foto= link_to_con_estadisticas foto, titular.contenido_dominio_link, @news_tematica
                   %td.texto{ colspan: foto ? nil : 2 }
                     %h5.titulo= link_to_con_estadisticas titular.titulo, titular.contenido_dominio_link, @news_tematica
                     %p.resumen
