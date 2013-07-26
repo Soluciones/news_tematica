@@ -28,7 +28,7 @@ module NewsTematica
     def create
       @news_tematica = NewsTematicaDecorator.decorate(NewsTematica.new(params[:news_tematica]))
       todos_los_titulares = @news_tematica.titulares
-      @titulares = todos_los_titulares[0..4]
+      @titulares = ContenidoEnNewsDecorator.decorate_collection(todos_los_titulares[0..4])
       @otros_titulares = (todos_los_titulares - @titulares)[0..4]
       @masleidos = @news_tematica.lo_mas_leido[0..4]
       @temas = (@news_tematica.temas - @masleidos)[0..4]
@@ -75,7 +75,7 @@ module NewsTematica
     def contenidos_elegidos
       @news_tematica = NewsTematicaDecorator.decorate(NewsTematica.find(params[:id]))
       titulares = @news_tematica.prioriza contenido_class.where(id: params[:titulares])
-      @titulares = titulares[0..4]
+      @titulares = ContenidoEnNewsDecorator.decorate_collection(titulares[0..4])
       @otros_titulares = titulares[5..9]
       @masleidos = contenido_class.where(id: params[:masleidos]).all.sort_by { |msg| 100 - msg.veces_leido.contador * msg.factor_corrector_para_nuevos }
       @temas = @news_tematica.prioriza contenido_class.where(id: params[:temas])
