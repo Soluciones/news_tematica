@@ -15,18 +15,22 @@ describe NewsTematica::ApplicationHelper do
   describe "link_to_con_estadisticas" do
     let(:redirection_class) { ::NewsTematica::Clases.redirection_extern.constantize }
     let(:mi_news_tematica) { FactoryGirl.create(:news_tematica) }
-    let(:config) { { news_tematica: mi_news_tematica, host: 'test.host' } }
+    let(:request) {
+      request = double('source')
+      request.stub(:host).and_return('test.host')
+      request
+    }
 
     it "debe crear la redirección, si no existe, y devolver enlace que usa la redireccion" do
-      result = link_to_con_estadisticas('Hola Poldo', '/ejemplo', config, class: 'link-ppal')
+      result = link_to_con_estadisticas('Hola Poldo', '/ejemplo', mi_news_tematica, class: 'link-ppal')
       redirection_class.count.should == 1
       redirection_class.where(url: '/ejemplo', news_tematica_id: mi_news_tematica.id).count.should == 1
       result.should == link_to('Hola Poldo', "http://test.host/redirections/#{redirection_class.first.id}", class: 'link-ppal')
     end
 
     it "debe usar la redirección que ya existe, y devolver enlace que usa la redireccion" do
-      result = link_to_con_estadisticas('Hola Poldo', '/ejemplo', config, class: 'link-ppal')
-      result2 = link_to_con_estadisticas('Adiós Poldo', '/ejemplo', config, class: 'pingback')
+      result = link_to_con_estadisticas('Hola Poldo', '/ejemplo', mi_news_tematica, class: 'link-ppal')
+      result2 = link_to_con_estadisticas('Adiós Poldo', '/ejemplo', mi_news_tematica, class: 'pingback')
       redirection_class.count.should == 1
       redirection_class.where(url: '/ejemplo', news_tematica_id: mi_news_tematica.id).count.should == 1
       result2.should == link_to('Adiós Poldo', "http://test.host/redirections/#{redirection_class.first.id}", class: 'pingback')
