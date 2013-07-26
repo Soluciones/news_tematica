@@ -1,3 +1,6 @@
+[0.5.1] Pasa a verde test que se había roto con cambios anteriores
+[0.5.0] Calcula la foto de un titular en un decorator que podemos sobreescribir en la app
+
 [0.4.1] Permite news generales, no sólo temáticas
 [0.4.1] Fotos y nick de usuario con links al mensaje y al perfil del usuario
 
