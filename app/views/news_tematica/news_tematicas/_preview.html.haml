@@ -83,6 +83,8 @@
   - if @banner_inferior
     .banner_inferior= link_to_con_estadisticas image_tag(@banner_inferior[:url_imagen], alt: @banner_inferior[:texto_alt]), @banner_inferior[:url_destino], @news_tematica
 
+  = render 'pre_footer'
+
   %table.footer
     %tr
       %td.mas_info{ colspan: 2 }
