@@ -1,0 +1,13 @@
+%table.bloque.foro
+  %tr
+    %td{ colspan: 2 }
+      %h3.titulo_bloque= @news_tematica.titulo_de_foro
+  - @temas.each_with_index do |tema, i|
+    - usuario = tema.usuario
+    - foto = usuario.avatar
+    %tr.tema{ id: "tema_#{i}" }
+      %td.foto= link_to_con_estadisticas image_tag(foto.url(:cthumbnail), alt: usuario.nick), perfil_url(usuario.nick_limpio), @news_tematica
+      %td.texto
+        %h5.titulo= link_to_con_estadisticas tema.titulo, tema.contenido_dominio_link, @news_tematica
+        %span.nombre_usuario= link_to_con_estadisticas usuario.nick, perfil_url(usuario.nick_limpio), @news_tematica
+        %p.resumen= tema.descripcion
