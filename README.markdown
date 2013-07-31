@@ -44,28 +44,27 @@ Luego, habrá que importar las migraciones a la app principal que vaya a usar el
 
 ### Configurar para que use la working copy local
 
-`bundle config local.news_tematica ../news_tematica`
+    > bundle config local.news_tematica ../news_tematica
 
 ### Deshacer configuración para volver a usar git en lugar de la working copy
 
-Editar el archivo `~/.bundle/config` y eliminar la línea:
-```
-BUNDLE_LOCAL__NEWS_TEMATICA: ../news_tematica
-```
+    > bundle config --delete local.news_tematica
 
 ## Control de versiones
 
 ### Incrementar versión en el código
 
-Cuando el cambio ya está terminado, es hora de incrementar el contador de versiones para hacer la subida. En `lib/news_tematica/version.rb`:
+Cuando el cambio ya está _mergeado_ en `master`, es hora de incrementar el contador de versiones para hacer la subida. En `lib/news_tematica/version.rb`:
 
-      VERSION = "0.1.0"
+    module NewsTematica
+      VERSION = "0.5.1"
+    end
 
 ### Escribir changelog
 
 En `changelog.txt`, se comentan las características que se han añadido en esta versión.
 
-###  Subir cambios a git
+###  Subir cambios a git y crear _tag_
 
 En la línea de comandos, desde el directorio del engine:
 
@@ -75,7 +74,8 @@ En la línea de comandos, desde el directorio del engine:
 
 ### App principal
 
-Y cuando en el engine ya se ha mergeado a master esta versión, es hora de buscar la nueva versión desde la app principal:
+Una vez esta creado el _tag_ de la nueva versión, vamos a las aplicaciones principales y editamos la línea del Gemfile:
 
-    > rnk
-    > bundle update news_tematicas
+    gem 'news_tematica', git: 'git@github.com:Soluciones/news_tematica.git', branch: 'master', tag: '0.1.0'
+
+Y lanzamos `bundle` para que actualice a la nueva versión.
