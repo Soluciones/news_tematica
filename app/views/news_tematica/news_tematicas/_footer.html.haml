@@ -1,0 +1,14 @@
+%table.footer
+  %tr
+    %td.mas_info{ colspan: 2 }
+      Más información en
+      = link_to_con_estadisticas ::NewsTematica::Personalizacion.dominio, "http://#{::NewsTematica::Personalizacion.dominio}", @news_tematica
+  %tr
+    %td.social
+      %span.texto Síguenos en
+      .iconos
+        = link_to_con_estadisticas image_tag('http://twitter.com/images/resources/twitter-bird-blue-on-white.png', alt: 'Twitter'), ::NewsTematica::Personalizacion.twitter_url, @news_tematica, class: 'icono'
+        = link_to_con_estadisticas image_tag('http://www.facebookbrand.com/img/assets/asset.f.logo.lg.png', alt: 'Facebook'), ::NewsTematica::Personalizacion.facebook_url, @news_tematica,  class: 'icono'
+    %td.mail
+      CONTACTO:
+      = link_to_con_estadisticas ::NewsTematica::Personalizacion.email_contacto, "mailto:#{::NewsTematica::Personalizacion.email_contacto}", @news_tematica
