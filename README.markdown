@@ -69,6 +69,7 @@ En `changelog.txt`, se comentan las características que se han añadido en esta
 En la línea de comandos, desde el directorio del engine:
 
     > git commit -m "Cambio de version"
+    > git push origin
     > git tag 0.1.0
     > git push origin 0.1.0
 
