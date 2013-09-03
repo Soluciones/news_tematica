@@ -1,3 +1,4 @@
+[0.7.1] Cambios estéticos en el footer
 [0.7.0] Añadida la funcionalidad de preview (http://www.verema.com/news_tematicas/2/preview)
         Evita colisiones con Rankia usando las bases de datos ntm_dummy y ntm_dummy_test
         Uso de raw para los testos de resumen
