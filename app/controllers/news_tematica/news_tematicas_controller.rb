@@ -26,14 +26,7 @@ module NewsTematica
     end
 
     def create
-      @news_tematica = NewsTematicaDecorator.decorate(NewsTematica.new(params[:news_tematica]))
-      todos_los_titulares = @news_tematica.titulares
-      @titulares = ContenidoEnNewsDecorator.decorate_collection(todos_los_titulares[0..4])
-      @otros_titulares = (todos_los_titulares - @titulares)[0..4]
-      @masleidos = @news_tematica.lo_mas_leido[0..4]
-      @temas = (@news_tematica.temas - @masleidos)[0..4]
-      @banner_lateral = @news_tematica.banner_lateral
-      @banner_inferior = @news_tematica.banner_inferior
+      carga_variables_preview NewsTematica.new(params[:news_tematica])
       @news_tematica.html = Premailer.new(render_to_string('news_tematica/news_tematicas/_preview', layout: false), with_html_string: true).to_inline_css
       if @news_tematica.save
         redirect_to edit_news_tematica_path(@news_tematica)
@@ -42,6 +35,11 @@ module NewsTematica
         @tematicas_dropdown = tematica_class.datos_dropdown
         render 'new'
       end
+    end
+
+    def preview
+      carga_variables_preview NewsTematica.find(params[:id])
+      render 'news_tematica/news_tematicas/_preview', layout: false
     end
 
     def edit
@@ -85,5 +83,17 @@ module NewsTematica
       redirect_to edit_news_tematica_path(@news_tematica)
     end
 
+  private
+
+    def carga_variables_preview(news_tematica)
+      @news_tematica = news_tematica.decorate
+      todos_los_titulares = @news_tematica.titulares
+      @titulares = ContenidoEnNewsDecorator.decorate_collection(todos_los_titulares[0..4])
+      @otros_titulares = (todos_los_titulares - @titulares)[0..4]
+      @masleidos = @news_tematica.lo_mas_leido[0..4]
+      @temas = (@news_tematica.temas - @masleidos)[0..4]
+      @banner_lateral = @news_tematica.banner_lateral
+      @banner_inferior = @news_tematica.banner_inferior
+    end
   end
 end
