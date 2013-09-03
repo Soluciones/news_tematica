@@ -10,5 +10,5 @@
       %td.texto{ colspan: foto ? nil : 2 }
         %h5.titulo= link_to_con_estadisticas titular.titulo, titular.contenido_dominio_link, @news_tematica
         %p.resumen
-          = titular.descripcion
+          = raw titular.descripcion
           = link_to_con_estadisticas 'Leer más >>', titular.contenido_dominio_link, @news_tematica, class: 'leer_mas'
