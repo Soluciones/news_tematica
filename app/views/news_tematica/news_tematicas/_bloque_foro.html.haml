@@ -10,4 +10,4 @@
       %td.texto
         %h5.titulo= link_to_con_estadisticas tema.titulo, tema.contenido_dominio_link, @news_tematica
         %span.nombre_usuario= link_to_con_estadisticas usuario.nick, perfil_url(usuario.nick_limpio), @news_tematica
-        %p.resumen= tema.descripcion
+        %p.resumen= raw tema.descripcion
