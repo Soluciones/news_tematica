@@ -26,8 +26,7 @@ module NewsTematica
     end
 
     def create
-      @news_tematica = NewsTematicaDecorator.decorate(NewsTematica.new(params[:news_tematica]))
-      carga_variables_preview
+      carga_variables_preview NewsTematica.new(params[:news_tematica])
       @news_tematica.html = Premailer.new(render_to_string('news_tematica/news_tematicas/_preview', layout: false), with_html_string: true).to_inline_css
       if @news_tematica.save
         redirect_to edit_news_tematica_path(@news_tematica)
@@ -39,8 +38,7 @@ module NewsTematica
     end
 
     def preview
-      @news_tematica = NewsTematicaDecorator.decorate(NewsTematica.find(params[:id]))
-      carga_variables_preview
+      carga_variables_preview NewsTematica.find(params[:id])
       render 'news_tematica/news_tematicas/_preview', layout: false
     end
 
@@ -87,7 +85,8 @@ module NewsTematica
 
   private
 
-    def carga_variables_preview
+    def carga_variables_preview(news_tematica)
+      @news_tematica = news_tematica.decorate
       todos_los_titulares = @news_tematica.titulares
       @titulares = ContenidoEnNewsDecorator.decorate_collection(todos_los_titulares[0..4])
       @otros_titulares = (todos_los_titulares - @titulares)[0..4]
