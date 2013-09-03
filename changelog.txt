@@ -1,3 +1,7 @@
+[0.7.0] Añadida la funcionalidad de preview (http://www.verema.com/news_tematicas/2/preview)
+        Evita colisiones con Rankia usando las bases de datos ntm_dummy y ntm_dummy_test
+        Uso de raw para los testos de resumen
+        Ajustes de CSS
 [0.6.1] Arreglo del fallo provocado por no namespacear ContenidoEnNewsDecortador
 [0.6.0] Añadido el partial _pre_footer.html.haml para que las aplicaciones principales puedan insertar un bloque antes del footer
 [0.5.1] Pasa a verde test que se había roto con cambios anteriores
