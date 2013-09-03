@@ -8,5 +8,5 @@
       %td.texto
         %h5.titulo= link_to_con_estadisticas masleido.titulo, masleido.contenido_dominio_link, @news_tematica
         %p.resumen
-          = masleido.descripcion
+          = raw masleido.descripcion
           = link_to_con_estadisticas 'Leer más >>', masleido.contenido_dominio_link, @news_tematica, class: 'leer_mas'
