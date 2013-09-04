@@ -39,7 +39,7 @@ module NewsTematica
 
     def preview
       carga_variables_preview NewsTematica.find(params[:id])
-      render 'news_tematica/news_tematicas/_preview', layout: false
+      render text: dame_html, layout: false
     end
 
     def edit
