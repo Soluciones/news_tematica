@@ -27,7 +27,7 @@ module NewsTematica
 
     def create
       carga_variables_preview NewsTematica.new(params[:news_tematica])
-      @news_tematica.html = Premailer.new(render_to_string('news_tematica/news_tematicas/_preview', layout: false), with_html_string: true).to_inline_css
+      @news_tematica.html = dame_html
       if @news_tematica.save
         redirect_to edit_news_tematica_path(@news_tematica)
       else
@@ -79,7 +79,7 @@ module NewsTematica
       @temas = @news_tematica.prioriza contenido_class.where(id: params[:temas])
       @banner_lateral = @news_tematica.banner_lateral
       @banner_inferior = @news_tematica.banner_inferior
-      @news_tematica.update_attribute('html', Premailer.new(render_to_string('news_tematica/news_tematicas/_preview', layout: false), with_html_string: true).to_inline_css)
+      @news_tematica.update_attribute('html', dame_html)
       redirect_to edit_news_tematica_path(@news_tematica)
     end
 
@@ -94,6 +94,11 @@ module NewsTematica
       @temas = (@news_tematica.temas - @masleidos)[0..4]
       @banner_lateral = @news_tematica.banner_lateral
       @banner_inferior = @news_tematica.banner_inferior
+    end
+
+    def dame_html
+      html_limpio = render_to_string('news_tematica/news_tematicas/_preview', layout: false)
+      html_inlineado = Premailer.new(html_limpio, with_html_string: true).to_inline_css
     end
   end
 end
