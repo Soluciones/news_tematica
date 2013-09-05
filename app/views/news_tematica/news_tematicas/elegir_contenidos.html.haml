@@ -9,7 +9,7 @@
         %input{ id: "titular_#{msg.id}", type: "checkbox", name: "titulares[]", value: msg.id, checked: i < 10 ? 'checked' : nil }
         %strong= link_to msg.titulo, msg.contenido_dominio_link
         %br/
-        &nbsp; &nbsp; &nbsp; Rec: #{ msg.votos_count }, Leído: #{ msg.veces_leido.contador }, Respuestas: #{ msg.respuestas_count }, Corrección por fecha: #{ msg.factor_corrector_para_nuevos }, Puntos: #{ number_with_precision msg.cotizacion, precision: 2 }
+        &nbsp; &nbsp; &nbsp; Rec: #{ msg.votos_count }, Leído: #{ msg.contador_veces_leido }, Respuestas: #{ msg.respuestas_count }, Corrección por fecha: #{ msg.factor_corrector_para_nuevos }, Puntos: #{ number_with_precision msg.cotizacion, precision: 2 }
 
   %h3 Temas
   %ul.lista-sin-puntitos
@@ -18,7 +18,7 @@
         %input{ id: "tema_#{msg.id}", type: "checkbox", name: "temas[]", value: msg.id, checked: i < 5 ? 'checked' : nil }
         %strong= link_to msg.titulo, msg.contenido_dominio_link
         %br/
-        &nbsp; &nbsp; &nbsp; Rec: #{ msg.votos_count }, Leído: #{ msg.veces_leido.contador }, Respuestas: #{ msg.respuestas_count }, Corrección por fecha: #{ msg.factor_corrector_para_nuevos }, Puntos: #{ number_with_precision msg.cotizacion, precision: 2 }
+        &nbsp; &nbsp; &nbsp; Rec: #{ msg.votos_count }, Leído: #{ msg.contador_veces_leido }, Respuestas: #{ msg.respuestas_count }, Corrección por fecha: #{ msg.factor_corrector_para_nuevos }, Puntos: #{ number_with_precision msg.cotizacion, precision: 2 }
 
   %h3 Más leídos
   %ul.lista-sin-puntitos
@@ -27,7 +27,7 @@
         %input{ id: "masleido_#{msg.id}", type: "checkbox", name: "masleidos[]", value: msg.id, checked: i < 5 ? 'checked' : nil }
         %strong= link_to msg.titulo, msg.contenido_dominio_link
         %br/
-        &nbsp; &nbsp; &nbsp; Rec: #{ msg.votos_count }, Leído: #{ msg.veces_leido.contador }, Respuestas: #{ msg.respuestas_count }, Corrección por fecha: #{ msg.factor_corrector_para_nuevos }, Puntos: #{ number_with_precision msg.cotizacion, precision: 2 }
+        &nbsp; &nbsp; &nbsp; Rec: #{ msg.votos_count }, Leído: #{ msg.contador_veces_leido }, Respuestas: #{ msg.respuestas_count }, Corrección por fecha: #{ msg.factor_corrector_para_nuevos }, Puntos: #{ number_with_precision msg.cotizacion, precision: 2 }
 
   &nbsp; &nbsp;
   = submit_tag('Generar HTML', class: 'boton_reborde_naranja_grande')

@@ -75,7 +75,7 @@ module NewsTematica
       titulares = @news_tematica.prioriza contenido_class.where(id: params[:titulares])
       @titulares = ContenidoEnNewsDecorator.decorate_collection(titulares[0..4])
       @otros_titulares = titulares[5..9]
-      @masleidos = contenido_class.where(id: params[:masleidos]).all.sort_by { |msg| 100 - msg.veces_leido.contador * msg.factor_corrector_para_nuevos }
+      @masleidos = contenido_class.where(id: params[:masleidos]).all.sort_by { |msg| 100 - msg.contador_veces_leido * msg.factor_corrector_para_nuevos }
       @temas = @news_tematica.prioriza contenido_class.where(id: params[:temas])
       @banner_lateral = @news_tematica.banner_lateral
       @banner_inferior = @news_tematica.banner_inferior

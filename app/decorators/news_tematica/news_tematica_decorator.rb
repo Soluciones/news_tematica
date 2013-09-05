@@ -33,7 +33,7 @@ module NewsTematica
     def lo_mas_leido
       msgs = contenido_class.publicado.in_locale('es').includes(:veces_leido, :blog).where(created_at: source.fecha_desde..source.fecha_hasta)
       msgs = msgs.send("de_#{ source.tematica.scope_mas_leido }".to_sym) if source.tematica.scope_mas_leido.present?
-      msgs.all.sort_by { |msg| 100 - (msg.veces_leido ? msg.veces_leido.contador : 0) * msg.factor_corrector_para_nuevos }
+      msgs.all.sort_by { |msg| 100 - msg.contador_veces_leido * msg.factor_corrector_para_nuevos }
     end
 
     # Los foros pueden ser foros principales (basados en subtipo_id) o foros temáticos (basados en tag_id)
@@ -60,9 +60,9 @@ module NewsTematica
     def prioriza(contenidos)
       return [] if contenidos.blank?
       max_votos = evita_error_divbyzero(contenidos.max_by(&:votos_count).votos_count.to_f)
-      max_veces_leido = evita_error_divbyzero(contenidos.max_by { |msg| msg.veces_leido.contador }.veces_leido.contador.to_f)
+      max_veces_leido = evita_error_divbyzero(contenidos.max_by { |msg| msg.contador_veces_leido }.contador_veces_leido.to_f)
       max_respuestas = evita_error_divbyzero(contenidos.max_by(&:respuestas_count).respuestas_count.to_f)
-      contenidos.each { |msg| msg.cotizacion = (10 * (msg.votos_count/max_votos) + 3 * (msg.veces_leido.contador/max_veces_leido) + 6 * (msg.respuestas_count/max_respuestas)) * msg.factor_corrector_para_nuevos }
+      contenidos.each { |msg| msg.cotizacion = (10 * (msg.votos_count/max_votos) + 3 * (msg.contador_veces_leido/max_veces_leido) + 6 * (msg.respuestas_count/max_respuestas)) * msg.factor_corrector_para_nuevos }
       contenidos.sort_by { |msg| 100 - msg.cotizacion }
     end
 
