@@ -1,3 +1,7 @@
+[0.7.2] Uso del HTML inlineizado para el preview (http://www.verema.com/news_tematicas/2/preview)
+        Ajustes de CSS
+        Restaura los tags para Sendgrid que Premailer estropeaba
+        Arreglo error "undefined method `contador' for nil" (https://emergia.airbrake.io/groups/66316960)
 [0.7.1] Cambios estéticos en el footer
 [0.7.0] Añadida la funcionalidad de preview (http://www.verema.com/news_tematicas/2/preview)
         Evita colisiones con Rankia usando las bases de datos ntm_dummy y ntm_dummy_test
