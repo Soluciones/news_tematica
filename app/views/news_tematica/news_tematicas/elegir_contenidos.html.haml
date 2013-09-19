@@ -2,7 +2,8 @@
 
 = form_tag contenidos_elegidos_news_tematica_path(@news_tematica) do |f|
 
-  %h3 Titulares
+  %h3
+    Titulares (a partir del 5º titular van a Otros titulares)
   %ul.lista-sin-puntitos
     - @titulares.each_with_index do |msg, i|
       %li
@@ -11,7 +12,7 @@
         %br/
         &nbsp; &nbsp; &nbsp; Rec: #{ msg.votos_count }, Leído: #{ msg.contador_veces_leido }, Respuestas: #{ msg.respuestas_count }, Corrección por fecha: #{ msg.factor_corrector_para_nuevos }, Puntos: #{ number_with_precision msg.cotizacion, precision: 2 }
 
-  %h3 Temas
+  %h3 Foros
   %ul.lista-sin-puntitos
     - @temas.each_with_index do |msg, i|
       %li
