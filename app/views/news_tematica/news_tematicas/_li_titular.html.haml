@@ -1,4 +1,5 @@
 %li
+  %input{ name: "prioridades_titulares[#{msg.id}]", type: 'text', value: (i + 1), style: 'width: 23px' }
   %input{ id: "titular_#{msg.id}", type: "checkbox", name: "titulares[]", value: msg.id, checked: i < 10 ? 'checked' : nil }
   %strong= link_to msg.titulo, msg.contenido_dominio_link
   %br/

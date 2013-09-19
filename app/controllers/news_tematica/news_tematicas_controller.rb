@@ -71,7 +71,7 @@ module NewsTematica
 
     def contenidos_elegidos
       @news_tematica = NewsTematicaDecorator.decorate(NewsTematica.find(params[:id]))
-      titulares = @news_tematica.prioriza contenido_class.where(id: params[:titulares])
+      titulares = @news_tematica.prioriza_como_te_diga contenido_class.where(id: params[:titulares]), params[:prioridades_titulares]
       @titulares = ContenidoEnNewsDecorator.decorate_collection(titulares[0..4])
       @otros_titulares = titulares[5..9]
       @masleidos = contenido_class.where(id: params[:masleidos]).all.sort_by { |msg| 100 - msg.contador_veces_leido * msg.factor_corrector_para_nuevos }

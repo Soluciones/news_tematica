@@ -66,6 +66,15 @@ module NewsTematica
       contenidos.sort_by { |msg| 100 - msg.cotizacion }
     end
 
+    def prioriza_como_te_diga(contenidos, prioridades)
+      prioridades_ordenadas = prioridades.sort_by{ |_, orden| orden.to_i }
+      contenidos_ordenados = []
+      prioridades_ordenadas.each do |id, _|
+        contenidos_ordenados << contenidos.select { |contenido| contenido.id == id.to_i }.first
+      end
+      contenidos_ordenados
+    end
+
     def evita_error_divbyzero(dato)
       dato.zero? ? 1.0 : dato
     end
