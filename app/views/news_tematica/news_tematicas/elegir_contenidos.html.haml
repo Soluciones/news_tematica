@@ -6,12 +6,7 @@
     Titulares (a partir del 5º titular van a Otros titulares)
   %ul.lista-sin-puntitos
     - @titulares.each_with_index do |msg, i|
-      %li
-        %input{ id: "titular_#{msg.id}", type: "checkbox", name: "titulares[]", value: msg.id, checked: i < 10 ? 'checked' : nil }
-        %strong= link_to msg.titulo, msg.contenido_dominio_link
-        %br/
-        &nbsp; &nbsp; &nbsp; Rec: #{ msg.votos_count }, Leído: #{ msg.contador_veces_leido }, Respuestas: #{ msg.respuestas_count }, Corrección por fecha: #{ msg.factor_corrector_para_nuevos }, Puntos: #{ number_with_precision msg.cotizacion, precision: 2 }
-
+      = render 'li_titular', msg: msg, i: i
   %h3 Foros
   %ul.lista-sin-puntitos
     - @temas.each_with_index do |msg, i|
