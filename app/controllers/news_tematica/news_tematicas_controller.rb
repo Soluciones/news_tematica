@@ -64,8 +64,7 @@ module NewsTematica
     def elegir_contenidos
       @news_tematica = NewsTematicaDecorator.decorate(NewsTematica.find(params[:id]))
       @titulo = "Elegir contenidos para la newsletter"
-      todos_los_titulares = @news_tematica.titulares
-      @titulares = todos_los_titulares[0..19]
+      @titulares = @news_tematica.titulares
       @masleidos = @news_tematica.lo_mas_leido[0..9]
       @temas = @news_tematica.temas[0..9]
     end

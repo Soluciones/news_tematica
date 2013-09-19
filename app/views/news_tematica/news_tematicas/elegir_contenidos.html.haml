@@ -4,9 +4,18 @@
 
   %h3
     Titulares (a partir del 5º titular van a Otros titulares)
-  %ul.lista-sin-puntitos
-    - @titulares.each_with_index do |msg, i|
-      = render 'li_titular', msg: msg, i: i
+  %ul.lista-sin-puntitos{ style: 'margin-bottom: 0; padding-bottom: 0' }
+    - index = 0
+    - @titulares[0..9].each do |msg|
+      = render 'li_titular', msg: msg, i: index
+      - index += 1
+  - if @titulares.length > 10
+    %ul.lista-sin-puntitos.js_resto_titulares{ style: 'display: none; margin-top: 0' }
+      - @titulares[10..-1].each do |msg|
+        = render 'li_titular', msg: msg, i: index
+        - index += 1
+    %span.js_ver_resto_titulares.boton_azul_claro_reborde.boton_granate_reborde{ style: 'float: none; margin-bottom: 40px' } Ver todos
+
   %h3 Foros
   %ul.lista-sin-puntitos
     - @temas.each_with_index do |msg, i|
@@ -27,3 +36,11 @@
 
   &nbsp; &nbsp;
   = submit_tag('Generar HTML', class: 'boton_reborde_naranja_grande')
+
+:javascript
+  jQuery(function($) {
+    $('.js_ver_resto_titulares').click(function() {
+      $('.js_resto_titulares').slideDown();
+      $(this).hide();
+    });
+  });
