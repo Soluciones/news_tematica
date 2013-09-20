@@ -25,13 +25,17 @@ describe NewsTematica::NewsTematicasController do
       mensaje.tap { |mensaje| FactoryGirl.create(:veces_leido, leido: mensaje, contador: 100) }
     end
 
+    def post_contenidos_elegidos
+      post :contenidos_elegidos, id: mi_news_tematica.id, titulares: [mensaje_muy_recomendado.id.to_s, mensaje_raso.id.to_s], masleidos:  [mensaje_muy_recomendado.id.to_s, titular_muy_leido.id.to_s], temas: [mensaje_raso.id.to_s]
+    end
+
     it "sólo pueden acceder admins" do
       ApplicationController.any_instance.should_receive(:admin_required)
-      post :contenidos_elegidos, id: mi_news_tematica.id
+      post_contenidos_elegidos
     end
 
     it "debe generar un HTML con dichos contenidos, en el orden correcto" do
-      post :contenidos_elegidos, id: mi_news_tematica.id, titulares: [mensaje_muy_recomendado.id.to_s, mensaje_raso.id.to_s], masleidos:  [mensaje_muy_recomendado.id.to_s, titular_muy_leido.id.to_s], temas: [mensaje_raso.id.to_s]
+      post_contenidos_elegidos
       response.should redirect_to edit_news_tematica_path(mi_news_tematica)
       mi_news_tematica.reload
 
