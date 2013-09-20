@@ -107,4 +107,15 @@ class Contenido < ActiveRecord::Base
     nil
   end
 
+  def contador_veces_leido
+    veces_leido ? veces_leido.contador : 0
+  end
+
+  def contador_veces_leido_dia
+    veces_leido ? veces_leido.leido_dia : 0
+  end
+
+  def contador_veces_leido_semana
+    veces_leido ? veces_leido.leido_semana : 0
+  end
 end
