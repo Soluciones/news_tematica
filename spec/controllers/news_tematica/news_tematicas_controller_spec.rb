@@ -40,6 +40,14 @@ describe NewsTematica::NewsTematicasController do
       response.should redirect_to edit_news_tematica_path(mi_news_tematica)
     end
 
+    it "debe generar las redirecciones para cada contenido" do
+      post_contenidos_elegidos
+
+      Redirection.find_by_url_and_news_tematica_id("http://www.midominio.com#{mensaje_muy_recomendado.contenido_link}", mi_news_tematica.id).should_not be_nil
+      Redirection.find_by_url_and_news_tematica_id("http://www.midominio.com#{mensaje_raso.contenido_link}", mi_news_tematica).should_not be_nil
+      Redirection.find_by_url_and_news_tematica_id("http://www.midominio.com#{titular_muy_leido.contenido_link}", mi_news_tematica).should_not be_nil
+    end
+
     it "debe generar un HTML con dichos contenidos, en el orden correcto" do
       post_contenidos_elegidos
       mi_news_tematica.reload
@@ -47,9 +55,6 @@ describe NewsTematica::NewsTematicasController do
       redireccion_mensaje_muy_recomendado = Redirection.find_by_url_and_news_tematica_id("http://www.midominio.com#{mensaje_muy_recomendado.contenido_link}", mi_news_tematica.id)
       redireccion_mensaje_raso = Redirection.find_by_url_and_news_tematica_id("http://www.midominio.com#{mensaje_raso.contenido_link}", mi_news_tematica)
       redireccion_titular_muy_leido = Redirection.find_by_url_and_news_tematica_id("http://www.midominio.com#{titular_muy_leido.contenido_link}", mi_news_tematica)
-      redireccion_mensaje_muy_recomendado.should_not be_nil
-      redireccion_mensaje_raso.should_not be_nil
-      redireccion_titular_muy_leido.should_not be_nil
 
       mi_news_tematica.html.should have_css("#titular_0 a[href='http://#{dominio}/redirections/#{redireccion_mensaje_muy_recomendado.id}']")
       mi_news_tematica.html.should have_css("#titular_1 a[href='http://#{dominio}/redirections/#{redireccion_mensaje_raso.id}']")
