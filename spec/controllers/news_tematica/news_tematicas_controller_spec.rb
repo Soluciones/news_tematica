@@ -34,9 +34,14 @@ describe NewsTematica::NewsTematicasController do
       post_contenidos_elegidos
     end
 
+    it "debe redirigir a la página de editar" do
+      post_contenidos_elegidos
+
+      response.should redirect_to edit_news_tematica_path(mi_news_tematica)
+    end
+
     it "debe generar un HTML con dichos contenidos, en el orden correcto" do
       post_contenidos_elegidos
-      response.should redirect_to edit_news_tematica_path(mi_news_tematica)
       mi_news_tematica.reload
 
       redireccion_mensaje_muy_recomendado = Redirection.find_by_url_and_news_tematica_id("http://www.midominio.com#{mensaje_muy_recomendado.contenido_link}", mi_news_tematica.id)
