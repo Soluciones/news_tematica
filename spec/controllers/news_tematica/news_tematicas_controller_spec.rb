@@ -49,7 +49,7 @@ describe NewsTematica::NewsTematicasController do
     end
 
     context "sin pasar prioridades de orden" do
-      it  "debe generar un HTML con dichos contenidos en el orden calculado" do
+      it "debe generar un HTML con dichos contenidos en el orden calculado" do
         post_contenidos_elegidos
         mi_news_tematica.reload
 
