@@ -48,19 +48,25 @@ describe NewsTematica::NewsTematicasController do
       Redirection.find_by_url_and_news_tematica_id("http://www.midominio.com#{titular_muy_leido.contenido_link}", mi_news_tematica).should_not be_nil
     end
 
-    it "debe generar un HTML con dichos contenidos, en el orden correcto" do
-      post_contenidos_elegidos
-      mi_news_tematica.reload
+    context "sin pasar prioridades de orden" do
+      it  "debe generar un HTML con dichos contenidos en el orden calculado" do
+        post_contenidos_elegidos
+        mi_news_tematica.reload
 
-      redireccion_mensaje_muy_recomendado = Redirection.find_by_url_and_news_tematica_id("http://www.midominio.com#{mensaje_muy_recomendado.contenido_link}", mi_news_tematica.id)
-      redireccion_mensaje_raso = Redirection.find_by_url_and_news_tematica_id("http://www.midominio.com#{mensaje_raso.contenido_link}", mi_news_tematica)
-      redireccion_titular_muy_leido = Redirection.find_by_url_and_news_tematica_id("http://www.midominio.com#{titular_muy_leido.contenido_link}", mi_news_tematica)
+        redireccion_mensaje_muy_recomendado = Redirection.find_by_url_and_news_tematica_id("http://www.midominio.com#{mensaje_muy_recomendado.contenido_link}", mi_news_tematica.id)
+        redireccion_mensaje_raso = Redirection.find_by_url_and_news_tematica_id("http://www.midominio.com#{mensaje_raso.contenido_link}", mi_news_tematica)
+        redireccion_titular_muy_leido = Redirection.find_by_url_and_news_tematica_id("http://www.midominio.com#{titular_muy_leido.contenido_link}", mi_news_tematica)
 
-      mi_news_tematica.html.should have_css("#titular_0 a[href='http://#{dominio}/redirections/#{redireccion_mensaje_muy_recomendado.id}']")
-      mi_news_tematica.html.should have_css("#titular_1 a[href='http://#{dominio}/redirections/#{redireccion_mensaje_raso.id}']")
-      mi_news_tematica.html.should have_css("#masleido_0 a[href='http://#{dominio}/redirections/#{redireccion_titular_muy_leido.id}']")
-      mi_news_tematica.html.should have_css("#masleido_1 a[href='http://#{dominio}/redirections/#{redireccion_mensaje_muy_recomendado.id}']")
-      mi_news_tematica.html.should have_css("#tema_0 a[href='http://#{dominio}/redirections/#{redireccion_mensaje_raso.id}']")
+        mi_news_tematica.html.should have_css("#titular_0 a[href='http://#{dominio}/redirections/#{redireccion_mensaje_muy_recomendado.id}']")
+        mi_news_tematica.html.should have_css("#titular_1 a[href='http://#{dominio}/redirections/#{redireccion_mensaje_raso.id}']")
+        mi_news_tematica.html.should have_css("#masleido_0 a[href='http://#{dominio}/redirections/#{redireccion_titular_muy_leido.id}']")
+        mi_news_tematica.html.should have_css("#masleido_1 a[href='http://#{dominio}/redirections/#{redireccion_mensaje_muy_recomendado.id}']")
+        mi_news_tematica.html.should have_css("#tema_0 a[href='http://#{dominio}/redirections/#{redireccion_mensaje_raso.id}']")
+      end
+    end
+
+    pending "pasando prioridades de orden" do
+      it  "debe generar un HTML con dichos contenidos en el orden fijado"
     end
   end
 
