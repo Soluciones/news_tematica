@@ -25,8 +25,8 @@ describe NewsTematica::NewsTematicasController do
       mensaje.tap { |mensaje| FactoryGirl.create(:veces_leido, leido: mensaje, contador: 100) }
     end
 
-    def post_contenidos_elegidos
-      post :contenidos_elegidos, id: mi_news_tematica.id, titulares: [mensaje_muy_recomendado.id.to_s, mensaje_raso.id.to_s], masleidos: [mensaje_muy_recomendado.id.to_s, titular_muy_leido.id.to_s], temas: [mensaje_raso.id.to_s]
+    def post_contenidos_elegidos(prioridades_titulares = nil)
+      post :contenidos_elegidos, id: mi_news_tematica.id, titulares: [mensaje_muy_recomendado.id.to_s, mensaje_raso.id.to_s], masleidos: [mensaje_muy_recomendado.id.to_s, titular_muy_leido.id.to_s], temas: [mensaje_raso.id.to_s], prioridades_titulares: prioridades_titulares
     end
 
     it "sólo pueden acceder admins" do
@@ -49,6 +49,11 @@ describe NewsTematica::NewsTematicasController do
     end
 
     context "sin pasar prioridades de orden" do
+      it "debe llamar al metodo prioriza" do
+        NewsTematica::NewsTematicaDecorator.any_instance.should_receive(:prioriza).at_least(1).times.and_call_original
+        post_contenidos_elegidos
+      end
+
       it "debe generar un HTML con dichos contenidos en el orden calculado" do
         post_contenidos_elegidos
         mi_news_tematica.reload
@@ -65,8 +70,15 @@ describe NewsTematica::NewsTematicasController do
       end
     end
 
-    pending "pasando prioridades de orden" do
-      it "debe generar un HTML con dichos contenidos en el orden fijado"
+    describe "pasando prioridades de orden" do
+      let(:prioridades_titulares) do
+        { mensaje_muy_recomendado.id => '23' } 
+      end
+
+      it "debe llamar al metodo prioriza_como_te_diga" do
+        NewsTematica::NewsTematicaDecorator.any_instance.should_receive(:prioriza_como_te_diga).at_least(1).times.and_call_original
+        post_contenidos_elegidos(prioridades_titulares)
+      end
     end
   end
 
