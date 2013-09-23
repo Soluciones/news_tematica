@@ -66,7 +66,7 @@ describe NewsTematica::NewsTematicasController do
     end
 
     pending "pasando prioridades de orden" do
-      it  "debe generar un HTML con dichos contenidos en el orden fijado"
+      it "debe generar un HTML con dichos contenidos en el orden fijado"
     end
   end
 
