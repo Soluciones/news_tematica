@@ -1,3 +1,5 @@
+[0.8.0] Ahora se pueden elegir los titulares de la newsletter entre todos los que han salido a titulares entre las fechas escogidas.
+        Además, se pueden ordenar por prioridad usando cajas de texto en la página de elegir contenidos.
 [0.7.2] Uso del HTML inlineizado para el preview (http://www.verema.com/news_tematicas/2/preview)
         Ajustes de CSS
         Restaura los tags para Sendgrid que Premailer estropeaba
