@@ -25,8 +25,8 @@ describe NewsTematica::NewsTematicasController do
       mensaje.tap { |mensaje| FactoryGirl.create(:veces_leido, leido: mensaje, contador: 100) }
     end
 
-    def post_contenidos_elegidos
-      post :contenidos_elegidos, id: mi_news_tematica.id, titulares: [mensaje_muy_recomendado.id.to_s, mensaje_raso.id.to_s], masleidos: [mensaje_muy_recomendado.id.to_s, titular_muy_leido.id.to_s], temas: [mensaje_raso.id.to_s]
+    def post_contenidos_elegidos(prioridades_titulares = nil)
+      post :contenidos_elegidos, id: mi_news_tematica.id, titulares: [mensaje_muy_recomendado.id.to_s, mensaje_raso.id.to_s], masleidos: [mensaje_muy_recomendado.id.to_s, titular_muy_leido.id.to_s], temas: [mensaje_raso.id.to_s], prioridades_titulares: prioridades_titulares
     end
 
     it "sólo pueden acceder admins" do
@@ -48,19 +48,37 @@ describe NewsTematica::NewsTematicasController do
       Redirection.find_by_url_and_news_tematica_id("http://www.midominio.com#{titular_muy_leido.contenido_link}", mi_news_tematica).should_not be_nil
     end
 
-    it "debe generar un HTML con dichos contenidos, en el orden correcto" do
-      post_contenidos_elegidos
-      mi_news_tematica.reload
+    context "sin pasar prioridades de orden" do
+      it "debe llamar al metodo prioriza" do
+        NewsTematica::NewsTematicaDecorator.any_instance.should_receive(:prioriza).at_least(1).times.and_call_original
+        post_contenidos_elegidos
+      end
 
-      redireccion_mensaje_muy_recomendado = Redirection.find_by_url_and_news_tematica_id("http://www.midominio.com#{mensaje_muy_recomendado.contenido_link}", mi_news_tematica.id)
-      redireccion_mensaje_raso = Redirection.find_by_url_and_news_tematica_id("http://www.midominio.com#{mensaje_raso.contenido_link}", mi_news_tematica)
-      redireccion_titular_muy_leido = Redirection.find_by_url_and_news_tematica_id("http://www.midominio.com#{titular_muy_leido.contenido_link}", mi_news_tematica)
+      it "debe generar un HTML con dichos contenidos en el orden calculado" do
+        post_contenidos_elegidos
+        mi_news_tematica.reload
 
-      mi_news_tematica.html.should have_css("#titular_0 a[href='http://#{dominio}/redirections/#{redireccion_mensaje_muy_recomendado.id}']")
-      mi_news_tematica.html.should have_css("#titular_1 a[href='http://#{dominio}/redirections/#{redireccion_mensaje_raso.id}']")
-      mi_news_tematica.html.should have_css("#masleido_0 a[href='http://#{dominio}/redirections/#{redireccion_titular_muy_leido.id}']")
-      mi_news_tematica.html.should have_css("#masleido_1 a[href='http://#{dominio}/redirections/#{redireccion_mensaje_muy_recomendado.id}']")
-      mi_news_tematica.html.should have_css("#tema_0 a[href='http://#{dominio}/redirections/#{redireccion_mensaje_raso.id}']")
+        redireccion_mensaje_muy_recomendado = Redirection.find_by_url_and_news_tematica_id("http://www.midominio.com#{mensaje_muy_recomendado.contenido_link}", mi_news_tematica.id)
+        redireccion_mensaje_raso = Redirection.find_by_url_and_news_tematica_id("http://www.midominio.com#{mensaje_raso.contenido_link}", mi_news_tematica)
+        redireccion_titular_muy_leido = Redirection.find_by_url_and_news_tematica_id("http://www.midominio.com#{titular_muy_leido.contenido_link}", mi_news_tematica)
+
+        mi_news_tematica.html.should have_css("#titular_0 a[href='http://#{dominio}/redirections/#{redireccion_mensaje_muy_recomendado.id}']")
+        mi_news_tematica.html.should have_css("#titular_1 a[href='http://#{dominio}/redirections/#{redireccion_mensaje_raso.id}']")
+        mi_news_tematica.html.should have_css("#masleido_0 a[href='http://#{dominio}/redirections/#{redireccion_titular_muy_leido.id}']")
+        mi_news_tematica.html.should have_css("#masleido_1 a[href='http://#{dominio}/redirections/#{redireccion_mensaje_muy_recomendado.id}']")
+        mi_news_tematica.html.should have_css("#tema_0 a[href='http://#{dominio}/redirections/#{redireccion_mensaje_raso.id}']")
+      end
+    end
+
+    describe "pasando prioridades de orden" do
+      let(:prioridades_titulares) do
+        { mensaje_muy_recomendado.id => '23' } 
+      end
+
+      it "debe llamar al metodo prioriza_como_te_diga" do
+        NewsTematica::NewsTematicaDecorator.any_instance.should_receive(:prioriza_como_te_diga).at_least(1).times.and_call_original
+        post_contenidos_elegidos(prioridades_titulares)
+      end
     end
   end
 

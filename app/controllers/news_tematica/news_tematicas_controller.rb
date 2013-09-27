@@ -64,17 +64,21 @@ module NewsTematica
     def elegir_contenidos
       @news_tematica = NewsTematicaDecorator.decorate(NewsTematica.find(params[:id]))
       @titulo = "Elegir contenidos para la newsletter"
-      todos_los_titulares = @news_tematica.titulares
-      @titulares = todos_los_titulares[0..19]
+      @titulares = @news_tematica.titulares
       @masleidos = @news_tematica.lo_mas_leido[0..9]
       @temas = @news_tematica.temas[0..9]
     end
 
     def contenidos_elegidos
       @news_tematica = NewsTematicaDecorator.decorate(NewsTematica.find(params[:id]))
-      titulares = @news_tematica.prioriza contenido_class.where(id: params[:titulares])
-      @titulares = ContenidoEnNewsDecorator.decorate_collection(titulares[0..4])
-      @otros_titulares = titulares[5..9]
+      titulares_desordenados = contenido_class.where(id: params[:titulares])
+      if params[:prioridades_titulares].present?
+        titulares_priorizados = @news_tematica.prioriza_como_te_diga(titulares_desordenados, params[:prioridades_titulares])
+      else
+        titulares_priorizados = @news_tematica.prioriza titulares_desordenados
+      end
+      @titulares = ContenidoEnNewsDecorator.decorate_collection(titulares_priorizados[0..4])
+      @otros_titulares = titulares_priorizados[5..9]
       @masleidos = contenido_class.where(id: params[:masleidos]).all.sort_by { |msg| 100 - msg.contador_veces_leido * msg.factor_corrector_para_nuevos }
       @temas = @news_tematica.prioriza contenido_class.where(id: params[:temas])
       @banner_lateral = @news_tematica.banner_lateral

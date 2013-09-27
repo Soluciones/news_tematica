@@ -2,16 +2,20 @@
 
 = form_tag contenidos_elegidos_news_tematica_path(@news_tematica) do |f|
 
-  %h3 Titulares
-  %ul.lista-sin-puntitos
-    - @titulares.each_with_index do |msg, i|
-      %li
-        %input{ id: "titular_#{msg.id}", type: "checkbox", name: "titulares[]", value: msg.id, checked: i < 10 ? 'checked' : nil }
-        %strong= link_to msg.titulo, msg.contenido_dominio_link
-        %br/
-        &nbsp; &nbsp; &nbsp; Rec: #{ msg.votos_count }, Leído: #{ msg.contador_veces_leido }, Respuestas: #{ msg.respuestas_count }, Corrección por fecha: #{ msg.factor_corrector_para_nuevos }, Puntos: #{ number_with_precision msg.cotizacion, precision: 2 }
+  %h3
+    Titulares (a partir del 5º titular van a Otros titulares)
+  - num_titulares_above_the_fold = 10
+  %ul.lista-sin-puntitos{ style: 'margin-bottom: 0; padding-bottom: 0' }
+    - @titulares[0..(num_titulares_above_the_fold - 1)].each_with_index do |msg, index|
+      = render 'li_titular', msg: msg, i: index
+  - if @titulares.length > num_titulares_above_the_fold
+    %ul.lista-sin-puntitos.js_resto_titulares{ style: 'display: none; margin-top: 0' }
+      - @titulares[num_titulares_above_the_fold..-1].each_with_index do |msg, index|
+        - original_index = index + num_titulares_above_the_fold
+        = render 'li_titular', msg: msg, i: original_index
+    %span.js_ver_resto_titulares.boton_azul_claro_reborde.boton_granate_reborde{ style: 'float: none; margin-bottom: 40px' } Ver todos
 
-  %h3 Temas
+  %h3 Foros
   %ul.lista-sin-puntitos
     - @temas.each_with_index do |msg, i|
       %li
@@ -31,3 +35,11 @@
 
   &nbsp; &nbsp;
   = submit_tag('Generar HTML', class: 'boton_reborde_naranja_grande')
+
+:javascript
+  jQuery(function($) {
+    $('.js_ver_resto_titulares').click(function() {
+      $('.js_resto_titulares').slideDown();
+      $(this).hide();
+    });
+  });
