@@ -4,13 +4,14 @@
 
   %h3
     Titulares (a partir del 5º titular van a Otros titulares)
+  - num_titulares_above_the_fold = 10
   %ul.lista-sin-puntitos{ style: 'margin-bottom: 0; padding-bottom: 0' }
-    - @titulares[0..9].each_with_index do |msg, index|
+    - @titulares[0..(num_titulares_above_the_fold - 1)].each_with_index do |msg, index|
       = render 'li_titular', msg: msg, i: index
-  - if @titulares.length > 10
+  - if @titulares.length > num_titulares_above_the_fold
     %ul.lista-sin-puntitos.js_resto_titulares{ style: 'display: none; margin-top: 0' }
-      - @titulares[10..-1].each_with_index do |msg, index|
-        - original_index = index + 10
+      - @titulares[num_titulares_above_the_fold..-1].each_with_index do |msg, index|
+        - original_index = index + num_titulares_above_the_fold
         = render 'li_titular', msg: msg, i: original_index
     %span.js_ver_resto_titulares.boton_azul_claro_reborde.boton_granate_reborde{ style: 'float: none; margin-bottom: 40px' } Ver todos
 
