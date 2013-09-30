@@ -79,4 +79,5 @@ Una vez esta creado el _tag_ de la nueva versión, vamos a las aplicaciones prin
 
     gem 'news_tematica', git: 'git@github.com:Soluciones/news_tematica.git', branch: 'master', tag: '0.1.0'
 
-Y lanzamos `bundle` para que actualice a la nueva versión.
+
+Y lanzamos `bundle update --source news_tematica` para que actualice a la nueva versión.
