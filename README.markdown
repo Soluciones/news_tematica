@@ -17,7 +17,7 @@ Hay que lanzarla en dummy:
     => invoke  active_record
     => create    db/migrate/20130626151549_add_news_tematica_id_to_redirections.rb
 
-    > cp db/migrate/20130626151549_add_news_tematica_id_to_redirections.rb ../../db/migrate/
+    > mv db/migrate/20130626151549_add_news_tematica_id_to_redirections.rb ../../db/migrate/
     > rake db:migrate
 
 
