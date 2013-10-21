@@ -68,7 +68,8 @@ module NewsTematica
 
     def prioriza_como_te_diga(contenidos, prioridades)
       prioridades_ordenadas = prioridades.sort_by{ |_, orden| orden.to_i }
-      prioridades_ordenadas.map {|id, _| contenidos.select { |contenido| contenido.id == id.to_i }.first }
+      contenidos_ordenados = prioridades_ordenadas.map {|id, _| contenidos.select { |contenido| contenido.id == id.to_i }.first }
+      contenidos_ordenados.compact
     end
 
     def evita_error_divbyzero(dato)
