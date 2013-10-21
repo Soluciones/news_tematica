@@ -1,3 +1,4 @@
+[0.8.1] Arreglo error "NameError: undefined local variable or method `fotos' for #<NewsTematica::ContenidoEnNewsDecorator:0x0000000d54a9b8>" https://emergia.airbrake.io/projects/18769/groups/68425738
 [0.8.0] Ahora se pueden elegir los titulares de la newsletter entre todos los que han salido a titulares entre las fechas escogidas.
         Además, se pueden ordenar por prioridad usando cajas de texto en la página de elegir contenidos.
 [0.7.2] Uso del HTML inlineizado para el preview (http://www.verema.com/news_tematicas/2/preview)
