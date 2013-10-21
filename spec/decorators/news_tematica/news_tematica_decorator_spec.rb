@@ -24,19 +24,20 @@ describe NewsTematica::NewsTematicaDecorator do
   end
 
   describe "#prioriza_como_te_diga" do
-    context "con una lista de contenidos y unas prioridades establecidas" do
+    context "con una lista de contenidos seleccionados y unas prioridades establecidas" do
       let(:news_tematica) { FactoryGirl.build(:news_tematica).decorate }
-      let(:contenidos) { FactoryGirl.create_list(:contenido, 10) }
+      let(:contenidos_seleccionables) { FactoryGirl.create_list(:contenido, 10) }
+      let(:contenidos_seleccionados) { contenidos_seleccionables }
       let(:prioridades) do
         prioridades = {}
-        contenidos.shuffle.each_with_index do |contenido, indice|
+        contenidos_seleccionables.shuffle.each_with_index do |contenido, indice|
           prioridades[contenido.id.to_s] = (indice +1).to_s
         end
         prioridades
       end
 
       it "devuelve la lista de contenidos ordenados por prioridad" do
-        contenidos_priorizados = news_tematica.prioriza_como_te_diga(contenidos, prioridades)
+        contenidos_priorizados = news_tematica.prioriza_como_te_diga(contenidos_seleccionados, prioridades)
 
         contenidos_priorizados.each_with_index do |contenido, indice|
           prioridades[contenido.id.to_s].should == (indice + 1).to_s
