@@ -9,7 +9,8 @@ module NewsTematica
       link_to texto, "http://#{request.host}/redirections/#{redireccion.id}", opciones
     end
 
-    def perfil_url(nick_limpio)
+    # Función chapuza que debería desaparecer.
+    def url_de_perfil(nick_limpio)
       "#{request.protocol}#{request.host_with_port}/usuarios/#{nick_limpio}"
     end
   end
