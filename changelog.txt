@@ -1,3 +1,4 @@
+[1.0.1] Arreglo fallo al usar el helper perfil_url que estaba sobreescrito de mala manera.
 [1.0.0] Placeholder para la substitución del enlace de desuscripcion, para que el usuario pueda cancelar la subscripción solo de la tematica al la que pertenece la newsletter
 [0.8.1] Arreglo error "NameError: undefined local variable or method `fotos' for #<NewsTematica::ContenidoEnNewsDecorator:0x0000000d54a9b8>" https://emergia.airbrake.io/projects/18769/groups/68425738
 [0.8.0] Ahora se pueden elegir los titulares de la newsletter entre todos los que han salido a titulares entre las fechas escogidas.
