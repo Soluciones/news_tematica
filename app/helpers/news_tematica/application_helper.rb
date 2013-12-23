@@ -8,10 +8,6 @@ module NewsTematica
       redireccion = news_tematica.redirections.find_or_create_by_url(destino)
       link_to texto, "http://#{request.host}/redirections/#{redireccion.id}", opciones
     end
-
-    def perfil_url(nick_limpio)
-      "#{request.protocol}#{request.host_with_port}/usuarios/#{nick_limpio}"
-    end
   end
 end
 
