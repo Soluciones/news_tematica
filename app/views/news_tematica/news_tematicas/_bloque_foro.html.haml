@@ -6,8 +6,8 @@
     - usuario = tema.usuario
     - foto = usuario.avatar
     %tr.tema{ id: "tema_#{i}" }
-      %td.foto= link_to_con_estadisticas image_tag(foto.url(:cthumbnail), alt: usuario.nick), perfil_url(usuario.nick_limpio), @news_tematica
+      %td.foto= link_to_con_estadisticas image_tag(foto.url(:cthumbnail), alt: usuario.nick), main_app.perfil_url(usuario.nick_limpio), @news_tematica
       %td.texto
         %h5.titulo= link_to_con_estadisticas tema.titulo, tema.contenido_dominio_link, @news_tematica
-        = link_to_con_estadisticas usuario.nick, perfil_url(usuario.nick_limpio), @news_tematica, class: 'nombre_usuario'
+        = link_to_con_estadisticas usuario.nick, main_app.perfil_url(usuario.nick_limpio), @news_tematica, class: 'nombre_usuario'
         %p.resumen= raw tema.descripcion
