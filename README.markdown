@@ -1,5 +1,13 @@
 # Engine NewsTematica
 
+## Suite de test
+
+Para pasar toda la suite de test:
+
+    > rspec spec
+
+_De momento, ya que no tenemos tests de javascript_
+
 ## Migraciones
 
 Una migración no funciona si se lanza en el root del engine:
