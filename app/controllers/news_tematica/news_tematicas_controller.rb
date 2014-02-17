@@ -22,7 +22,7 @@ module NewsTematica
       @titulo = "Nueva newsletter de #{ @tematica.nombre }"
       @news_tematica = NewsTematica.new(tematica_id: @tematica.id, fecha_hasta: Time.zone.now, fecha_envio: 6.hours.from_now)
       @news_tematica.calcula_fecha_desde
-      @tematicas_dropdown = tematica_class.datos_dropdown
+      @tematicas_dropdown = tematica_class.todas
     end
 
     def create
@@ -32,7 +32,7 @@ module NewsTematica
         redirect_to edit_news_tematica_path(@news_tematica)
       else
         @titulo = "Nueva newsletter temática"
-        @tematicas_dropdown = tematica_class.datos_dropdown
+        @tematicas_dropdown = tematica_class.todas
         render 'new'
       end
     end

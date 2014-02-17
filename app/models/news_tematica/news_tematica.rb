@@ -27,7 +27,7 @@ module NewsTematica
     end
 
     def general?
-      tematica.nombre == tematica.class::NOMBRE_GENERAL
+      !tematica
     end
   end
 end

@@ -24,6 +24,13 @@ gem "jquery-rails"
 
 gem 'draper'
 
+group :development do
+  gem 'puma'
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem 'meta_request' # Necesario para la extensión 'RailsPanel' de Google Chrome
+end
+
 group :test do
   gem 'rspec-html-matchers'
   gem 'rspec-instafail'
