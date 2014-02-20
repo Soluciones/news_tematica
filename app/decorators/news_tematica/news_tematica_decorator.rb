@@ -18,9 +18,9 @@ module NewsTematica
 
     # Los titulares se apoyan en la sección de titulares, si hay, o si no en la etiqueta correspondiente
     def titulares
-      if source.tematica.seccion_titulares.present?
+      if source.tematica.try(:seccion_titulares).present?
         q = contenido_class.where("#{ source.tematica.seccion_titulares } = true").where(created_at: source.fecha_desde..source.fecha_hasta).where(fecha_titulares: source.fecha_desde..source.fecha_hasta)
-      elsif source.tematica.tag_id
+      elsif source.tematica.try(:tag_id)
         taggings = tagging_class.where(tag_id: source.tematica.tag_id).where(created_at: source.fecha_desde..source.fecha_hasta).where(fecha_titulares: source.fecha_desde..source.fecha_hasta)
         q = contenido_class.where(id: taggings.map(&:taggable_id))
       else
@@ -32,15 +32,15 @@ module NewsTematica
     # Lo más leído se apoyará en los scopes de las portadas temáticas
     def lo_mas_leido
       msgs = contenido_class.publicado.in_locale('es').includes(:veces_leido, :blog).where(created_at: source.fecha_desde..source.fecha_hasta)
-      msgs = msgs.send("de_#{ source.tematica.scope_mas_leido }".to_sym) if source.tematica.scope_mas_leido.present?
+      msgs = msgs.send("de_#{ source.tematica.scope_mas_leido }".to_sym) if source.tematica.try(:scope_mas_leido).present?
       msgs.all.sort_by { |msg| 100 - msg.contador_veces_leido * msg.factor_corrector_para_nuevos }
     end
 
     # Los foros pueden ser foros principales (basados en subtipo_id) o foros temáticos (basados en tag_id)
     def temas
-      if source.tematica.subtipo_id
+      if source.tematica.try(:subtipo_id)
         q = contenido_class.where(tema: source.tematica.subtipo_id).where(created_at: source.fecha_desde..source.fecha_hasta)
-      elsif source.tematica.tag_id
+      elsif source.tematica.try(:tag_id)
         taggings = tagging_class.where(tag_id: source.tematica.tag_id).where(tema: Subtipo::ARRAY_FOROS_NORMALES).where(created_at: source.fecha_desde..source.fecha_hasta)
         q = contenido_class.where(id: taggings.map(&:taggable_id))
       else
