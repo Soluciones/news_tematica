@@ -1,3 +1,4 @@
+[2.0.1] Arreglo para que funcione con News general aunque no es una temática
 [2.0.0] Vamos a usar el engine Tematica, con distintos métodos; y ahora la suscripción a news general no es una temática
 [1.0.1] Arreglo fallo al usar el helper perfil_url que estaba sobreescrito de mala manera.
 [1.0.0] Placeholder para la substitución del enlace de desuscripcion, para que el usuario pueda cancelar la subscripción solo de la tematica al la que pertenece la newsletter
