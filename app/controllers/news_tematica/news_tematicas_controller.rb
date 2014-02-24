@@ -22,7 +22,7 @@ module NewsTematica
       @titulo = "Nueva newsletter de #{ nombre_tematica }"
       @news_tematica = NewsTematica.new(tematica_id: params[:tematica_id], fecha_hasta: Time.zone.now, fecha_envio: 6.hours.from_now)
       @news_tematica.calcula_fecha_desde
-      @tematicas_dropdown = [tematica_class.new(id: 0, nombre: tematica_class.nombre_suscripcion(0))] + tematica_class.todas
+      @tematicas_dropdown = [[tematica_class.nombre_suscripcion(0), 0]] + tematica_class.todas.collect{ |t| [t.nombre, t.id] }
     end
 
     def create
