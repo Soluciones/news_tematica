@@ -1,3 +1,4 @@
+[2.0.2] Arreglo el arreglo: Una nueva instancia va con el ID vacío aunque se lo asignes, así que no puedo trabajar con NewsGeneral en un array de temáticas, tengo que trabajar con un array de pares id-nombre
 [2.0.1] Arreglo para que funcione con News general aunque no es una temática
 [2.0.0] Vamos a usar el engine Tematica, con distintos métodos; y ahora la suscripción a news general no es una temática
 [1.0.1] Arreglo fallo al usar el helper perfil_url que estaba sobreescrito de mala manera.
