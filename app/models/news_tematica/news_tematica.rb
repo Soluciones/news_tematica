@@ -20,7 +20,7 @@ module NewsTematica
       self.fecha_desde = ultima_de_misma_tematica ? [ultima_de_misma_tematica.fecha_hasta, MAX_ANTIGUEDAD.ago].max : MAX_ANTIGUEDAD.ago
     end
 
-    def a_sendgrid!
+    def enviar!
       suscripciones = tematica.suscripciones.activos
       crear_y_cronificar_newsletter(suscripciones, titulo, html, nombre_newsletter: titulo, momento_envio: fecha_envio) if Rails.env.production?
       self.update_attribute('enviada', true)

@@ -123,7 +123,7 @@ describe NewsTematica::NewsTematicasController do
     end
 
     it "debe llamar al envío por sendgrid si se ha usado el botón de sendgrid y todo está bien" do
-      NewsTematica::NewsTematica.any_instance.should_receive(:a_sendgrid!)
+      NewsTematica::NewsTematica.any_instance.should_receive(:enviar!)
       post :update, id: mi_news_tematica.id, news_tematica: { titulo: 'SendGrid' }, commit: 'Guardar y Enviar vía SendGrid'
       mi_news_tematica.reload
       mi_news_tematica.titulo.should == 'SendGrid'
