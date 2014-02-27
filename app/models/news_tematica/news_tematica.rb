@@ -21,8 +21,7 @@ module NewsTematica
     end
 
     def enviar!
-      suscripciones = tematica.suscripciones.activos
-      crear_y_cronificar_newsletter(suscripciones, titulo, html, nombre_newsletter: titulo, momento_envio: fecha_envio) if Rails.env.production?
+      enviar_newsletter_a_suscriptores_tematica(tematica, titulo, html, nombre_newsletter: titulo, momento_envio: fecha_envio)
       self.update_attribute('enviada', true)
     end
 

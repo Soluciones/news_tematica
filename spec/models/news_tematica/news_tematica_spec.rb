@@ -41,13 +41,4 @@ describe NewsTematica do
       news.fecha_desde.should == Time.parse("Feb 17 2013")
     end
   end
-
-  describe 'enviar!' do
-    it 'debe obtener sólo los suscriptores válidos' do
-      news = FactoryGirl.create(:news_tematica)
-      news.tematica.suscripciones.should_receive(:activos)
-
-      news.enviar!
-    end
-  end
 end
