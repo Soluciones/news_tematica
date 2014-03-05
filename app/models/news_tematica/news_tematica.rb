@@ -4,6 +4,7 @@ module NewsTematica
   class NewsTematica < ActiveRecord::Base
 
     extend Clases
+    include Clases
     include newsletter_helper_class
 
     belongs_to :tematica, class_name: ::NewsTematica::Clases.tematica_extern
@@ -29,6 +30,10 @@ module NewsTematica
 
     def general?
       !tematica
+    end
+
+    def nombre
+      tematica_class.nombre_suscripcion(tematica_id)
     end
   end
 end
