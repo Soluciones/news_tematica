@@ -4,10 +4,12 @@ module NewsTematica
   class NewsTematica < ActiveRecord::Base
 
     extend Clases
+    include Clases
     include newsletter_helper_class
 
     belongs_to :tematica, class_name: ::NewsTematica::Clases.tematica_extern
     has_many :redirections, class_name: ::NewsTematica::Clases.redirection_extern
+    has_many :suscripciones, foreign_key: 'tematica_id', primary_key: 'tematica_id'
 
     validates :tematica_id, :titulo, :banner_1_url_imagen, :banner_1_url_destino, :banner_1_texto_alt, :banner_2_url_imagen, :banner_2_url_destino, :banner_2_texto_alt, presence: true
 
@@ -21,13 +23,17 @@ module NewsTematica
     end
 
     def a_sendgrid!
-      suscripciones = tematica.suscripciones.activos
+      suscripciones = suscripciones.activos
       crear_y_cronificar_newsletter(suscripciones, titulo, html, nombre_newsletter: titulo, momento_envio: fecha_envio) if Rails.env.production?
       self.update_attribute('enviada', true)
     end
 
     def general?
       !tematica
+    end
+
+    def nombre
+      tematica_class.nombre_suscripcion(tematica_id)
     end
   end
 end

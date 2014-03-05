@@ -6,7 +6,7 @@
     - @news_tematicas.each do |news_tematica|
       %tr{ class: news_tematica.enviada ? 'par' : nil }
         %td= link_to news_tematica.titulo, edit_news_tematica_path(news_tematica)
-        %td= news_tematica.tematica.nombre
+        %td= news_tematica.nombre
         %td= l news_tematica.fecha_envio, format: :short
         %td.center= news_tematica.enviada ? 'Sí' : 'No'
 
