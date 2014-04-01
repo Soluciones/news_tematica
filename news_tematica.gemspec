@@ -32,12 +32,6 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency 'mysql2'
 
-  s.add_development_dependency 'better_errors'
-  s.add_development_dependency 'binding_of_caller'
-
-  s.add_development_dependency 'awesome_print'
-  s.add_development_dependency 'active_reload'
-
   s.add_development_dependency 'guard-spork'
   s.add_development_dependency 'guard-rspec'
   s.add_development_dependency 'rb-inotify'
