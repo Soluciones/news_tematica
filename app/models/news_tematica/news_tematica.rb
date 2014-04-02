@@ -23,8 +23,8 @@ module NewsTematica
     end
 
     def a_sendgrid!
-      suscripciones = suscripciones.activos
-      crear_y_cronificar_newsletter(suscripciones, titulo, html, nombre_newsletter: titulo, momento_envio: fecha_envio) if Rails.env.production?
+      suscripciones_activas = suscripciones.activos
+      crear_y_cronificar_newsletter(suscripciones_activas, titulo, html, nombre_newsletter: titulo, momento_envio: fecha_envio) if Rails.env.production?
       self.update_attribute('enviada', true)
     end
 
