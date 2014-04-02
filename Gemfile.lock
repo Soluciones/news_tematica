@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    news_tematica (1.0.1)
+    news_tematica (2.0.6)
       draper
       haml-rails
       nokogiri
