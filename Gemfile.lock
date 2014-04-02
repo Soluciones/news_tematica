@@ -1,16 +1,16 @@
 PATH
   remote: .
   specs:
-    news_tematica (2.0.5)
+    news_tematica (2.0.6)
       draper
       haml-rails
       nokogiri
       premailer-rails
       rails (~> 3.1.12)
-      sass
+      sass (= 3.2.14)
 
 GEM
-  remote: http://rubygems.org/
+  remote: https://rubygems.org/
   specs:
     actionmailer (3.1.12)
       actionpack (= 3.1.12)
@@ -208,7 +208,7 @@ GEM
       rspec-expectations (~> 2.13.0)
       rspec-mocks (~> 2.13.0)
     rubyzip (0.9.9)
-    sass (3.3.4)
+    sass (3.2.14)
     selenium-webdriver (2.32.1)
       childprocess (>= 0.2.5)
       multi_json (~> 1.0)
