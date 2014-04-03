@@ -1,3 +1,4 @@
+[2.0.7] fixing gem versions, SSL connection with RubyGems and renaming a conflictive variable
 [2.0.6] dropping unused gems
 [2.0.5] fix news_tematica.a_sendgrid! and news_tematica#index for non-tematica newsletters
 [2.0.4] Fix de encoding: la gema Premailer necesita que se le pase expícitamente el encoding UTF-8, si no genera símbolos basura
