@@ -4,6 +4,7 @@ require 'rubygems'
 require 'spork'
 require 'factory_girl'
 require 'ffaker'
+require 'aws/s3'
 
 #uncomment the following line to use spork with the debugger
 require 'spork/ext/ruby-debug'

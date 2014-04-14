@@ -9,7 +9,8 @@ gem 'haml-rails'
 gem 'premailer-rails'
 
 # Para archivos estáticos
-gem 'paperclip', '2.3.11'
+gem 'paperclip'
+gem 'aws-sdk'
 gem 'aws-s3', :require => 'aws/s3'
 
 # jquery-rails is used by the dummy application
