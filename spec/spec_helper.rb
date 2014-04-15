@@ -1,31 +1,22 @@
 # coding: UTF-8
 
-require 'rubygems'
-require 'factory_girl'
-require 'ffaker'
+ENV['RAILS_ENV'] ||= 'test'
 
-ENV["RAILS_ENV"] ||= 'test'
-require File.expand_path("../../test/dummy/config/environment", __FILE__)
+require File.expand_path('../../test/dummy/config/environment', __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'
+require 'ffaker'
+require 'factory_girl_rails'
+require 'shoulda-matchers'
 require 'database_cleaner'
 require 'draper/test/rspec_integration'
 
-FactoryGirl.definition_file_paths = [Rails.root.join("../../spec/factories")]
-FactoryGirl.find_definitions
+Rails.backtrace_cleaner.remove_silencers!
 
-# Requires supporting ruby files with custom matchers and macros, etc,
-# in spec/support/ and its subdirectories.
-Dir[Rails.root.join("../../spec/support/**/*.rb")].each {|f| require f}
+# Load support files
+Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 
 RSpec.configure do |config|
-  # ## Mock Framework
-  #
-  # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:
-  #
-  # config.mock_with :mocha
-  # config.mock_with :flexmock
-  # config.mock_with :rr
   config.mock_with :rspec
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
@@ -45,9 +36,9 @@ RSpec.configure do |config|
   # order dependency and want to debug it, you can fix the order by providing
   # the seed, which is printed after each run.
   #     --seed 1234
-  config.order = rand
+  config.order = 'random'
 
-  # Cada vez que se arranque spork cargaremos el seed, después evitaremos borrar esas tablas
+  # Cada vez que se arranque cargaremos el seed, después evitaremos borrar esas tablas
   # TODO : Buscar una solución estándar
   load "#{Rails.root}/db/seeds.rb"
 
