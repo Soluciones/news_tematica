@@ -5,6 +5,8 @@ class Suscripcion < ActiveRecord::Base
   belongs_to :tematica
   belongs_to :provincia
 
+  ID_GENERAL = 0
+
   scope :join_usuarios, joins("LEFT JOIN usuarios u ON u.id = suscripciones.suscriptor_id AND suscripciones.suscriptor_type = 'Usuario'")
   scope :total_por_provincias, select('COUNT(*) as total, suscripciones.provincia_id')
   scope :activos, join_usuarios.where("u.estado_id > ? or u.estado_id is null", Usuario::ESTADO_SIN_ACTIVAR)
