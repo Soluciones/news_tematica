@@ -31,4 +31,7 @@ class Tematica < ActiveRecord::Base
     tematica ? tematica.nombre : nombre_si_no_se_encuentra
   end
 
+  def self.nombre_suscripcion(id)
+    id.to_i == Suscripcion::ID_GENERAL ? "Newsletter General" : nombre(id)
+  end
 end

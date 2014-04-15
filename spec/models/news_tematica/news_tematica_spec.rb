@@ -45,7 +45,7 @@ describe NewsTematica do
   describe 'a_sendgrid!' do
     it 'debe obtener sólo los suscriptores válidos' do
       news = FactoryGirl.create(:news_tematica)
-      news.tematica.suscripciones.should_receive(:activos)
+      news.suscripciones.should_receive(:activos)
 
       news.a_sendgrid!
     end
