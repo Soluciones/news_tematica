@@ -1,9 +1,10 @@
-source "http://rubygems.org"
+source "https://rubygems.org"
 
 # Declare your gem's dependencies in news_tematica.gemspec.
 # Bundler will treat runtime dependencies like base dependencies, and
 # development dependencies will be added by default to the :development group.
 gemspec
+
 gem 'haml-rails'
 gem 'premailer-rails'
 
@@ -23,13 +24,6 @@ gem "jquery-rails"
 # gem 'debugger'
 
 gem 'draper'
-
-group :development do
-  gem 'puma'
-  gem 'better_errors'
-  gem 'binding_of_caller'
-  gem 'meta_request' # Necesario para la extensión 'RailsPanel' de Google Chrome
-end
 
 group :test do
   gem 'rspec-html-matchers'

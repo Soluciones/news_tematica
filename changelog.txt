@@ -1,3 +1,8 @@
+[2.0.7] fixing gem versions, SSL connection with RubyGems and renaming a conflictive variable
+[2.0.6] dropping unused gems
+[2.0.5] fix news_tematica.a_sendgrid! and news_tematica#index for non-tematica newsletters
+[2.0.4] Fix de encoding: la gema Premailer necesita que se le pase expícitamente el encoding UTF-8, si no genera símbolos basura
+[2.0.3] Otro fix: en la nueva tabla de tematicas, no hay campo scope_mas_leido, sino scope_lo_mas_leido
 [2.0.2] Arreglo el arreglo: Una nueva instancia va con el ID vacío aunque se lo asignes, así que no puedo trabajar con NewsGeneral en un array de temáticas, tengo que trabajar con un array de pares id-nombre
 [2.0.1] Arreglo para que funcione con News general aunque no es una temática
 [2.0.0] Vamos a usar el engine Tematica, con distintos métodos; y ahora la suscripción a news general no es una temática

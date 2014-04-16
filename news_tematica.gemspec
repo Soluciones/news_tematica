@@ -25,19 +25,12 @@ Gem::Specification.new do |s|
   s.add_dependency 'nokogiri'
 
   s.add_dependency 'haml-rails'
-  s.add_dependency 'sass'
+  s.add_dependency 'sass', '3.2.14'
   s.add_dependency 'draper'
-  s.add_dependency 'marginalia'
 
   # s.add_dependency "jquery-rails"
 
   s.add_development_dependency 'mysql2'
-
-  s.add_development_dependency 'better_errors'
-  s.add_development_dependency 'binding_of_caller'
-
-  s.add_development_dependency 'awesome_print'
-  s.add_development_dependency 'active_reload'
 
   s.add_development_dependency 'guard-spork'
   s.add_development_dependency 'guard-rspec'

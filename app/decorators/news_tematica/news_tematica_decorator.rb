@@ -32,7 +32,7 @@ module NewsTematica
     # Lo más leído se apoyará en los scopes de las portadas temáticas
     def lo_mas_leido
       msgs = contenido_class.publicado.in_locale('es').includes(:veces_leido, :blog).where(created_at: source.fecha_desde..source.fecha_hasta)
-      msgs = msgs.send("de_#{ source.tematica.scope_mas_leido }".to_sym) if source.tematica.try(:scope_mas_leido).present?
+      msgs = msgs.send("de_#{ source.tematica.scope_lo_mas_leido }".to_sym) if source.tematica.try(:scope_lo_mas_leido).present?
       msgs.all.sort_by { |msg| 100 - msg.contador_veces_leido * msg.factor_corrector_para_nuevos }
     end
 
