@@ -1,5 +1,7 @@
 # Engine NewsTematica
 
+[![Build Status](https://magnum.travis-ci.com/Soluciones/news_tematica.svg?token=A3GAeprVqcZuZMWq6WuN&branch=master)](https://magnum.travis-ci.com/Soluciones/news_tematica)
+
 ## Suite de test
 
 Para pasar toda la suite de test:
