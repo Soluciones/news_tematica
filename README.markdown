@@ -1,5 +1,7 @@
 # Engine NewsTematica
 
+[![Build Status](https://travis-ci.org/Soluciones/news_tematica.svg)](https://travis-ci.org/Soluciones/news_tematica)
+
 ## Suite de test
 
 Para pasar toda la suite de test:
