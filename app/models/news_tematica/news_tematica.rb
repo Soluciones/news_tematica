@@ -23,7 +23,7 @@ module NewsTematica
     end
 
     def enviar!
-      enviar_newsletter_a_suscriptores_tematica(tematica, titulo, html, nombre_newsletter: titulo, momento_envio: fecha_envio)
+      enviar_newsletter_a_suscriptores_suscribible(tematica, titulo, html, nombre_newsletter: titulo, momento_envio: fecha_envio)
       self.update_attribute('enviada', true)
     end
 
