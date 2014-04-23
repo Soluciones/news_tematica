@@ -9,8 +9,7 @@ FactoryGirl.define do
     email             { Faker::Internet.email }
     password          "123456"
     pass_sha          "7c4a8d09ca3762af61e59520943dc26494f8941b" # El resultado de codificar 123456
-    pais              { Pais.find_or_create_by_nombre("España") }
-    provincia         { Provincia.find_or_create_by_pais_id_and_nombre(pais.id, "Valencia") }
+    pais_id           { 1 }
     estado_id         { Usuario::ESTADO_NORMAL }
     puntos            { rand(100) }
     cod_postal        '28080'
@@ -57,21 +56,6 @@ FactoryGirl.define do
 
     factory :usuario_moderador do
       estado_id Usuario::ESTADO_MODERADOR
-    end
-
-    factory :usuario_sin_provincia do
-      provincia_id nil
-      cod_postal nil
-    end
-
-    factory :usuario_suscrito_a do
-      ignore do
-        tematica nil
-      end
-
-      after(:create) do |usuario, evaluator|
-        usuario.suscripciones.create(tematica: evaluator.tematica, dominio_de_alta: usuario.dominio_de_alta)
-      end
     end
   end
 end

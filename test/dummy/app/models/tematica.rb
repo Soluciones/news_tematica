@@ -1,9 +1,6 @@
 # coding: UTF-8
 
 class Tematica < ActiveRecord::Base
-  has_many :suscripciones
-  has_many :usuarios, through: :suscripciones
-
   validates :nombre, presence: true
   validates :seccion_publi, presence: true
 

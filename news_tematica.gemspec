@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.email       = ["fernando@emergia.net"]
   s.homepage    = "https://github.com/Soluciones/news_tematica"
   s.summary     = "Permite crear newsletters temáticas y enviarlas por SendGrid."
-  s.description = "Se apoya en los modelos Suscripcion y Tematica."
+  s.description = "Se apoya en Tematica."
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["Rakefile"]
   s.test_files = Dir["test/**/*"]
