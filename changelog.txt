@@ -1,3 +1,10 @@
+[3.0.0] Code refactor and beautifying.
+        NewsTematica#a_sendgrid! renamed to NewsTematica#enviar!.
+        Stopped working with Suscripciones, now it only relies on Tematica and requires the main app to provide a `enviar_newsletter_a_suscriptores_suscribible` method.
+        Dropped Gemfile.lock.
+        Configured HoundCI and TravisCI.
+        Fixing some configuration stuff.
+        Dropping useless stuff.
 [2.0.7] fixing gem versions, SSL connection with RubyGems and renaming a conflictive variable
 [2.0.6] dropping unused gems
 [2.0.5] fix news_tematica.a_sendgrid! and news_tematica#index for non-tematica newsletters
