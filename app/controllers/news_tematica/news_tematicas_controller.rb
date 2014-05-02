@@ -54,7 +54,7 @@ module NewsTematica
       elsif !@news_tematica.update_attributes(params[:news_tematica])
         render("edit")
       elsif params[:commit].downcase.include?('sendgrid')
-        @news_tematica.a_sendgrid!
+        @news_tematica.enviar!
         redirect_to news_tematicas_path
       else
         redirect_to(edit_news_tematica_path(@news_tematica))

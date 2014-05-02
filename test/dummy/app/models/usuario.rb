@@ -21,11 +21,6 @@ class Usuario < ActiveRecord::Base
 
   EL_TIO_DEL_FOREX = 71971
 
-  has_many :suscripciones, as: :suscriptor
-  has_many :tematicas, through: :suscripciones
-  belongs_to :provincia
-  belongs_to :pais
-
   attr_accessor :recordarme
   attr_accessor :leido_ok
   attr_accessor :nuevo_password
