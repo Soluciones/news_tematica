@@ -4,7 +4,7 @@ require 'spec_helper'
 
 describe NewsTematica do
   describe "calcula_fecha_desde" do
-    before { Time.stub(:now).and_return(Time.parse("Feb 24 2013")) }
+    before { Time.stub(:now).and_return(Time.parse('Feb 24 2013')) }
 
     it "debe devolver 'hace una semana' si no hay news anteriores de esta temática" do
       news = FactoryGirl.build(:news_tematica)
