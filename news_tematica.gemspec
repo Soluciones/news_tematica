@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib}/**/*"] + ["Rakefile"]
   s.test_files = Dir["test/**/*"]
 
-  s.add_dependency "rails", "~> 3.2.17"
+  s.add_dependency "rails", "~> 3.2.18"
 
   # Gema para transformar bello HTML y CSS en odioso código para emails
   s.add_dependency 'premailer-rails'
