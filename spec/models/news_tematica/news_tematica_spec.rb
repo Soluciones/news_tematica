@@ -3,6 +3,8 @@
 require 'spec_helper'
 
 describe NewsTematica do
+  let(:tematica) { FactoryGirl.create(:tematica) }
+
   describe "calcula_fecha_desde" do
     before { Time.stub!(:now).and_return(Time.parse("Feb 24 2013")) }
 
@@ -13,7 +15,6 @@ describe NewsTematica do
     end
 
     it "debe devolver 'hace una semana' si la última news de esta temática es antigua" do
-      tematica = FactoryGirl.create(:tematica)
       FactoryGirl.create(:news_tematica, tematica: tematica, fecha_hasta: Time.parse("Feb 03 2013"))
       FactoryGirl.create(:news_tematica, tematica: tematica, fecha_hasta: Time.parse("Feb 01 2013"))
       FactoryGirl.create(:news_tematica, fecha_hasta: Time.parse("Feb 22 2013"))
@@ -23,7 +24,6 @@ describe NewsTematica do
     end
 
     it "debe devolver la fecha_hasta de la última news de esta temática, si es reciente y está enviada" do
-      tematica = FactoryGirl.create(:tematica)
       FactoryGirl.create(:news_tematica, tematica: tematica, fecha_hasta: Time.parse("Feb 20 2013"), enviada: false)
       FactoryGirl.create(:news_tematica, tematica: tematica, fecha_hasta: Time.parse("Feb 19 2013"), enviada: true)
       FactoryGirl.create(:news_tematica, tematica: tematica, fecha_hasta: Time.parse("Feb 18 2013"), enviada: true)
@@ -34,7 +34,6 @@ describe NewsTematica do
     end
 
     it "debe devolver 'hace una semana', si la única reciente no está enviada" do
-      tematica = FactoryGirl.create(:tematica)
       FactoryGirl.create(:news_tematica, tematica: tematica, fecha_hasta: Time.parse("Feb 20 2013"), enviada: false)
       news = FactoryGirl.build(:news_tematica, tematica: tematica)
       news.calcula_fecha_desde
