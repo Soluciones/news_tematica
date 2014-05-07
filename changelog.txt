@@ -1,3 +1,4 @@
+[3.0.1] Quick patch: NewsTematica#enviar! now passes a faked Tematica for "Newsletter General" when it's general
 [3.0.0] Code refactor and beautifying.
         NewsTematica#a_sendgrid! renamed to NewsTematica#enviar!.
         Stopped working with Suscripciones, now it only relies on Tematica and requires the main app to provide a `enviar_newsletter_a_suscriptores_suscribible` method.
