@@ -24,7 +24,11 @@ module NewsTematica
 
     def enviar!
       suscribible = general? ? ::NewsTematica::Clases.tematica_extern.constantize.dame_general : tematica
-      enviar_newsletter_a_suscriptores_suscribible(suscribible, titulo, html, nombre_newsletter: titulo, momento_envio: fecha_envio)
+      enviar_newsletter_a_suscriptores_suscribible(suscribible,
+                                                   titulo,
+                                                   html,
+                                                   nombre_newsletter: titulo,
+                                                   momento_envio: fecha_envio)
       self.update_attribute('enviada', true)
     end
 
