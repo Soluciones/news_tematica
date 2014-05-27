@@ -15,7 +15,7 @@ Usuario.delete_all
 
 Provincia.delete_all
 Pais.delete_all
-"INSERT INTO `paises` (`id`, `nombre`, `position`, `created_at`, `updated_at`, `name`, `codigo_iso`)
+"INSERT INTO paises (id, nombre, position, created_at, updated_at, name, codigo_iso)
 VALUES
   (1, 'España', 1, NULL, '2012-10-24 15:03:18', 'Spain', 'es'),
   (2, 'Francia', 60, NULL, NULL, 'France', NULL),
@@ -103,7 +103,7 @@ VALUES
   (164, 'Irlanda', 76, NULL, '2011-05-24 12:27:46', 'Ireland', NULL),
   (165, 'Islandia', 77, NULL, '2011-05-24 12:31:27', 'Iceland', NULL);".lanza_sql
 
-"INSERT INTO `paises` (`id`, `nombre`, `position`, `created_at`, `updated_at`, `name`, `codigo_iso`)
+"INSERT INTO paises (id, nombre, position, created_at, updated_at, name, codigo_iso)
 VALUES
   (166, 'Islas Marianas Del Norte', 78, NULL, '2011-05-24 12:33:36', 'Northern Mariana Islands', NULL),
   (167, 'Islas Marshall', 79, NULL, '2011-05-24 12:32:26', 'Marshall Islands', NULL),
@@ -188,7 +188,7 @@ VALUES
   (247, 'Swazilandia', 165, NULL, '2011-05-24 12:46:31', 'Swaziland', NULL),
   (248, 'Tailandia', 166, NULL, '2011-05-24 12:46:13', 'Thailand', NULL);".lanza_sql
 
-"INSERT INTO `paises` (`id`, `nombre`, `position`, `created_at`, `updated_at`, `name`, `codigo_iso`)
+"INSERT INTO paises (id, nombre, position, created_at, updated_at, name, codigo_iso)
 VALUES
   (249, 'Tanzania', 167, NULL, '2011-05-24 12:45:21', 'Tanzania', NULL),
   (250, 'Tayikistán', 168, NULL, '2011-05-24 12:44:49', 'Tajikistan', NULL),
@@ -211,7 +211,7 @@ VALUES
   (267, 'Zimbabue', 186, NULL, '2011-05-24 12:31:39', 'Zimbabwe', NULL);".lanza_sql
 
 
-"INSERT INTO `provincias` (`id`, `pais_id`, `nombre`, `position`, `created_at`, `updated_at`)
+"INSERT INTO provincias (id, pais_id, nombre, position, created_at, updated_at)
 VALUES
   (1, 1, 'Álava', 2, NULL, '2009-02-03 14:02:24'),
   (2, 1, 'Albacete', 3, NULL, NULL),
@@ -270,7 +270,7 @@ VALUES
 
 
 Subtipo.delete_all
-"INSERT INTO `subtipos` (`id`, `nombre`, `nombre_corto`, `nombre_completo`, `seccion_banner`, `position`, `url`, `permalink`, `keywords`, `descripcion`, `contenidos_count`, `productos_temas_count`, `puntos_contenido_corto`, `puntos_contenido_largo`, `puntos_contenido_muy_largo`, `long_min_contenido_largo`, `long_min_contenido_muy_largo`, `ultimo_contenido`, `ultimo_producto_tema`, `created_at`, `updated_at`, `nombre_mediocorto`, `usr_gestor_permisos`, `pais_id`)
+"INSERT INTO subtipos (id, nombre, nombre_corto, nombre_completo, seccion_banner, position, url, permalink, keywords, descripcion, contenidos_count, productos_temas_count, puntos_contenido_corto, puntos_contenido_largo, puntos_contenido_muy_largo, long_min_contenido_largo, long_min_contenido_muy_largo, ultimo_contenido, ultimo_producto_tema, created_at, updated_at, nombre_mediocorto, usr_gestor_permisos, pais_id)
 VALUES
   (1, 'Foro Bancos', 'Bancos', 'Foro bancos (banca, fondos de inversión, tarjetas)', 'banca', 100, '/foros/bancos-cajas/temas', 'bancos-cajas', 'foro, banco, banca, bancos, cajas, deposito, depositos, foro bancos, foro banco, foro caja, foro cajas, foro depositos, foros banco, foro bancos cajas, foro banca, foro de banco', 'Foro para debatir sobre bancos, cajas de ahorro, depositos, tarjetas, fondos de inversión y todo lo relacionado con el mundo financiero ', 139389, 15204, 1, 5, 10, 99, 300, 1495402, 1495402, '2009-02-12 12:38:00', '2012-10-04 00:41:28', 'Foro Bancos', NULL, 1),
   (2, 'Foro de Bolsa', 'Bolsa', 'Foro de Bolsa', 'bolsa', 110, '/foros/bolsa/temas', 'bolsa', 'foro, bolsa, foro bolsa, foros bolsa, foro de bolsa, foros de bolsa, foro de la bolsa, foros de la bolsa', 'Foro de bolsa de Rankia. Opiniones, comentarios y análisis de bolsa, valores e índices en el foro bolsa', 373820, 23100, 1, 5, 10, 99, 300, 1495407, 1495101, '2009-06-10 18:37:00', '2012-10-04 01:00:53', 'Foro Bolsa', NULL, 1),
@@ -305,7 +305,7 @@ VALUES
   (31, 'Foro Empresas y Autónomos', 'Empresas', 'Foro de Empresas y Autónomos (gestión de tesorería, financiación)', 'empresas', 160, '/foros/empresas/temas', 'empresas', 'empresas, autonomos, pymes, contabilidad, tesorería, financiación, impuestos, fiscalidad', 'Foro sobre empresas, autonomos, pymes, contabilidad, gestión de tesorería, financiación, impuestos, fiscalidad...', 4348, 752, 1, 5, 10, 99, 300, 1494275, 1492456, '2009-02-12 12:38:00', '2012-10-03 13:30:24', 'Foro Empresas', NULL, 1),
   (32, 'Foro Sistemas X-Trade', 'Grupo de Sistemas', 'Foro del grupo de sistemas de X-Trade', 'sistemas', 201, '/foros/x-trade/temas', 'x-trade', 'sistemas de trading, automatización de sistemas, sistemas automáticos, x-trade', 'Foro del grupo de sistemas de X-Trade', 43, 9, 0, 0, 0, 0, 0, 687830, 637977, '2010-07-28 14:34:00', '2011-02-21 16:09:58', 'Foro Sistemas X-Trade', 49106, 1);".lanza_sql
 
-"INSERT INTO `subtipos` (`id`, `nombre`, `nombre_corto`, `nombre_completo`, `seccion_banner`, `position`, `url`, `permalink`, `keywords`, `descripcion`, `contenidos_count`, `productos_temas_count`, `puntos_contenido_corto`, `puntos_contenido_largo`, `puntos_contenido_muy_largo`, `long_min_contenido_largo`, `long_min_contenido_muy_largo`, `ultimo_contenido`, `ultimo_producto_tema`, `created_at`, `updated_at`, `nombre_mediocorto`, `usr_gestor_permisos`, `pais_id`)
+"INSERT INTO subtipos (id, nombre, nombre_corto, nombre_completo, seccion_banner, position, url, permalink, keywords, descripcion, contenidos_count, productos_temas_count, puntos_contenido_corto, puntos_contenido_largo, puntos_contenido_muy_largo, long_min_contenido_largo, long_min_contenido_muy_largo, ultimo_contenido, ultimo_producto_tema, created_at, updated_at, nombre_mediocorto, usr_gestor_permisos, pais_id)
 VALUES
   (33, 'Foro Estratégico Deoleo (FED)', 'SOS-Deoleo', 'Foro Estratégico Deoleo (FED)', 'bolsa', 205, '/foros/deoleo/temas', 'deoleo', 'sos, deoleo', 'Foro Estratégico Deoleo (FED)', 57300, 9, 0, 0, 0, 0, 0, 1495306, 924995, '2011-05-16 13:34:00', '2012-10-03 22:23:21', 'Foro Deoleo', 56219, 1),
   (34, 'Foro de Fondos de Inversión', 'Fondos', 'Foro de Fondos de Inversión', 'fondos', 125, '/foros/fondos-inversion/temas', 'fondos-inversion', '', '', 20627, 2132, 1, 5, 10, 99, 300, 1495333, 1495297, '2011-09-30 12:29:00', '2012-10-03 23:04:43', 'Foro Fondos', NULL, 1),
@@ -323,7 +323,7 @@ VALUES
   (46, 'Foro Bolsa', 'Bolsa', 'Foro bolsa', 'bolsa', 156, '/foros/bolsa-pe/temas', 'bolsa-pe', NULL, NULL, 0, 0, 1, 10, 10, 99, 300, NULL, NULL, '2012-10-25 12:05:34', '2012-10-25 12:05:34', 'Foro Bolsa', NULL, 13);".lanza_sql
 
 # Este registro tiene que llevar id=0 (si no, revienta la foreign key de tipo_productos), pero como el insert no respeta id=0, lo creo con id=444 y luego lo cambio
-"INSERT INTO `subtipos` (`id`, `nombre`, `nombre_corto`, `nombre_completo`, `seccion_banner`, `position`, `url`, `permalink`, `keywords`, `descripcion`, `contenidos_count`, `productos_temas_count`, `puntos_contenido_corto`, `puntos_contenido_largo`, `puntos_contenido_muy_largo`, `long_min_contenido_largo`, `long_min_contenido_muy_largo`, `ultimo_contenido`, `ultimo_producto_tema`, `created_at`, `updated_at`, `nombre_mediocorto`, `usr_gestor_permisos`)
+"INSERT INTO subtipos (id, nombre, nombre_corto, nombre_completo, seccion_banner, position, url, permalink, keywords, descripcion, contenidos_count, productos_temas_count, puntos_contenido_corto, puntos_contenido_largo, puntos_contenido_muy_largo, long_min_contenido_largo, long_min_contenido_muy_largo, ultimo_contenido, ultimo_producto_tema, created_at, updated_at, nombre_mediocorto, usr_gestor_permisos)
 VALUES
   (444, '-', '-', '-', 'otros', 990, '-', '-', '-', '-', 0, 0, 1, 5, 10, 99, 300, NULL, NULL, NULL, NULL, '-', NULL);".lanza_sql
 
@@ -331,7 +331,7 @@ VALUES
 
 
 Tematica.delete_all
-"INSERT INTO `tematicas` (`id`, `nombre`, `seccion_publi`, `created_at`, `updated_at`, `texto`)
+"INSERT INTO tematicas (id, nombre, seccion_publi, created_at, updated_at, texto)
 VALUES
   (1, 'Depósitos y cuentas', 'depositos,cuentas', '2012-12-10 15:24:46', '2012-12-10 15:24:46', '¿Te interesan los depósitos?'),
   (2, 'Fondos', 'fondos', '2012-12-10 15:24:46', '2012-12-10 15:24:46', '¿Te interesan los fondos?'),
@@ -345,3 +345,12 @@ VALUES
   (10, 'Opciones', 'opciones', '2012-12-10 15:24:46', '2012-12-10 15:24:46', '¿Te interesan las opciones?'),
   (11, 'Sistemas de trading', 'sistemas', '2012-12-10 15:24:46', '2012-12-10 15:24:46', '¿Te interesan los sistemas?'),
   (12, 'Fiscalidad', 'fiscalidad', '2012-12-10 15:24:46', '2012-12-10 15:24:46', '¿Te interesa la fiscalidad?');".lanza_sql
+
+puts 'Fix postgresql sequences'
+ActiveRecord::Base.connection.tables.each do |table_name|
+  if ActiveRecord::Base.connection.column_exists?(table_name, :id) and
+    "SELECT COUNT (*) FROM pg_class WHERE relname = '#{table_name}_id_seq'".lanza_sql.to_a.first["count"].to_i > 0
+
+    "SELECT setval('#{table_name}_id_seq', (SELECT MAX(id) FROM #{table_name}))".lanza_sql
+  end
+end

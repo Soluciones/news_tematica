@@ -99,7 +99,7 @@ ActiveRecord::Schema.define(:version => 20130626151549) do
     t.datetime "updated_at"
   end
 
-  add_index "asistentes", ["evento_id"], :name => "evento_id"
+  add_index "asistentes", ["evento_id"], :name => "evento_id_2"
 
   create_table "aux_taggings", :id => false, :force => true do |t|
     t.integer  "tag_id"
@@ -218,7 +218,7 @@ ActiveRecord::Schema.define(:version => 20130626151549) do
     t.boolean  "tarjetas",        :default => false
   end
 
-  add_index "banners", ["bloque_id"], :name => "bloque_id"
+  add_index "banners", ["bloque_id"], :name => "bloque_id_1"
 
   create_table "banners_copy", :force => true do |t|
     t.integer  "bloque_id",                          :null => false
@@ -258,7 +258,7 @@ ActiveRecord::Schema.define(:version => 20130626151549) do
     t.boolean  "tarjetas"
   end
 
-  add_index "banners_copy", ["bloque_id"], :name => "bloque_id"
+  add_index "banners_copy", ["bloque_id"], :name => "bloque_id_2"
 
   create_table "blogs", :force => true do |t|
     t.string   "url"
@@ -1054,8 +1054,8 @@ ActiveRecord::Schema.define(:version => 20130626151549) do
     t.datetime "updated_at"
   end
 
-  add_index "permisos", ["subtipo_id"], :name => "subtipo_id"
-  add_index "permisos", ["usuario_id"], :name => "usuario_id"
+  add_index "permisos", ["subtipo_id"], :name => "subtipo_id_3"
+  add_index "permisos", ["usuario_id"], :name => "usuario_id_1"
 
   create_table "ponentes", :force => true do |t|
     t.string   "nombre"
@@ -1094,7 +1094,7 @@ ActiveRecord::Schema.define(:version => 20130626151549) do
     t.datetime "updated_at"
   end
 
-  add_index "precios", ["evento_id"], :name => "evento_id"
+  add_index "precios", ["evento_id"], :name => "evento_id_1"
 
   create_table "premios", :force => true do |t|
     t.string   "titulo",                                                                                                                              :null => false
@@ -1211,10 +1211,10 @@ ActiveRecord::Schema.define(:version => 20130626151549) do
 
   add_index "productos", ["publicado", "ultima_valoracion"], :name => "index_productos_on_publicado_and_ultima_valoracion"
   add_index "productos", ["subtipo_id", "publicado", "created_at"], :name => "index_productos_on_subtipo_id_and_publicado_and_created_at"
-  add_index "productos", ["tipo_producto_id"], :name => "tipo_producto_id"
+  add_index "productos", ["tipo_producto_id"], :name => "tipo_producto_id_2"
   add_index "productos", ["type", "publicado", "created_at"], :name => "index_productos_on_type_and_publicado_and_created_at"
   add_index "productos", ["ultima_valoracion", "publicado"], :name => "index_productos_on_ultima_valoracion_and_publicado"
-  add_index "productos", ["usuario_id"], :name => "usuario_id"
+  add_index "productos", ["usuario_id"], :name => "usuario_id_2"
 
   create_table "promo_completas", :force => true do |t|
     t.string   "codigo_promo"
@@ -1274,7 +1274,7 @@ ActiveRecord::Schema.define(:version => 20130626151549) do
   end
 
   add_index "puntos", ["candidato_id"], :name => "candidato_id"
-  add_index "puntos", ["usuario_id"], :name => "usuario_id"
+  add_index "puntos", ["usuario_id"], :name => "usuario_id_3"
 
   create_table "rbdis", :force => true do |t|
     t.datetime "dia"
@@ -1367,7 +1367,7 @@ ActiveRecord::Schema.define(:version => 20130626151549) do
     t.decimal  "ahorro_primer_anyo",    :precision => 10, :scale => 2
   end
 
-  add_index "simuladores", ["usuario_id"], :name => "usuario_id"
+  add_index "simuladores", ["usuario_id"], :name => "usuario_id_4"
 
   create_table "subtipos", :force => true do |t|
     t.string   "nombre",                                        :null => false
@@ -1467,9 +1467,9 @@ ActiveRecord::Schema.define(:version => 20130626151549) do
   add_index "tags", ["name"], :name => "index_tags_on_name", :unique => true
   add_index "tags", ["pe", "categoria", "carpeta"], :name => "index_tags_on_pe_and_categoria_and_carpeta"
   add_index "tags", ["permalink"], :name => "index_tags_on_permalink", :unique => true
-  add_index "tags", ["subtipo_id"], :name => "subtipo_id"
+  add_index "tags", ["subtipo_id"], :name => "subtipo_id_1"
   add_index "tags", ["taggings_count"], :name => "index_tags_on_taggings_count"
-  add_index "tags", ["tipo_producto_id"], :name => "tipo_producto_id"
+  add_index "tags", ["tipo_producto_id"], :name => "tipo_producto_id_1"
   add_index "tags", ["ultimo_tagging"], :name => "index_tags_on_ultimo_tagging"
 
   create_table "tematicas", :force => true do |t|
@@ -1495,7 +1495,7 @@ ActiveRecord::Schema.define(:version => 20130626151549) do
     t.string   "seccion_publi"
   end
 
-  add_index "tipo_productos", ["subtipo_id"], :name => "subtipo_id"
+  add_index "tipo_productos", ["subtipo_id"], :name => "subtipo_id_2"
 
   create_table "titulares", :force => true do |t|
     t.integer  "contenido_id"
@@ -1659,7 +1659,7 @@ ActiveRecord::Schema.define(:version => 20130626151549) do
   add_index "visitas", ["created_at"], :name => "index_visitas_on_created_at"
   add_index "visitas", ["redirection_id"], :name => "index_visitas_on_redirection_id"
   add_index "visitas", ["redirection_id"], :name => "redirection_id"
-  add_index "visitas", ["usuario_id"], :name => "usuario_id"
+  add_index "visitas", ["usuario_id"], :name => "usuario_id_5"
 
   create_table "visitas_tmp", :id => false, :force => true do |t|
     t.integer  "id"
