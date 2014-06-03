@@ -73,7 +73,7 @@ describe NewsTematica::NewsTematicasController do
 
     describe "pasando prioridades de orden" do
       let(:prioridades_titulares) do
-        { mensaje_muy_recomendado.id => '23' } 
+        { mensaje_muy_recomendado.id => '23' }
       end
 
       it "debe llamar al metodo prioriza_como_te_diga" do
@@ -99,7 +99,7 @@ describe NewsTematica::NewsTematicasController do
   describe "update" do
     it "sólo pueden acceder admins" do
       ApplicationController.any_instance.should_receive(:admin_required)
-      post :update, id: mi_news_tematica.id
+      post :update, id: mi_news_tematica.id, news_tematica: { titulo: 'Cambio' }
     end
 
     it "debe prohibir cambiar news ya enviadas" do

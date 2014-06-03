@@ -21,17 +21,6 @@ class Usuario < ActiveRecord::Base
 
   EL_TIO_DEL_FOREX = 71971
 
-  attr_accessor :recordarme
-  attr_accessor :leido_ok
-  attr_accessor :nuevo_password
-  attr_accessor :path_avatar
-  attr_accessor :deshabilitarme
-  attr_accessor :firma_encriptada  # Usuario + password, encriptados.
-  attr_accessor :password
-  attr_accessor :password_confirmation
-  attr_accessor :telefono_obligatorio
-  attr_protected :posicion_ranking, :puntos, :posicion_ranking_anual, :puntos_anual, :estado_id, :token_autorizacion
-
   has_attached_file :avatar, styles: {
                                         dia: "100x100>",
                                         thumbnail: "50x50>",

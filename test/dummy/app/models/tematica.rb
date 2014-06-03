@@ -15,7 +15,7 @@ class Tematica < ActiveRecord::Base
   end
 
   def self.dame_general
-    Tematica.find_or_create_by_nombre(NOMBRE_GENERAL)
+    Tematica.find_or_create_by nombre: NOMBRE_GENERAL
   end
 
   def self.dame_todas_sin_general

@@ -51,7 +51,7 @@ module NewsTematica
       @news_tematica = NewsTematica.find(params[:id])
       if @news_tematica.enviada
         render(text: 'Esta newsletter ya ha sido enviada, no puede modificarse ni volverse a enviar.')
-      elsif !@news_tematica.update_attributes(params[:news_tematica])
+      elsif !@news_tematica.update_attributes(news_tematica_params)
         render("edit")
       elsif params[:commit].downcase.include?('sendgrid')
         @news_tematica.enviar!
@@ -79,7 +79,7 @@ module NewsTematica
       end
       @titulares = ContenidoEnNewsDecorator.decorate_collection(titulares_priorizados[0..4])
       @otros_titulares = titulares_priorizados[5..9]
-      @masleidos = contenido_class.where(id: params[:masleidos]).all.sort_by { |msg| 100 - msg.contador_veces_leido * msg.factor_corrector_para_nuevos }
+      @masleidos = contenido_class.where(id: params[:masleidos]).to_a.sort_by { |msg| 100 - msg.contador_veces_leido * msg.factor_corrector_para_nuevos }
       @temas = @news_tematica.prioriza contenido_class.where(id: params[:temas])
       @banner_lateral = @news_tematica.banner_lateral
       @banner_inferior = @news_tematica.banner_inferior
@@ -109,6 +109,14 @@ module NewsTematica
     def restaura_tags_sendgrid(html)
       html.gsub('%5B', '[')
           .gsub('%5D', ']')
+    end
+
+    def news_tematica_params
+      params.require(:news_tematica).
+        permit(:id, :titulo, :html, :fecha_desde, :fecha_hasta, :fecha_envio,
+               :banner_1_url_imagen, :banner_1_url_destino, :banner_1_texto_alt,
+               :banner_2_url_imagen, :banner_2_url_destino, :banner_2_texto_alt,
+               :enviada)
     end
   end
 end
