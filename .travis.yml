@@ -1,7 +1,10 @@
 language: ruby
 cache: bundler
 rvm:
-  - "2.0.0"
+  - "2.1.2"
+addons:
+  postgresql: "9.3"
 before_script:
-  - mysql -e 'create database ntm_dummy_test;'
-  - bundle exec rake db:setup
+  - psql -c 'create database ntm_dummy_test;' -U postgres
+  - cp test/dummy/config/database.yml.travis test/dummy/config/database.yml
+  - bundle exec rake db:migrate
