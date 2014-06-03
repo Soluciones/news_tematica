@@ -8,3 +8,4 @@ before_script:
   - psql -c 'create database ntm_dummy_test;' -U postgres
   - cp test/dummy/config/database.yml.travis test/dummy/config/database.yml
   - bundle exec rake db:migrate
+
