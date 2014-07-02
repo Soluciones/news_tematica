@@ -996,16 +996,16 @@ ActiveRecord::Schema.define(:version => 20130626151549) do
   create_table "newsletters", :force => true do |t|
     t.string   "asunto"
     t.text     "cuerpo"
-    t.boolean  "enviado",                              :default => false
+    t.boolean  "enviado",          :default => false
     t.integer  "tipo"
-    t.integer  "ndestinatarios",                       :default => 0
+    t.integer  "ndestinatarios",   :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "abiertos_count",                       :default => 0
+    t.integer  "abiertos_count",   :default => 0
     t.integer  "segundo_envio_id"
-    t.text     "cuerpo_b",         :limit => 16777215
-    t.integer  "abiertos_a",                           :default => 0
-    t.integer  "abiertos_b",                           :default => 0
+    t.text     "cuerpo_b"
+    t.integer  "abiertos_a",       :default => 0
+    t.integer  "abiertos_b",       :default => 0
     t.string   "asunto_b"
   end
 
