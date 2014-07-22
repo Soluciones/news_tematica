@@ -11,7 +11,8 @@ module NewsTematica
     end
 
     def show
-      @news_tematica = NewsTematica.find(params[:id]).decorate
+      klass = NewsTematica.respond_to?(:new) ? NewsTematica : NewsTematica::NewsTematica
+      @news_tematica = klass.find(params[:id]).decorate
       redirections = @news_tematica.redirections.collect(&:id)
       @clics_count = visita_class.where(redirection_id: redirections).count
       @titulo = @news_tematica.titulo
