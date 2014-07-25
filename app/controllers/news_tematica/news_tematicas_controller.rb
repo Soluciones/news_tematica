@@ -28,7 +28,7 @@ module NewsTematica
     end
 
     def create
-      carga_variables_preview NewsTematica.new(params[:news_tematica])
+      carga_variables_preview NewsTematica.new(news_tematica_params)
       @news_tematica.html = dame_html
       if @news_tematica.save
         redirect_to edit_news_tematica_path(@news_tematica)
