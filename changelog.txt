@@ -1,3 +1,4 @@
+[5.0.0] Migrated to PostgreSQL
 [4.0.0] Upgraded to Rails 3.2
 [3.0.1] Quick patch: NewsTematica#enviar! now passes a faked Tematica for "Newsletter General" when it's general
 [3.0.0] Code refactor and beautifying.
