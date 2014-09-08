@@ -11,8 +11,7 @@ module NewsTematica
     end
 
     def show
-      klass = NewsTematica.respond_to?(:new) ? NewsTematica : NewsTematica::NewsTematica
-      @news_tematica = klass.find(params[:id]).decorate
+      @news_tematica = newstematica_klass.find(params[:id]).decorate
       redirections = @news_tematica.redirections.collect(&:id)
       @clics_count = visita_class.where(redirection_id: redirections).count
       @titulo = @news_tematica.titulo
@@ -21,8 +20,7 @@ module NewsTematica
     def new
       nombre_tematica = tematica_class.nombre_suscripcion(params[:tematica_id])
       @titulo = "Nueva newsletter de #{ nombre_tematica }"
-      klass = NewsTematica.respond_to?(:new) ? NewsTematica : NewsTematica::NewsTematica
-      @news_tematica = klass.new(tematica_id: params[:tematica_id], fecha_hasta: Time.zone.now, fecha_envio: 6.hours.from_now)
+      @news_tematica = newstematica_klass.new(tematica_id: params[:tematica_id], fecha_hasta: Time.zone.now, fecha_envio: 6.hours.from_now)
       @news_tematica.calcula_fecha_desde
     end
 
@@ -88,6 +86,10 @@ module NewsTematica
     end
 
   private
+
+    def newstematica_klass
+      NewsTematica.respond_to?(:new) ? NewsTematica : NewsTematica::NewsTematica
+    end
 
     def carga_variables_preview(news_tematica)
       @news_tematica = news_tematica.decorate
