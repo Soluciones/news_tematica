@@ -7,7 +7,7 @@ module NewsTematica
 
     def index
       @titulo = 'Newsletters temáticas'
-      @news_tematicas = NewsTematica.order('fecha_envio DESC')
+      @news_tematicas = newstematica_klass.order('fecha_envio DESC')
     end
 
     def show
@@ -25,7 +25,7 @@ module NewsTematica
     end
 
     def create
-      carga_variables_preview NewsTematica.new(news_tematica_params)
+      carga_variables_preview newstematica_klass.new(news_tematica_params)
       @news_tematica.html = dame_html
       if @news_tematica.save
         redirect_to edit_news_tematica_path(@news_tematica)
@@ -36,17 +36,17 @@ module NewsTematica
     end
 
     def preview
-      carga_variables_preview NewsTematica.find(params[:id])
+      carga_variables_preview newstematica_klass.find(params[:id])
       render text: dame_html, layout: false
     end
 
     def edit
-      @news_tematica = NewsTematica.find(params[:id])
+      @news_tematica = newstematica_klass.find(params[:id])
       redirect_to news_tematica_path(@news_tematica) if @news_tematica.enviada
     end
 
     def update
-      @news_tematica = NewsTematica.find(params[:id])
+      @news_tematica = newstematica_klass.find(params[:id])
       if @news_tematica.enviada
         render(text: 'Esta newsletter ya ha sido enviada, no puede modificarse ni volverse a enviar.')
       elsif !@news_tematica.update_attributes(news_tematica_params)
@@ -60,7 +60,7 @@ module NewsTematica
     end
 
     def elegir_contenidos
-      @news_tematica = NewsTematicaDecorator.decorate(NewsTematica.find(params[:id]))
+      @news_tematica = NewsTematicaDecorator.decorate(newstematica_klass.find(params[:id]))
       @titulo = "Elegir contenidos para la newsletter"
       @titulares = @news_tematica.titulares
       @masleidos = @news_tematica.lo_mas_leido[0..9]
@@ -68,7 +68,7 @@ module NewsTematica
     end
 
     def contenidos_elegidos
-      @news_tematica = NewsTematicaDecorator.decorate(NewsTematica.find(params[:id]))
+      @news_tematica = NewsTematicaDecorator.decorate(newstematica_klass.find(params[:id]))
       titulares_desordenados = contenido_class.where(id: params[:titulares])
       if params[:prioridades_titulares].present?
         titulares_priorizados = @news_tematica.prioriza_como_te_diga(titulares_desordenados, params[:prioridades_titulares])
