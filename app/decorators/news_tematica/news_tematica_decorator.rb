@@ -4,6 +4,10 @@ module NewsTematica
   class NewsTematicaDecorator < Draper::Decorator
     include Clases
     delegate_all
+    
+    def self.tematicas_dropdown
+      [[tematica_class.nombre_suscripcion(0), 0]] + tematica_class.todas.collect{ |t| [t.nombre, t.id] }
+    end
 
     def html_con_contadores
       doc = Nokogiri::HTML(source.html)
