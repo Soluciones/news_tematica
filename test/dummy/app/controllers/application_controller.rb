@@ -49,6 +49,4 @@ class ApplicationController < ActionController::Base
       envia_a_login("Debe identificarse como super-administrador para acceder")
     end
   end
-
-
 end

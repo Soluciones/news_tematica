@@ -5,6 +5,10 @@ module NewsTematica
     include Clases
     delegate_all
 
+    def self.tematicas_dropdown
+      [[tematica_class.nombre_suscripcion(0), 0]] + tematica_class.todas.map { |t| [t.nombre, t.id] }
+    end
+
     def html_con_contadores
       doc = Nokogiri::HTML(source.html)
       doc.css('a').select{ |link| link['href'].match /\/redirections\// }.each do |link|
@@ -26,14 +30,14 @@ module NewsTematica
       else
         q = contenido_class.where(created_at: source.fecha_desde..source.fecha_hasta).where(fecha_titulares: source.fecha_desde..source.fecha_hasta)
       end
-      prioriza q.publicado.in_locale('es').includes(:fotos, :veces_leido, :blog).all
+      prioriza q.publicado.in_locale('es').includes(:fotos, :veces_leido, :blog)
     end
 
     # Lo más leído se apoyará en los scopes de las portadas temáticas
     def lo_mas_leido
       msgs = contenido_class.publicado.in_locale('es').includes(:veces_leido, :blog).where(created_at: source.fecha_desde..source.fecha_hasta)
       msgs = msgs.send("de_#{ source.tematica.scope_lo_mas_leido }".to_sym) if source.tematica.try(:scope_lo_mas_leido).present?
-      msgs.all.sort_by { |msg| 100 - msg.contador_veces_leido * msg.factor_corrector_para_nuevos }
+      msgs.sort_by { |msg| 100 - msg.contador_veces_leido * msg.factor_corrector_para_nuevos }
     end
 
     # Los foros pueden ser foros principales (basados en subtipo_id) o foros temáticos (basados en tag_id)
@@ -46,7 +50,7 @@ module NewsTematica
       else
         q = contenido_class.where(tema: Subtipo::ARRAY_FOROS_NORMALES).where(created_at: source.fecha_desde..source.fecha_hasta)
       end
-      prioriza q.publicado.in_locale('es').includes(:veces_leido, :blog).all
+      prioriza q.publicado.in_locale('es').includes(:veces_leido, :blog)
     end
 
     def banner_lateral

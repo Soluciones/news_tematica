@@ -1615,6 +1615,7 @@ ActiveRecord::Schema.define(:version => 20130626151549) do
     t.boolean  "juego_bolsa_activado"
     t.integer  "perfil_forex"
     t.string   "dominio_de_alta"
+    t.string   "password"
     t.string   "perfil_inversor",            :limit => 15
   end
 

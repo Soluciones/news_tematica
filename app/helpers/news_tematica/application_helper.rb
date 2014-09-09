@@ -5,8 +5,10 @@ module NewsTematica
     end
 
     def link_to_con_estadisticas(texto, destino, news_tematica, opciones = {})
-      redireccion = news_tematica.redirections.find_or_create_by_url(destino)
-      link_to texto, "http://#{request.host}/redirections/#{redireccion.id}", opciones
+      if news_tematica.save
+        redireccion = news_tematica.redirections.find_or_create_by url: destino
+        link_to texto, "http://#{request.host}/redirections/#{redireccion.id}", opciones
+      end
     end
   end
 end

@@ -18,8 +18,6 @@ class Blog < ActiveRecord::Base
   scope :con_ultimo_post, select('blog_id, blogs.titulo as titulo_blog, blogs.descripcion, blogs.url, blogs.posts_count, c.titulo as titulo_contenido, c.contenido_link, c.created_at, c.publicado').where(estado_id: 1).joins('INNER JOIN contenidos c ON blogs.ultimo_post_id = c.id')
   scope :in_locale, lambda { |locale| where(locale => true) }
 
-  attr_accessor :lista_autores
-
   ESTADO_CERRADO = -1
   ESTADO_BLOGGER = 0
   ESTADO_ACTIVO = 1

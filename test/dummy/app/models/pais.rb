@@ -7,7 +7,7 @@ class Pais < ActiveRecord::Base
 
   validates :nombre, presence: true
 
-  scope :con_dominio, where(codigo_iso: PAISES.collect{ |p| p.to_s })
+  scope :con_dominio, -> { where(codigo_iso: PAISES.collect{ |p| p.to_s }) }
 
   def self.nombre(id)
     'Expaña'

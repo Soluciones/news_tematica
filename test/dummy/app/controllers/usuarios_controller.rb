@@ -2,6 +2,5 @@
 
 class UsuariosController < ApplicationController
   def login
-
   end
 end

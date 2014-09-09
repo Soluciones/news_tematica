@@ -13,7 +13,7 @@ module NewsTematica
 
     validates :tematica_id, :titulo, :banner_1_url_imagen, :banner_1_url_destino, :banner_1_texto_alt, :banner_2_url_imagen, :banner_2_url_destino, :banner_2_texto_alt, presence: true
 
-    scope :enviada, where(enviada: true)
+    scope :enviada, -> { where enviada: true}
 
     MAX_ANTIGUEDAD = 7.days
 
@@ -38,6 +38,10 @@ module NewsTematica
 
     def nombre
       tematica_class.nombre_suscripcion(tematica_id)
+    end
+
+    def self.nueva_con_fechas_por_defecto(tematica_id)
+      new(tematica_id: tematica_id, fecha_hasta: Time.zone.now, fecha_envio: 6.hours.from_now)
     end
   end
 end

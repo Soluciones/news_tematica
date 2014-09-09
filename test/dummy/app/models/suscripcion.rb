@@ -7,13 +7,13 @@ class Suscripcion < ActiveRecord::Base
 
   ID_GENERAL = 0
 
-  scope :join_usuarios, joins("LEFT JOIN usuarios u ON u.id = suscripciones.suscriptor_id AND suscripciones.suscriptor_type = 'Usuario'")
-  scope :total_por_provincias, select('COUNT(*) as total, suscripciones.provincia_id')
-  scope :activos, join_usuarios.where("u.estado_id > ? or u.estado_id is null", Usuario::ESTADO_SIN_ACTIVAR)
+  scope :join_usuarios, -> { joins("LEFT JOIN usuarios u ON u.id = suscripciones.suscriptor_id AND suscripciones.suscriptor_type = 'Usuario'") }
+  scope :total_por_provincias, -> {select('COUNT(*) as total, suscripciones.provincia_id') }
+  scope :activos, -> { join_usuarios.where("u.estado_id > ? or u.estado_id is null", Usuario::ESTADO_SIN_ACTIVAR) }
   scope :con_tematica_si_viene, lambda{ |tematica_id| tematica_id.present? ? where(tematica_id: tematica_id) : nil }
   scope :con_dominio_si_viene, lambda{ |dominio| dominio.present? ? where(dominio_de_alta: dominio) : nil }
   scope :en_provincia_si_viene, lambda{ |provincias_id| provincias_id.present? ? where("suscripciones.provincia_id IN (?)", provincias_id) : nil}
-  scope :de_desubicados, where("(suscripciones.provincia_id IS NULL OR suscripciones.provincia_id > 52)")
+  scope :de_desubicados, -> { where("(suscripciones.provincia_id IS NULL OR suscripciones.provincia_id > 52)") }
   scope :de_desubicados_y_de_provincias, lambda { |provincias_id| where("(suscripciones.provincia_id IN (?) OR suscripciones.provincia_id IS NULL OR suscripciones.provincia_id > 52)", provincias_id) }
   scope :totales_tematicas, lambda{ |locale|
     select('tematicas.nombre, tematicas.id, COUNT(suscripciones.id) AS n_suscripciones').

@@ -10,7 +10,7 @@ class Contenido < ActiveRecord::Base
   belongs_to :padre, class_name: 'Contenido', foreign_key: 'parent_id'
   belongs_to :blog
   has_one :veces_leido, as: :leido
-  has_many :fotos, order: 'orden, id', dependent: :destroy, conditions: 'publicado = true'
+  has_many :fotos, -> { where('publicado = true').order('orden, id') }, dependent: :destroy
 
   LONG_MAX_TITULO = 120
   TIMEOUT_EDICION = 90.minutes
@@ -22,21 +22,21 @@ class Contenido < ActiveRecord::Base
 
   delegate :email, :firma, :posicion_ranking, :posicion_ranking_anual, :puntos, to: :usuario
 
-  scope :publicado, where('contenidos.publicado = true')
-  scope :mas_reciente, order('contenidos.created_at DESC')
-  scope :join_etiquetas, joins("INNER JOIN taggings t ON t.taggable_id = contenidos.id")  # AND t.taggable_type = 'Contenido'
+  scope :publicado, -> { where('contenidos.publicado = true') }
+  scope :mas_reciente, -> {order('contenidos.created_at DESC') }
+  scope :join_etiquetas, -> { joins("INNER JOIN taggings t ON t.taggable_id = contenidos.id") } # AND t.taggable_type = 'Contenido'
   scope :etiquetado_con, lambda { |etiq| etiq.class == Fixnum ? join_etiquetas.where('t.tag_id = ?', etiq) : (tag = Tag.find_by_permalink(etiq)) ? join_etiquetas.where('t.tag_id = ?', tag.id) : where('false') }
   scope :ultimos, lambda { |n| mas_reciente.limit(n) }
   scope :ultimos_post_en, lambda { |blog| posts_publicados.where(blog_id: blog).mas_reciente }
   scope :vigente_si_no_admin, lambda { |soy_admin| where('contenidos.created_at < UTC_TIMESTAMP()') if !soy_admin }
-  scope :por_fecha, order('contenidos.created_at DESC')
-  scope :con_votos, joins('INNER JOIN votos v ON v.contenido_id = contenidos.id')
-  scope :campos_titulares, select('contenidos.id, titulo, contenido_link, contenidos.created_at, usr_nick, usr_nick_limpio, descripcion, contenidos.fecha_titulares, keywords, contenidos.subtipo_id, contenidos.publicado, contenidos.blog_id, contenidos.ar, contenidos.cl, contenidos.co, contenidos.es, contenidos.mx, contenidos.pe')
-  scope :titulares, campos_titulares.joins('FORCE INDEX (index_contenidos_on_fecha_titulares)').where("contenidos.fecha_titulares IS NOT NULL").order("contenidos.fecha_titulares DESC")
-  scope :titulares_en_abierto, titulares.where("contenidos.fecha_titulares < UTC_TIMESTAMP()")
-  scope :titulares_completo, joins('FORCE INDEX (index_contenidos_on_fecha_titulares)').where("contenidos.fecha_titulares IS NOT NULL").where("contenidos.fecha_titulares < UTC_TIMESTAMP()").order("contenidos.fecha_titulares DESC")
-  scope :link_autor_y_fecha, select('titulo, contenido_link, contenidos.created_at, usr_nick, usr_nick_limpio')
-  scope :con_veces_leido, joins("LEFT JOIN veces_leidos ON veces_leidos.leido_id = contenidos.id AND veces_leidos.leido_type = 'Contenido'")
+  scope :por_fecha, -> { order('created_at DESC') }
+  scope :con_votos, -> { joins('INNER JOIN votos v ON v.contenido_id = contenidos.id') }
+  scope :campos_titulares, -> { select('contenidos.id, titulo, contenido_link, contenidos.created_at, usr_nick, usr_nick_limpio, descripcion, contenidos.fecha_titulares, keywords, contenidos.subtipo_id, contenidos.publicado, contenidos.blog_id, contenidos.ar, contenidos.cl, contenidos.co, contenidos.es, contenidos.mx, contenidos.pe') }
+  scope :titulares, -> { campos_titulares.joins('FORCE INDEX (index_contenidos_on_fecha_titulares)').where("contenidos.fecha_titulares IS NOT NULL").order("contenidos.fecha_titulares DESC") }
+  scope :titulares_en_abierto, -> { titulares.where("contenidos.fecha_titulares < UTC_TIMESTAMP()") }
+  scope :titulares_completo, -> { joins('FORCE INDEX (index_contenidos_on_fecha_titulares)').where("contenidos.fecha_titulares IS NOT NULL").where("contenidos.fecha_titulares < UTC_TIMESTAMP()").order("contenidos.fecha_titulares DESC") }
+  scope :link_autor_y_fecha, -> { select('titulo, contenido_link, contenidos.created_at, usr_nick, usr_nick_limpio') }
+  scope :con_veces_leido, -> { joins("LEFT JOIN veces_leidos ON veces_leidos.leido_id = contenidos.id AND veces_leidos.leido_type = 'Contenido'") }
   scope :lista_temas, lambda {|admin| select("contenidos.id, contenidos.titulo, contenidos.texto_completo, contenidos.created_at as tema, contenidos.usr_nick,
               contenidos.usr_nick_limpio, contenidos.contenido_link, #{'vl.contador visitas, ' if admin} contenidos.respuestas_count respuestas,
               contenidos.ultima_respuesta_id, contenidos.fecha_titulares, contenidos.f_caducidad, contenidos.keywords,
@@ -73,7 +73,7 @@ class Contenido < ActiveRecord::Base
   scope :titulares_etiquetados_con, lambda { |etiqueta| join_etiquetas.where('t.tag_id = ?', ((tag = Tag.find_by_permalink(etiqueta)) ? tag.id : -1)).where("t.fecha_titulares IS NOT NULL").where("t.fecha_titulares < UTC_TIMESTAMP()").order("t.fecha_titulares DESC") }
   scope :tematica_con, lambda { |campo, locale| titulares_completo.where(campo => true).in_locale(locale).limit(9) }
   scope :tematica_etiquetada_con, lambda { |etiqueta, locale| titulares_etiquetados_con(etiqueta).in_locale(locale).limit(9) }
-  scope :campos_msgs_etiquetados, select('contenidos.id, contenidos.titulo, contenidos.contenido_link, contenidos.usr_nick, contenidos.usr_nick_limpio, contenidos.descripcion, contenidos.fecha_titulares, contenidos.keywords, contenidos.publicado, contenidos.subtipo_id, contenidos.created_at').join_etiquetas
+  scope :campos_msgs_etiquetados, -> { select('contenidos.id, contenidos.titulo, contenidos.contenido_link, contenidos.usr_nick, contenidos.usr_nick_limpio, contenidos.descripcion, contenidos.fecha_titulares, contenidos.keywords, contenidos.publicado, contenidos.subtipo_id, contenidos.created_at').join_etiquetas }
   scope :busca_titulo_o_permalink, lambda { |txt| where("titulo LIKE ? OR permalink LIKE ?", "%#{txt}%", "%#{txt}%") }
   scope :in_locale, lambda { |locale| where(locale => true) }
 
