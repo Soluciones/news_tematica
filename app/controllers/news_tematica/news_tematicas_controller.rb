@@ -7,12 +7,11 @@ module NewsTematica
 
     def index
       @titulo = 'Newsletters temáticas'
-      @news_tematicas = NewsTematica.order('fecha_envio DESC')
+      @news_tematicas = newstematica_klass.order('fecha_envio DESC')
     end
 
     def show
-      klass = NewsTematica.respond_to?(:new) ? NewsTematica : NewsTematica::NewsTematica
-      @news_tematica = klass.find(params[:id]).decorate
+      @news_tematica = newstematica_klass.find(params[:id]).decorate
       redirections = @news_tematica.redirections.collect(&:id)
       @clics_count = visita_class.where(redirection_id: redirections).count
       @titulo = @news_tematica.titulo
@@ -21,36 +20,33 @@ module NewsTematica
     def new
       nombre_tematica = tematica_class.nombre_suscripcion(params[:tematica_id])
       @titulo = "Nueva newsletter de #{ nombre_tematica }"
-      klass = NewsTematica.respond_to?(:new) ? NewsTematica : NewsTematica::NewsTematica
-      @news_tematica = klass.new(tematica_id: params[:tematica_id], fecha_hasta: Time.zone.now, fecha_envio: 6.hours.from_now)
+      @news_tematica = newstematica_klass.nueva_con_fechas_por_defecto(params[:tematica_id])
       @news_tematica.calcula_fecha_desde
-      @tematicas_dropdown = [[tematica_class.nombre_suscripcion(0), 0]] + tematica_class.todas.collect{ |t| [t.nombre, t.id] }
     end
 
     def create
-      carga_variables_preview NewsTematica.new(news_tematica_params)
+      carga_variables_preview newstematica_klass.new(news_tematica_params)
       @news_tematica.html = dame_html
       if @news_tematica.save
         redirect_to edit_news_tematica_path(@news_tematica)
       else
         @titulo = "Nueva newsletter temática"
-        @tematicas_dropdown = tematica_class.todas
         render 'new'
       end
     end
 
     def preview
-      carga_variables_preview NewsTematica.find(params[:id])
+      carga_variables_preview newstematica_klass.find(params[:id])
       render text: dame_html, layout: false
     end
 
     def edit
-      @news_tematica = NewsTematica.find(params[:id])
+      @news_tematica = newstematica_klass.find(params[:id])
       redirect_to news_tematica_path(@news_tematica) if @news_tematica.enviada
     end
 
     def update
-      @news_tematica = NewsTematica.find(params[:id])
+      @news_tematica = newstematica_klass.find(params[:id])
       if @news_tematica.enviada
         render(text: 'Esta newsletter ya ha sido enviada, no puede modificarse ni volverse a enviar.')
       elsif !@news_tematica.update_attributes(news_tematica_params)
@@ -64,7 +60,7 @@ module NewsTematica
     end
 
     def elegir_contenidos
-      @news_tematica = NewsTematicaDecorator.decorate(NewsTematica.find(params[:id]))
+      @news_tematica = NewsTematicaDecorator.decorate(newstematica_klass.find(params[:id]))
       @titulo = "Elegir contenidos para la newsletter"
       @titulares = @news_tematica.titulares
       @masleidos = @news_tematica.lo_mas_leido[0..9]
@@ -72,7 +68,7 @@ module NewsTematica
     end
 
     def contenidos_elegidos
-      @news_tematica = NewsTematicaDecorator.decorate(NewsTematica.find(params[:id]))
+      @news_tematica = NewsTematicaDecorator.decorate(newstematica_klass.find(params[:id]))
       titulares_desordenados = contenido_class.where(id: params[:titulares])
       if params[:prioridades_titulares].present?
         titulares_priorizados = @news_tematica.prioriza_como_te_diga(titulares_desordenados, params[:prioridades_titulares])
@@ -90,6 +86,10 @@ module NewsTematica
     end
 
   private
+
+    def newstematica_klass
+      NewsTematica.respond_to?(:new) ? NewsTematica : NewsTematica::NewsTematica
+    end
 
     def carga_variables_preview(news_tematica)
       @news_tematica = news_tematica.decorate
@@ -115,7 +115,7 @@ module NewsTematica
 
     def news_tematica_params
       params.require(:news_tematica).
-        permit(:id, :titulo, :html, :fecha_desde, :fecha_hasta, :fecha_envio,
+        permit(:id, :tematica_id, :titulo, :html, :fecha_desde, :fecha_hasta, :fecha_envio,
                :banner_1_url_imagen, :banner_1_url_destino, :banner_1_texto_alt,
                :banner_2_url_imagen, :banner_2_url_destino, :banner_2_texto_alt,
                :enviada)

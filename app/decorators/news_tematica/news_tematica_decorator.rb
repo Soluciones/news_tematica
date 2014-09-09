@@ -5,6 +5,10 @@ module NewsTematica
     include Clases
     delegate_all
 
+    def self.tematicas_dropdown
+      [[tematica_class.nombre_suscripcion(0), 0]] + tematica_class.todas.map { |t| [t.nombre, t.id] }
+    end
+
     def html_con_contadores
       doc = Nokogiri::HTML(source.html)
       doc.css('a').select{ |link| link['href'].match /\/redirections\// }.each do |link|
