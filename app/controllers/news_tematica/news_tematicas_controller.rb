@@ -20,7 +20,7 @@ module NewsTematica
     def new
       nombre_tematica = tematica_class.nombre_suscripcion(params[:tematica_id])
       @titulo = "Nueva newsletter de #{ nombre_tematica }"
-      @news_tematica = newstematica_klass.new(tematica_id: params[:tematica_id], fecha_hasta: Time.zone.now, fecha_envio: 6.hours.from_now)
+      @news_tematica = newstematica_klass.nueva_con_fechas_por_defecto(params[:tematica_id])
       @news_tematica.calcula_fecha_desde
     end
 
