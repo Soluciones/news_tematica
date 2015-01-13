@@ -1,5 +1,3 @@
-# coding: UTF-8
-
 $:.push File.expand_path("../lib", __FILE__)
 
 # Maintain your gem's version:
@@ -28,6 +26,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'sass'
   s.add_dependency 'draper'
   s.add_dependency 'aws-s3'
+  s.add_dependency 'coffee-rails'
 
   # s.add_dependency "jquery-rails"
 

@@ -3,6 +3,7 @@
 = form_tag contenidos_elegidos_news_tematica_path(@news_tematica) do |f|
 
   %h3
+    = check_box_tag :cb_titulares
     Titulares (a partir del 5º titular van a Otros titulares)
   - num_titulares_above_the_fold = 10
   %ul.lista-sin-puntitos{ style: 'margin-bottom: 0; padding-bottom: 0' }
@@ -15,7 +16,9 @@
         = render 'li_titular', msg: msg, i: original_index
     %span.js_ver_resto_titulares.boton_azul_claro_reborde.boton_granate_reborde{ style: 'float: none; margin-bottom: 40px' } Ver todos
 
-  %h3 Foros
+  %h3
+    = check_box_tag :cb_foros
+    Foros
   %ul.lista-sin-puntitos
     - @temas.each_with_index do |msg, i|
       %li
@@ -24,7 +27,9 @@
         %br/
         &nbsp; &nbsp; &nbsp; Rec: #{ msg.votos_count }, Leído: #{ msg.contador_veces_leido }, Respuestas: #{ msg.respuestas_count }, Corrección por fecha: #{ msg.factor_corrector_para_nuevos }, Puntos: #{ number_with_precision msg.cotizacion, precision: 2 }
 
-  %h3 Más leídos
+  %h3
+    = check_box_tag :cb_mas_leidos
+    Más leídos
   %ul.lista-sin-puntitos
     - @masleidos.each_with_index do |msg, i|
       %li
@@ -36,10 +41,13 @@
   &nbsp; &nbsp;
   = submit_tag('Generar HTML', class: 'boton_reborde_naranja_grande')
 
-:javascript
-  jQuery(function($) {
-    $('.js_ver_resto_titulares').click(function() {
-      $('.js_resto_titulares').slideDown();
-      $(this).hide();
-    });
-  });
+:coffee
+  $ ->
+    $('.js_ver_resto_titulares').click ->
+      $('.js_resto_titulares').slideDown()
+      $(this).hide()
+    $('#cb_titulares, #cb_foros, #cb_mas_leidos').click ->
+      estado = @checked
+      $(this).parent().next().find(':checkbox').each ->
+        @checked = estado
+        undefined
