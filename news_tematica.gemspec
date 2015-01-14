@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib}/**/*"] + ["Rakefile"]
   s.test_files = Dir["test/**/*"]
 
-  s.add_dependency "rails", "~> 4.1.5"
+  s.add_dependency 'rails', '~> 4.1.5'
 
   # Gema para transformar bello HTML y CSS en odioso código para emails
   s.add_dependency 'premailer-rails'
@@ -24,20 +24,8 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'haml-rails'
   s.add_dependency 'sass'
+  s.add_dependency 'coffee-rails'
+  s.add_dependency 'jquery-rails'
   s.add_dependency 'draper'
   s.add_dependency 'aws-s3'
-  s.add_dependency 'coffee-rails'
-
-  # s.add_dependency "jquery-rails"
-
-  s.add_development_dependency 'pg'
-
-  s.add_development_dependency 'rspec-html-matchers'
-  s.add_development_dependency 'rspec-instafail'
-  s.add_development_dependency 'shoulda-matchers'
-  s.add_development_dependency 'database_cleaner'
-  s.add_development_dependency 'factory_girl_rails'
-  s.add_development_dependency 'ffaker'
-  s.add_development_dependency 'capybara'
-  s.add_development_dependency 'rspec-rails', '~> 2.14'
 end
