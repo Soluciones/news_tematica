@@ -1,5 +1,3 @@
-# coding: UTF-8
-
 FactoryGirl.define do
   factory :news_tematica, class: NewsTematica::NewsTematica do
     tematica      { FactoryGirl.create(:tematica) }

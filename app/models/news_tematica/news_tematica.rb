@@ -1,5 +1,3 @@
-# Coding: utf-8
-
 module NewsTematica
   class NewsTematica < ActiveRecord::Base
 
