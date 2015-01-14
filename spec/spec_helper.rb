@@ -41,7 +41,7 @@ RSpec.configure do |config|
 
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction
-    DatabaseCleaner.clean_with :truncation, except: %w[paises provincias subtipos tipo_productos constantes likerts pagestaticas usuarios permisos tematicas]
+    # DatabaseCleaner.clean_with :truncation, except: %w[paises provincias subtipos tipo_productos constantes likerts pagestaticas usuarios permisos tematicas]
   end
 
   config.before(:each) do
