@@ -4,7 +4,8 @@ describe NewsTematica::NewsTematicasController, type: :controller do
   render_views  # Necesario para que funcione el render_to_string usado para generar el html
   routes { NewsTematica::Engine.routes }
 
-  let!(:mi_news_tematica) { FactoryGirl.create(:news_tematica, tematica: Tematica.find_by(nombre: 'Bolsa'), fecha_desde: 7.days.ago, fecha_hasta: 1.minute.ago) }
+  let!(:mi_news_tematica) { FactoryGirl.create(:news_tematica, tematica: Tematica.find_by(nombre: 'Bolsa'),
+                                               fecha_desde: 7.days.ago, fecha_hasta: 1.minute.ago) }
   let(:dominio) { 'test.host' }
   let(:admin) { FactoryGirl.create(:admin) }
 
@@ -15,17 +16,22 @@ describe NewsTematica::NewsTematicasController, type: :controller do
     end
 
     let(:titular_muy_leido) do
-      mensaje = FactoryGirl.create(:tema_titular, fecha_titulares: 1.hour.ago, created_at: 3.hours.ago, bolsa: true, titulo: 'Gana 2% semanal')
+      mensaje = FactoryGirl.create(:tema_titular, fecha_titulares: 1.hour.ago, created_at: 3.hours.ago,
+                                   bolsa: true, titulo: 'Gana 2% semanal')
       mensaje.tap { |mensaje| FactoryGirl.create(:veces_leido, leido: mensaje, contador: 5000) }
     end
 
     let(:mensaje_muy_recomendado) do
-      mensaje = FactoryGirl.create(:tema, created_at: 3.days.ago, votos_count: 20, respuestas_count: 3, titulo: 'El quinto elemento')
+      mensaje = FactoryGirl.create(:tema, created_at: 3.days.ago, votos_count: 20, respuestas_count: 3,
+                                   titulo: 'El quinto elemento')
       mensaje.tap { |mensaje| FactoryGirl.create(:veces_leido, leido: mensaje, contador: 100) }
     end
 
     def post_contenidos_elegidos(prioridades_titulares = nil)
-      post :contenidos_elegidos, id: mi_news_tematica.id, titulares: [mensaje_muy_recomendado.id.to_s, mensaje_raso.id.to_s], masleidos: [mensaje_muy_recomendado.id.to_s, titular_muy_leido.id.to_s], temas: [mensaje_raso.id.to_s], prioridades_titulares: prioridades_titulares
+      post :contenidos_elegidos, id: mi_news_tematica.id,
+        titulares: [mensaje_muy_recomendado.id.to_s, mensaje_raso.id.to_s],
+        masleidos: [mensaje_muy_recomendado.id.to_s, titular_muy_leido.id.to_s],
+        temas: [mensaje_raso.id.to_s], prioridades_titulares: prioridades_titulares
     end
 
     it "sólo pueden acceder admins" do
@@ -70,11 +76,16 @@ describe NewsTematica::NewsTematicasController, type: :controller do
           .find_by(url: "http://www.midominio.com#{ titular_muy_leido.contenido_link }",
                    news_tematica_id: mi_news_tematica.id)
 
-        expect(mi_news_tematica.html).to have_css("#titular_0 a[href='http://#{dominio}/redirections/#{redireccion_mensaje_muy_recomendado.id}']")
-        expect(mi_news_tematica.html).to have_css("#titular_1 a[href='http://#{dominio}/redirections/#{redireccion_mensaje_raso.id}']")
-        expect(mi_news_tematica.html).to have_css("#masleido_0 a[href='http://#{dominio}/redirections/#{redireccion_titular_muy_leido.id}']")
-        expect(mi_news_tematica.html).to have_css("#masleido_1 a[href='http://#{dominio}/redirections/#{redireccion_mensaje_muy_recomendado.id}']")
-        expect(mi_news_tematica.html).to have_css("#tema_0 a[href='http://#{dominio}/redirections/#{redireccion_mensaje_raso.id}']")
+        expect(mi_news_tematica.html).to have_css(
+          "#titular_0 a[href='http://#{dominio}/redirections/#{redireccion_mensaje_muy_recomendado.id}']")
+        expect(mi_news_tematica.html).to have_css(
+          "#titular_1 a[href='http://#{dominio}/redirections/#{redireccion_mensaje_raso.id}']")
+        expect(mi_news_tematica.html).to have_css(
+          "#masleido_0 a[href='http://#{dominio}/redirections/#{redireccion_titular_muy_leido.id}']")
+        expect(mi_news_tematica.html).to have_css(
+          "#masleido_1 a[href='http://#{dominio}/redirections/#{redireccion_mensaje_muy_recomendado.id}']")
+        expect(mi_news_tematica.html).to have_css(
+          "#tema_0 a[href='http://#{dominio}/redirections/#{redireccion_mensaje_raso.id}']")
       end
     end
 
@@ -84,7 +95,7 @@ describe NewsTematica::NewsTematicasController, type: :controller do
       end
 
       it "debe llamar al metodo prioriza_como_te_diga" do
-        expect_any_instance_of(NewsTematica::NewsTematicaDecorator).to receive(:prioriza_como_te_diga).once.and_call_original
+        expect_any_instance_of(NewsTematica::NewsTematicaDecorator).to receive(:prioriza_como_te_diga).and_call_original
         post_contenidos_elegidos(prioridades_titulares)
       end
     end
