@@ -5,6 +5,7 @@ test/dummy/.sass-cache/**
 test/dummy/coverage/*
 test/dummy/log/**
 test/dummy/tmp/**
+test/dummy/config/database.yml
 .ruby-gemset
 .ruby-version
 coverage/**
