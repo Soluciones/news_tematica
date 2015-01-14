@@ -1,8 +1,6 @@
-# coding: UTF-8
-
 FactoryGirl.define do
   factory :tema, parent: :contenido, aliases: [:hilo], class: Tema do
-    ignore do
+    transient do
       visibilidad_por_defecto true
     end
     subtipo         { Subtipo.find(Subtipo::BOLSA) }

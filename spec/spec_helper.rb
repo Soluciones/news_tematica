@@ -1,13 +1,10 @@
-# coding: UTF-8
-
 ENV['RAILS_ENV'] ||= 'test'
 
 require File.expand_path('../../test/dummy/config/environment', __FILE__)
 require 'rspec/rails'
-require 'rspec/autorun'
+# require 'rspec/autorun'
 require 'ffaker'
 require 'factory_girl_rails'
-require 'shoulda-matchers'
 require 'database_cleaner'
 require 'draper/test/rspec_integration'
 
