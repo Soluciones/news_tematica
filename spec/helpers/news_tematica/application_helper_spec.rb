@@ -1,16 +1,6 @@
 require "spec_helper"
 
 describe NewsTematica::ApplicationHelper, type: :helper do
-  describe "max_caracteres_con_palabras_enteras" do
-    it 'Debe devolver la frase entera si no desborda la longitud' do
-      expect(max_caracteres_con_palabras_enteras('Hola mundo', 50)).to eq 'Hola mundo'
-    end
-
-    it 'Debe devolver la frase cortada pero sin partir palabras si desborda la longitud' do
-      expect(max_caracteres_con_palabras_enteras('Hola mundo', 7)).to eq 'Hola'
-    end
-  end
-
   describe "link_to_con_estadisticas" do
     let(:redirection_class) { ::NewsTematica::Clases.redirection_extern.constantize }
     let(:mi_news_tematica) { FactoryGirl.create(:news_tematica) }
