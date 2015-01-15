@@ -51,6 +51,7 @@ Luego, habrá que importar las migraciones a la app principal que vaya a usar el
 ### En la app:
 
 `config/initializers/engines.rb`: Aquí se le pasan las clases externas que el engine necesita, en formato `NewsTematica::Clases.xxx_extern = 'Xxx'`
+`app/assets/javascripts/application.js`: Aquí se deben cargar los assets del engine, en formato `\\= require news_tematica/application`
 
 ### Configurar para que use la working copy local
 
