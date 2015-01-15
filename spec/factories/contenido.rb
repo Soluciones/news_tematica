@@ -1,8 +1,6 @@
-# coding: UTF-8
-
 FactoryGirl.define do
   factory :contenido do
-    ignore do
+    transient do
       debo_aceptar_contenido true
     end
     titulo          { Faker::Lorem.sentence.to_s }

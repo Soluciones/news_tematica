@@ -10,5 +10,5 @@
           %td.texto{ colspan: foto ? nil : 2, class: foto ? 'con_foto' : nil }
             %h5.titulo= link_to_con_estadisticas titular.titulo, titular.contenido_dominio_link, @news_tematica
             %p.resumen
-              = raw max_caracteres_con_palabras_enteras(titular.descripcion, 150)
+              = raw truncate(titular.descripcion, length: 150, separator: ' ', omission: false)
               = link_to_con_estadisticas 'Leer&nbsp;más&nbsp;>>'.html_safe, titular.contenido_dominio_link, @news_tematica, class: 'leer_mas'

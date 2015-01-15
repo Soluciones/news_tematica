@@ -1,5 +1,3 @@
-# coding: UTF-8
-
 require 'spec_helper'
 
 describe NewsTematica::NewsTematicaDecorator do
@@ -19,13 +17,13 @@ describe NewsTematica::NewsTematicaDecorator do
       html = "<p>blabla #{link_con_pocos_clics} blabla #{link_con_pocos_clics} otro mas #{link_con_muchos_clics}</p>"
       html_con_contador = "<p>blabla #{link_con_pocos_clics_con_contador} blabla #{link_con_pocos_clics_con_contador} otro mas #{link_con_muchos_clics_con_contador}</p>"
       news_tematica = FactoryGirl.build(:news_tematica, html: html).decorate
-      news_tematica.html_con_contadores.should == html_con_contador
+      expect(news_tematica.html_con_contadores).to eq html_con_contador
     end
   end
 
   describe "#prioriza_como_te_diga" do
     context "con una lista de contenidos seleccionados y unas prioridades establecidas" do
-      let(:news_tematica) { FactoryGirl.build(:news_tematica).decorate }
+      let(:news_tematica) { FactoryGirl.create(:news_tematica).decorate }
       let(:contenidos_seleccionables) { FactoryGirl.create_list(:contenido, 15) }
       let(:prioridades) do
         prioridades = {}
@@ -41,13 +39,13 @@ describe NewsTematica::NewsTematicaDecorator do
         contenidos_priorizados.each_with_index do |contenido, indice|
           break unless (siguiente_contenido = contenidos_priorizados[indice + 1])
 
-          prioridades[contenido.id.to_s].to_i.should < prioridades[siguiente_contenido.id.to_s].to_i
+          expect(prioridades[contenido.id.to_s].to_i < prioridades[siguiente_contenido.id.to_s].to_i).to be true
         end
       end
 
       it "solo devuelve contenidos que han sido seleccionados" do
         contenidos_priorizados = news_tematica.prioriza_como_te_diga(contenidos_seleccionados, prioridades)
-        contenidos_priorizados.map(&:id).should =~ contenidos_seleccionados.map(&:id)
+        expect(contenidos_priorizados.map(&:id)).to match_array contenidos_seleccionados.map(&:id)
       end
     end
   end

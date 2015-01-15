@@ -1,5 +1,3 @@
-# coding: UTF-8
-
 module NewsTematica
   class NewsTematicaDecorator < Draper::Decorator
     include Clases

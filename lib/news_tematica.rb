@@ -1,4 +1,8 @@
 require "news_tematica/engine"
+require 'draper'
+require 'haml'
+require 'coffee-rails'
+require 'jquery-rails'
 
 module NewsTematica
   module Clases

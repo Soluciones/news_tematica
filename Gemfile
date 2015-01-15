@@ -1,20 +1,16 @@
-source "https://rubygems.org"
+source 'https://rubygems.org'
 
 # Declare your gem's dependencies in news_tematica.gemspec.
 # Bundler will treat runtime dependencies like base dependencies, and
 # development dependencies will be added by default to the :development group.
 gemspec
 
-gem 'haml-rails'
-gem 'premailer-rails'
+gem 'pg'
 
 # Para archivos estáticos
 gem 'paperclip'
 gem 'aws-sdk'
-gem 'aws-s3', :require => 'aws/s3'
-
-# jquery-rails is used by the dummy application
-gem "jquery-rails"
+gem 'aws-s3', require: 'aws/s3'
 
 # Declare any dependencies that are still in development here instead of in
 # your gemspec. These might include edge Rails or gems from your path or
@@ -24,4 +20,12 @@ gem "jquery-rails"
 # To use debugger
 # gem 'debugger'
 
-gem 'draper'
+group :develoment, :test do
+  gem 'database_cleaner'
+  gem 'factory_girl_rails'
+  gem 'ffaker'
+  gem 'capybara'
+  gem 'rspec-rails', '~> 3.0'
+  gem 'pry'
+  gem 'binding_of_caller'
+end
