@@ -2,7 +2,6 @@ ENV['RAILS_ENV'] ||= 'test'
 
 require File.expand_path('../../test/dummy/config/environment', __FILE__)
 require 'rspec/rails'
-# require 'rspec/autorun'
 require 'ffaker'
 require 'factory_girl_rails'
 require 'database_cleaner'
@@ -41,7 +40,6 @@ RSpec.configure do |config|
 
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction
-    # DatabaseCleaner.clean_with :truncation, except: %w[paises provincias subtipos tipo_productos constantes likerts pagestaticas usuarios permisos tematicas]
   end
 
   config.before(:each) do
