@@ -4,8 +4,10 @@ describe NewsTematica::NewsTematicasController, type: :controller do
   render_views  # Necesario para que funcione el render_to_string usado para generar el html
   routes { NewsTematica::Engine.routes }
 
-  let!(:mi_news_tematica) { FactoryGirl.create(:news_tematica, tematica: Tematica.find_by(nombre: 'Bolsa'),
-                                               fecha_desde: 7.days.ago, fecha_hasta: 1.minute.ago) }
+  let!(:mi_news_tematica) do
+    FactoryGirl.create(:news_tematica, tematica: Tematica.find_by(nombre: 'Bolsa'), fecha_desde: 7.days.ago,
+                       fecha_hasta: 1.minute.ago)
+  end
   let(:dominio) { 'test.host' }
   let(:admin) { FactoryGirl.create(:admin) }
 
