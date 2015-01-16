@@ -3,7 +3,7 @@
 = form_tag contenidos_elegidos_news_tematica_path(@news_tematica) do |f|
 
   %h3
-    = check_box_tag :cb_titulares
+    = check_box_tag :cb_titulares, nil, true
     Titulares (a partir del 5º titular van a Otros titulares)
   - num_titulares_above_the_fold = 10
   %ul.lista-sin-puntitos{ style: 'margin-bottom: 0; padding-bottom: 0' }
@@ -17,7 +17,7 @@
     %span.js_ver_resto_titulares.boton_azul_claro_reborde.boton_granate_reborde{ style: 'float: none; margin-bottom: 40px' } Ver todos
 
   %h3
-    = check_box_tag :cb_foros
+    = check_box_tag :cb_foros, nil, true
     Foros
   %ul.lista-sin-puntitos
     - @temas.each_with_index do |msg, i|
@@ -28,7 +28,7 @@
         &nbsp; &nbsp; &nbsp; Rec: #{ msg.votos_count }, Leído: #{ msg.contador_veces_leido }, Respuestas: #{ msg.respuestas_count }, Corrección por fecha: #{ msg.factor_corrector_para_nuevos }, Puntos: #{ number_with_precision msg.cotizacion, precision: 2 }
 
   %h3
-    = check_box_tag :cb_mas_leidos
+    = check_box_tag :cb_mas_leidos, nil, true
     Más leídos
   %ul.lista-sin-puntitos
     - @masleidos.each_with_index do |msg, i|
