@@ -1,3 +1,4 @@
+[7.0.2] Set checked as default for checkboxes to check/uncheck all section.
 [7.0.1] Add checkboxes to check/uncheck all section. Update test suite to Rspec3
 [7.0.0] Upgraded to Rails 4.1
 [6.0.0] Upgraded to Rails 4.0
