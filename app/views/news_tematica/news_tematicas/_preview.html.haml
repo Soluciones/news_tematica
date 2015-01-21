@@ -23,13 +23,15 @@
             = render 'bloque_foro'
 
           - if @banner_lateral
-            .banner_lateral= link_to_con_estadisticas image_tag(@banner_lateral[:url_imagen], alt: @banner_lateral[:texto_alt]), @banner_lateral[:url_destino], @news_tematica
+            .banner_lateral= link_to_con_estadisticas image_tag(image_url(@banner_lateral[:url_imagen]),
+              alt: @banner_lateral[:texto_alt]), @banner_lateral[:url_destino], @news_tematica
 
           - if @otros_titulares and @otros_titulares.any?
             = render 'bloque_otros_titulares'
 
   - if @banner_inferior
-    .banner_inferior= link_to_con_estadisticas image_tag(@banner_inferior[:url_imagen], alt: @banner_inferior[:texto_alt]), @banner_inferior[:url_destino], @news_tematica
+    .banner_inferior= link_to_con_estadisticas image_tag(image_url(@banner_inferior[:url_imagen]),
+      alt: @banner_inferior[:texto_alt]), @banner_inferior[:url_destino], @news_tematica
 
   = render 'pre_footer'
 

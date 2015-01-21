@@ -5,7 +5,7 @@ module NewsTematica
     delegate_all
 
     def foto_para_news
-      h.image_tag(fotos.first.adjunto.url(:col), alt: fotos.first.titulo) if fotos.first
+      h.image_tag(h.image_url(fotos.first.adjunto.url(:col), alt: fotos.first.titulo)) if fotos.first
     end
   end
 end
