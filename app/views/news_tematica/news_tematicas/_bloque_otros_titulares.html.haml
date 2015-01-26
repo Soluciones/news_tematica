@@ -6,9 +6,10 @@
         - foto = titular.fotos.first
         %tr.otro_titular{ id: "otro_titular_#{i}" }
           - if foto
-            %td.foto= image_tag foto.adjunto.url(:thumb), alt: foto.titulo
+            %td.foto= image_tag(image_url(foto.adjunto.url(:thumb)), alt: foto.titulo)
           %td.texto{ colspan: foto ? nil : 2, class: foto ? 'con_foto' : nil }
             %h5.titulo= link_to_con_estadisticas titular.titulo, titular.contenido_dominio_link, @news_tematica
             %p.resumen
               = raw truncate(titular.descripcion, length: 150, separator: ' ', omission: false)
-              = link_to_con_estadisticas 'Leer&nbsp;más&nbsp;>>'.html_safe, titular.contenido_dominio_link, @news_tematica, class: 'leer_mas'
+              = link_to_con_estadisticas 'Leer&nbsp;más&nbsp;>>'.html_safe, titular.contenido_dominio_link,
+                @news_tematica, class: 'leer_mas'

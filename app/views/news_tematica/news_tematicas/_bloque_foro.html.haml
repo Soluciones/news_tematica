@@ -4,10 +4,12 @@
       %h3.titulo_bloque= @news_tematica.titulo_de_foro
   - @temas.each_with_index do |tema, i|
     - usuario = tema.usuario
-    - foto = usuario.avatar
+    - foto = usuario.avatar.url(:cthumbnail)
     %tr.tema{ id: "tema_#{i}" }
-      %td.foto= link_to_con_estadisticas image_tag(foto.url(:cthumbnail), alt: usuario.nick), main_app.perfil_url(usuario.nick_limpio), @news_tematica
+      %td.foto= link_to_con_estadisticas image_tag(image_url(foto, alt: usuario.nick)),
+        main_app.perfil_url(usuario.nick_limpio), @news_tematica
       %td.texto
         %h5.titulo= link_to_con_estadisticas tema.titulo, tema.contenido_dominio_link, @news_tematica
-        = link_to_con_estadisticas usuario.nick, main_app.perfil_url(usuario.nick_limpio), @news_tematica, class: 'nombre_usuario'
+        = link_to_con_estadisticas usuario.nick, main_app.perfil_url(usuario.nick_limpio), @news_tematica,
+          class: 'nombre_usuario'
         %p.resumen= raw tema.descripcion
