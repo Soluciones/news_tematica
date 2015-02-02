@@ -11,5 +11,4 @@
         %h5.titulo= link_to_con_estadisticas titular.titulo, titular.contenido_dominio_link, @news_tematica
         %p.resumen
           = raw titular.descripcion
-          = link_to_con_estadisticas 'Leer&nbsp;más&nbsp;>>', titular.contenido_dominio_link, @news_tematica,
-            class: 'leer_mas'
+          = link_to_con_estadisticas 'Leer&nbsp;más&nbsp;>>'.html_safe, titular.contenido_dominio_link, @news_tematica, class: 'leer_mas'
