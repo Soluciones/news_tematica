@@ -1,6 +1,7 @@
 # Engine NewsTematica
 
 [![Build Status](https://travis-ci.org/Soluciones/news_tematica.svg)](https://travis-ci.org/Soluciones/news_tematica)
+[![Code Climate](https://codeclimate.com/github/Soluciones/news_tematica.png)](https://codeclimate.com/github/Soluciones/news_tematica)
 
 ## Suite de test
 
