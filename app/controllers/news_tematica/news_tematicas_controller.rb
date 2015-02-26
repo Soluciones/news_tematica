@@ -105,12 +105,6 @@ module NewsTematica
     def dame_html
       html_limpio = render_to_string('news_tematica/news_tematicas/_preview', layout: false)
       html_inlineado = Premailer.new(html_limpio, with_html_string: true, input_encoding: 'UTF-8').to_inline_css
-      restaura_tags_sendgrid html_inlineado
-    end
-
-    def restaura_tags_sendgrid(html)
-      html.gsub('%5B', '[')
-          .gsub('%5D', ']')
     end
 
     def news_tematica_params
