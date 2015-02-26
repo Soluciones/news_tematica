@@ -51,7 +51,7 @@ module NewsTematica
         render(text: 'Esta newsletter ya ha sido enviada, no puede modificarse ni volverse a enviar.')
       elsif !@news_tematica.update_attributes(news_tematica_params)
         render("edit")
-      elsif params[:commit].downcase.include?('sendgrid')
+      elsif params[:commit].downcase.include?('mandrill')
         @news_tematica.enviar!
         redirect_to news_tematicas_path
       else
