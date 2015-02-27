@@ -105,6 +105,7 @@ module NewsTematica
     def dame_html
       html_limpio = render_to_string('news_tematica/news_tematicas/_preview', layout: false)
       html_inlineado = Premailer.new(html_limpio, with_html_string: true, input_encoding: 'UTF-8').to_inline_css
+      html_inlineado.gsub("%7C", "|")
     end
 
     def news_tematica_params

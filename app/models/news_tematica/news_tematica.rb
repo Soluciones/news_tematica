@@ -29,7 +29,7 @@ module NewsTematica
           from_name: ESTA_WEB,
           from_email: ConstantesEmail::INFO,
           to: grupo_suscripciones.map { |suscripcion| { email: suscripcion.email } },
-          html: html.gsub("%7C", "|"), # CKeditor fucks our *|mandrill_vars|*
+          html: html,
           merge_vars: vars_para_newsletter(grupo_suscripciones),
           preserve_recipients: false
         }
