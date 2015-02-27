@@ -29,7 +29,7 @@ module NewsTematica
           from_name: ESTA_WEB,
           from_email: ConstantesEmail::INFO,
           to: grupo_suscripciones.map { |suscripcion| { email: suscripcion.email } },
-          html: html,
+          html: html.gsub("%7C", "|"), # CKeditor fucks our *|mandrill_vars|*
           merge_vars: vars_para_newsletter(grupo_suscripciones),
           preserve_recipients: false
         }
@@ -43,8 +43,7 @@ module NewsTematica
     def vars_para_newsletter(suscripciones)
       suscripciones.map do |suscripcion|
         { rcpt: suscripcion.email,
-          vars: [{ name: 'enlace_desuscripcion_tematica',
-                   content: suscripcion.decorate.enlace_desuscripcion_url('haz click aquí') }] }
+          vars: [{ name: 'url_desuscripcion_tematica', content: suscripcion.decorate.url_desuscribir }] }
       end
     end
 

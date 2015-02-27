@@ -11,6 +11,7 @@ gem 'pg'
 gem 'paperclip'
 gem 'aws-sdk'
 gem 'aws-s3', require: 'aws/s3'
+gem 'suscribir', git: 'https://github.com/Soluciones/suscribir.git', tag: '6.1.0'
 
 # Declare any dependencies that are still in development here instead of in
 # your gemspec. These might include edge Rails or gems from your path or
