@@ -143,7 +143,7 @@ describe NewsTematica::NewsTematicasController, type: :controller do
       expect(response).to render_template('news_tematicas/edit')
     end
 
-    it "debe llamar al envío por Mandrill si se ha usado el botón de Mandrill y todo está bien" do
+    it 'debe llamar al envío por Mandrill si se ha usado el botón de Mandrill y todo está bien' do
       expect_any_instance_of(NewsTematica::NewsTematica).to receive(:enviar!)
       post :update, id: mi_news_tematica.id, news_tematica: { titulo: 'MyNews' }, commit: 'Enviar vía Mandrill'
       mi_news_tematica.reload
