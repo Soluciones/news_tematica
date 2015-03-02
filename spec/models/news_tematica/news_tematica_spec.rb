@@ -39,33 +39,5 @@ describe NewsTematica do
     end
   end
 
-  describe "#enviar!" do
-    describe "cuando es una newsletter de una temática" do
-      subject { FactoryGirl.create(:news_tematica, tematica: tematica) }
-
-      it "llama a enviar_newsletter_a_suscriptores_suscribible con la tematica a la que pertenece" do
-        expect(subject).to receive(:enviar_newsletter_a_suscriptores_suscribible)
-               .with(tematica, anything, anything, anything)
-
-        subject.enviar!
-      end
-    end
-
-    describe "cuando es una newsletter general" do
-      subject do
-        FactoryGirl.create(:news_tematica) do |news_tematica|
-          news_tematica.update_attributes(tematica_id: nil)
-        end
-      end
-
-      it "llama a enviar_newsletter_a_suscriptores_suscribible con la tematica general" do
-        tematica_class = ::NewsTematica::Clases.tematica_extern.constantize
-
-        expect(subject).to receive(:enviar_newsletter_a_suscriptores_suscribible)
-               .with(an_instance_of(tematica_class), anything, anything, anything)
-
-        subject.enviar!
-      end
-    end
-  end
+  pending '#enviar!'
 end

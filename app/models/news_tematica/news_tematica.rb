@@ -22,12 +22,29 @@ module NewsTematica
 
     def enviar!
       suscribible = general? ? ::NewsTematica::Clases.tematica_extern.constantize.dame_general : tematica
-      enviar_newsletter_a_suscriptores_suscribible(suscribible,
-                                                   titulo,
-                                                   html,
-                                                   nombre_newsletter: titulo,
-                                                   momento_envio: fecha_envio)
+      mandrill_client = Mandrill::API.new Rails.application.secrets.mandrill_password
+      suscribible.suscripciones.find_in_batches do |grupo_suscripciones|
+        message = {
+          subject: titulo,
+          from_name: ESTA_WEB,
+          from_email: ConstantesEmail::INFO,
+          to: grupo_suscripciones.map { |suscripcion| { email: suscripcion.email } },
+          html: html,
+          merge_vars: vars_para_newsletter(grupo_suscripciones),
+          preserve_recipients: false
+        }
+
+        mandrill_client.messages.send message
+        sleep(2)
+      end
       self.update_attribute('enviada', true)
+    end
+
+    def vars_para_newsletter(suscripciones)
+      suscripciones.map do |suscripcion|
+        { rcpt: suscripcion.email,
+          vars: [{ name: 'url_desuscripcion_tematica', content: suscripcion.decorate.url_desuscribir }] }
+      end
     end
 
     def general?

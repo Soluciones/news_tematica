@@ -89,7 +89,7 @@ En la línea de comandos, desde el directorio del engine:
 
 Una vez esta creado el _tag_ de la nueva versión, vamos a las aplicaciones principales y editamos la línea del Gemfile:
 
-    gem 'news_tematica', git: 'git@github.com:Soluciones/news_tematica.git', branch: 'master', tag: '0.1.0'
+    gem 'news_tematica', git: 'git@github.com:Soluciones/news_tematica.git', tag: '0.1.0'
 
 
 Y lanzamos `bundle update --source news_tematica` para que actualice a la nueva versión.

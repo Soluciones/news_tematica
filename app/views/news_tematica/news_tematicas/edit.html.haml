@@ -15,7 +15,7 @@
           %p Esta newsletter ya ha sido enviada, no puede modificarse ni volverse a enviar.
         - else
           = submit_tag('Guardar', class: 'boton_reborde_naranja_grande')
-          = submit_tag('Guardar y Enviar vía SendGrid', class: 'boton_azul_claro_reborde', onclick: "return confirm('¿Enviar a Sendgrid?');")
+          = submit_tag('Enviar vía Mandrill', class: 'boton_azul_claro_reborde', onclick: "return confirm('¿Enviar a Mandrill?');")
 
 = javascript_include_tag 'http://www.rankia.com/ckeditor/ckeditor.js'
 :javascript

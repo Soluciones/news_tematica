@@ -51,7 +51,7 @@ module NewsTematica
         render(text: 'Esta newsletter ya ha sido enviada, no puede modificarse ni volverse a enviar.')
       elsif !@news_tematica.update_attributes(news_tematica_params)
         render("edit")
-      elsif params[:commit].downcase.include?('sendgrid')
+      elsif params[:commit].downcase.include?('mandrill')
         @news_tematica.enviar!
         redirect_to news_tematicas_path
       else
@@ -105,12 +105,7 @@ module NewsTematica
     def dame_html
       html_limpio = render_to_string('news_tematica/news_tematicas/_preview', layout: false)
       html_inlineado = Premailer.new(html_limpio, with_html_string: true, input_encoding: 'UTF-8').to_inline_css
-      restaura_tags_sendgrid html_inlineado
-    end
-
-    def restaura_tags_sendgrid(html)
-      html.gsub('%5B', '[')
-          .gsub('%5D', ']')
+      html_inlineado.gsub("%7C", "|")
     end
 
     def news_tematica_params
