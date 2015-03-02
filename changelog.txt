@@ -1,3 +1,5 @@
+[8.0.0] Now working with Mandrill
+        Now sending directly the email via API, instead of relying on the main app to do it
 [7.0.4] Fix bug introduced on v7.0.1 'Leer más >>' link don't shows &nbsp;
 [7.0.3] Fix social images (twitter/fb) & user default avatar. Now served from assets.
 [7.0.2] Set checked as default for checkboxes to check/uncheck all section.
