@@ -3,7 +3,6 @@ module NewsTematica
 
     extend Clases
     include Clases
-    include newsletter_helper_class
 
     belongs_to :tematica, class_name: ::NewsTematica::Clases.tematica_extern
     has_many :redirections, class_name: ::NewsTematica::Clases.redirection_extern
