@@ -42,11 +42,13 @@ module NewsTematica
 
     def edit
       @news_tematica = newstematica_klass.find(params[:id])
+      @titulo = "Editar newsletter '#{ @news_tematica.nombre }'"
       redirect_to news_tematica_path(@news_tematica) if @news_tematica.enviada
     end
 
     def update
       @news_tematica = newstematica_klass.find(params[:id])
+      @titulo = "Editar newsletter '#{ @news_tematica.nombre }'"
       if @news_tematica.enviada
         render(text: 'Esta newsletter ya ha sido enviada, no puede modificarse ni volverse a enviar.')
       elsif !@news_tematica.update_attributes(news_tematica_params)
