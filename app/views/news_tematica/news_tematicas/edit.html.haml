@@ -1,5 +1,8 @@
 %h1= @titulo
 
+- if flash[:notice]
+  .flash_notice= flash[:notice]
+
 = form_for @news_tematica do |f|
   %table
     = campo f, 'titulo', class: 'grande'
@@ -15,6 +18,7 @@
           %p Esta newsletter ya ha sido enviada, no puede modificarse ni volverse a enviar.
         - else
           = submit_tag('Guardar', class: 'boton_reborde_naranja_grande')
+          = submit_tag('Enviarme correo de prueba', class: 'boton_reborde_naranja_grande')
           = submit_tag('Enviar vía Mandrill', class: 'boton_azul_claro_reborde', onclick: "return confirm('¿Enviar a Mandrill?');")
 
 = javascript_include_tag 'http://www.rankia.com/ckeditor/ckeditor.js'

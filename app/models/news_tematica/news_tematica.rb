@@ -19,31 +19,21 @@ module NewsTematica
       self.fecha_desde = ultima_de_misma_tematica ? [ultima_de_misma_tematica.fecha_hasta, MAX_ANTIGUEDAD.ago].max : MAX_ANTIGUEDAD.ago
     end
 
-    def enviar!
-      suscribible = general? ? ::NewsTematica::Clases.tematica_extern.constantize.dame_general : tematica
-      mandrill_client = Mandrill::API.new Rails.application.secrets.mandrill_password
-      suscribible.suscripciones.find_in_batches do |grupo_suscripciones|
-        message = {
-          subject: titulo,
-          from_name: ESTA_WEB,
-          from_email: ConstantesEmail::INFO,
-          to: grupo_suscripciones.map { |suscripcion| { email: suscripcion.email } },
-          html: html,
-          merge_vars: vars_para_newsletter(grupo_suscripciones),
-          preserve_recipients: false
-        }
+    def suscribible
+      general? ? ::NewsTematica::Clases.tematica_extern.constantize.dame_general : tematica
+    end
 
-        mandrill_client.messages.send message
-        sleep(2)
+    def enviar!
+      suscribible.suscripciones.find_in_batches do |grupo_suscripciones|
+        enviar_a(grupo_suscripciones)
+        sleep(1)
       end
       self.update_attribute('enviada', true)
     end
 
-    def vars_para_newsletter(suscripciones)
-      suscripciones.map do |suscripcion|
-        { rcpt: suscripcion.email,
-          vars: [{ name: 'url_desuscripcion_tematica', content: suscripcion.decorate.url_desuscribir }] }
-      end
+    def enviar_preview_a!(yo)
+      suscripcion_fake = Suscribir::Suscripcion.new(suscriptor: yo, suscribible: suscribible, id: -1, email: yo.email)
+      enviar_a([suscripcion_fake])
     end
 
     def general?
@@ -56,6 +46,30 @@ module NewsTematica
 
     def self.nueva_con_fechas_por_defecto(tematica_id)
       new(tematica_id: tematica_id, fecha_hasta: Time.zone.now, fecha_envio: 6.hours.from_now)
+    end
+
+    private
+
+    def vars_para_newsletter(suscripciones)
+      suscripciones.map do |suscripcion|
+        { rcpt: suscripcion.email,
+          vars: [{ name: 'url_desuscripcion_tematica', content: suscripcion.decorate.url_desuscribir }] }
+      end
+    end
+
+    def enviar_a(suscripciones)
+      message = {
+        subject: titulo,
+        from_name: ESTA_WEB,
+        from_email: ConstantesEmail::INFO,
+        to: suscripciones.map { |suscripcion| { email: suscripcion.email } },
+        html: html,
+        merge_vars: vars_para_newsletter(suscripciones),
+        preserve_recipients: false
+      }
+
+      mandrill_client = Mandrill::API.new Rails.application.secrets.mandrill_password
+      mandrill_client.messages.send message
     end
   end
 end
