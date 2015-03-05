@@ -50,10 +50,11 @@ module NewsTematica
       if @news_tematica.enviada
         render(text: 'Esta newsletter ya ha sido enviada, no puede modificarse ni volverse a enviar.')
       elsif !@news_tematica.update_attributes(news_tematica_params)
-        render("edit")
+        render('edit')
       elsif params[:commit].downcase =~ /prueba|preview/
         @news_tematica.enviar_preview_a!(@yo)
-        redirect_to news_tematicas_path
+        flash[:notice] = "Correo de prueba enviado a #{ @yo.email }"
+        render('edit')
       elsif params[:commit].downcase.include?('mandrill')
         @news_tematica.enviar!
         redirect_to news_tematicas_path

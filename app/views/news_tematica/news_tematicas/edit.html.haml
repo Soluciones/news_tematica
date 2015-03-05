@@ -1,5 +1,8 @@
 %h1= @titulo
 
+- if flash[:notice]
+  .flash_notice= flash[:notice]
+
 = form_for @news_tematica do |f|
   %table
     = campo f, 'titulo', class: 'grande'
