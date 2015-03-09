@@ -6,11 +6,11 @@
 = form_for @news_tematica do |f|
   %table
     = campo f, 'titulo', class: 'grande'
-    = campo f, 'fecha_envio', tipo: 'datetime', label: 'Fecha&nbsp;envío', tr_style: 'height: 40px'
     %tr
       %th
       %td.flota_der= link_to('Seleccionar contenidos', elegir_contenidos_news_tematica_path(@news_tematica), title: 'Permite seleccionar los titulares y mensajes que van a ser incluidos en la newsletter, quitando los duplicados y/o que no interesen.', style: 'margin-right: 10px')
     = campo f, 'html', tipo: 'area', autofocus: true, tr_style: 'vertical-align: top'
+    = campo f, 'fecha_envio', tipo: 'datetime', label: 'Fecha&nbsp;envío', tr_style: 'height: 40px'
     %tr
       %th
       %td

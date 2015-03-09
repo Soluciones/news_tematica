@@ -45,7 +45,7 @@ module NewsTematica
     end
 
     def self.nueva_con_fechas_por_defecto(tematica_id)
-      new(tematica_id: tematica_id, fecha_hasta: Time.zone.now, fecha_envio: 6.hours.from_now)
+      new(tematica_id: tematica_id, fecha_hasta: Time.zone.now, fecha_envio: 1.year.from_now)
     end
 
     private
