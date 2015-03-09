@@ -35,11 +35,6 @@ module NewsTematica
       end
     end
 
-    def preview
-      carga_variables_preview newstematica_klass.find(params[:id])
-      render text: dame_html, layout: false
-    end
-
     def edit
       @news_tematica = newstematica_klass.find(params[:id])
       @titulo = "Editar newsletter '#{ @news_tematica.nombre }'"
