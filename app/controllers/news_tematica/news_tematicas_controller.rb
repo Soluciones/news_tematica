@@ -65,6 +65,11 @@ module NewsTematica
       end
     end
 
+    def destroy
+      newstematica_klass.find(params[:id]).destroy
+      redirect_to news_tematicas_path
+    end
+
     def elegir_contenidos
       @news_tematica = NewsTematicaDecorator.decorate(newstematica_klass.find(params[:id]))
       @titulo = "Elegir contenidos para la newsletter"
