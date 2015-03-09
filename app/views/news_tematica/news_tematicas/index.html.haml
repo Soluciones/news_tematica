@@ -11,3 +11,4 @@
         %td.center= news_tematica.enviada ? 'Sí' : 'No'
         %td= link_to('Borrar', news_tematica_path(news_tematica), method: :delete, data: { confirm: "¿Borrar la newsletter #{ news_tematica.titulo }?" })
 
+= will_paginate @news_tematicas

@@ -1,5 +1,3 @@
-# coding: utf-8
-
 module NewsTematica
   class NewsTematicasController < ApplicationController
     include Clases
@@ -7,7 +5,7 @@ module NewsTematica
 
     def index
       @titulo = 'Newsletters temáticas'
-      @news_tematicas = newstematica_klass.order('fecha_envio DESC')
+      @news_tematicas = newstematica_klass.order(fecha_envio: :desc).paginate(page: params[:page], per_page: 20)
     end
 
     def show
