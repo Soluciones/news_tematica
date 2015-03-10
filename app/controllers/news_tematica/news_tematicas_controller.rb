@@ -49,13 +49,9 @@ module NewsTematica
         @news_tematica.enviar_preview_a!(@yo)
         flash[:notice] = "Correo de prueba enviado a #{ @yo.email }"
         render('edit')
-      elsif !@news_tematica.update_attributes(news_tematica_params)
-        render('edit')
-      elsif params[:commit].downcase.include?('mandrill')
-        @news_tematica.enviar!
+      else 
+        @news_tematica.update_attributes(news_tematica_params) or return(render('edit'))
         redirect_to news_tematicas_path
-      else
-        redirect_to(edit_news_tematica_path(@news_tematica))
       end
     end
 

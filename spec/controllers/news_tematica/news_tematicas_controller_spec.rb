@@ -129,11 +129,12 @@ describe NewsTematica::NewsTematicasController, type: :controller do
       expect(mi_news_tematica.titulo).not_to eq 'Cambio'
     end
 
-    it "debe permitir cambiar news no enviadas" do
+    it 'debe permitir cambiar news no enviadas si se ha usado el botón de Guardar y Enviar y todo está bien' do
+      expect_any_instance_of(NewsTematica::NewsTematica).not_to receive(:enviar!)
       post :update, id: mi_news_tematica.id, news_tematica: { titulo: 'Cambio' }
       mi_news_tematica.reload
       expect(mi_news_tematica.titulo).to eq 'Cambio'
-      expect(response).to redirect_to edit_news_tematica_path(mi_news_tematica)
+      expect(response).to redirect_to news_tematicas_path
     end
 
     it "debe editar de nuevo si falla al guardar" do
@@ -150,14 +151,6 @@ describe NewsTematica::NewsTematicasController, type: :controller do
       expect(mi_news_tematica.titulo).not_to eq('Cambio')
       expect(assigns(:news_tematica).titulo).to eq('Cambio')
       expect(response).to render_template('news_tematicas/edit')
-    end
-
-    it 'debe llamar al envío por Mandrill si se ha usado el botón de Mandrill y todo está bien' do
-      expect_any_instance_of(NewsTematica::NewsTematica).to receive(:enviar!)
-      post :update, id: mi_news_tematica.id, news_tematica: { titulo: 'MyNews' }, commit: 'Enviar vía Mandrill'
-      mi_news_tematica.reload
-      expect(mi_news_tematica.titulo).to eq 'MyNews'
-      expect(response).to redirect_to news_tematicas_path
     end
   end
 
