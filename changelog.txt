@@ -1,3 +1,8 @@
+[8.2.0] Added the "delete newsletter" feature
+        Deleted the unused, and even unlinked, "preview" feature; we can preview on the web with "show"
+        Newsletters are created with far-future sending date
+        Sending date is shown close to the "Send" button
+        Newsletter list receives pagination
 [8.1.0] Added the "send preview" feature
 [8.0.0] Now working with Mandrill
         Now sending directly the email via API, instead of relying on the main app to do it
