@@ -44,11 +44,12 @@ module NewsTematica
       @titulo = "Editar newsletter '#{ @news_tematica.nombre }'"
       if @news_tematica.enviada
         render(text: 'Esta newsletter ya ha sido enviada, no puede modificarse ni volverse a enviar.')
-      elsif !@news_tematica.update_attributes(news_tematica_params)
-        render('edit')
       elsif params[:commit].downcase =~ /prueba|preview/
+        @news_tematica.assign_attributes(news_tematica_params)
         @news_tematica.enviar_preview_a!(@yo)
         flash[:notice] = "Correo de prueba enviado a #{ @yo.email }"
+        render('edit')
+      elsif !@news_tematica.update_attributes(news_tematica_params)
         render('edit')
       elsif params[:commit].downcase.include?('mandrill')
         @news_tematica.enviar!
