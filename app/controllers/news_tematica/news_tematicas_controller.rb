@@ -49,7 +49,7 @@ module NewsTematica
         @news_tematica.enviar_preview_a!(@yo)
         flash[:notice] = "Correo de prueba enviado a #{ @yo.email }"
         render('edit')
-      else 
+      else
         @news_tematica.update_attributes(news_tematica_params) or return(render('edit'))
         redirect_to news_tematicas_path
       end
