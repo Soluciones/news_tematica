@@ -3,6 +3,7 @@ require 'draper'
 require 'haml'
 require 'coffee-rails'
 require 'jquery-rails'
+require 'will_paginate'
 
 module NewsTematica
   module Clases

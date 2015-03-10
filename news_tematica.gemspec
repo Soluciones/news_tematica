@@ -21,6 +21,7 @@ Gem::Specification.new do |s|
   # Gema para transformar bello HTML y CSS en odioso código para emails
   s.add_dependency 'premailer-rails'
   s.add_dependency 'nokogiri'
+  s.add_dependency 'will_paginate'
 
   s.add_dependency 'haml-rails'
   s.add_dependency 'sass'

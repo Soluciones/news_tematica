@@ -1,5 +1,3 @@
-# coding: utf-8
-
 module NewsTematica
   class NewsTematicasController < ApplicationController
     include Clases
@@ -7,7 +5,7 @@ module NewsTematica
 
     def index
       @titulo = 'Newsletters temáticas'
-      @news_tematicas = newstematica_klass.order('fecha_envio DESC')
+      @news_tematicas = newstematica_klass.order(fecha_envio: :desc).paginate(page: params[:page], per_page: 20)
     end
 
     def show
@@ -35,11 +33,6 @@ module NewsTematica
       end
     end
 
-    def preview
-      carga_variables_preview newstematica_klass.find(params[:id])
-      render text: dame_html, layout: false
-    end
-
     def edit
       @news_tematica = newstematica_klass.find(params[:id])
       @titulo = "Editar newsletter '#{ @news_tematica.nombre }'"
@@ -63,6 +56,11 @@ module NewsTematica
       else
         redirect_to(edit_news_tematica_path(@news_tematica))
       end
+    end
+
+    def destroy
+      newstematica_klass.find(params[:id]).destroy
+      redirect_to news_tematicas_path
     end
 
     def elegir_contenidos
