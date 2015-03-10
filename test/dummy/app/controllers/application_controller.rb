@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
     unless soy_admin?
       envia_a_login("Debe identificarse como administrador para acceder")
     end
+    @yo = Usuario.new(nick: 'Admin', nick_limpio: 'admin', email: 'admin@estaweb.es')
   end
 
   # Impide el acceso a usuarios no gestores de usuarios

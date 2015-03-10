@@ -1,3 +1,5 @@
+[9.0.0] Now "sending" a newsletter doesn't send it, but leaves it scheduled to send by cron tasks
+        Sending preview doesn't save the newsletter, avoiding unintended schedules that could be eventually launched
 [8.2.0] Added the "delete newsletter" feature
         Deleted the unused, and even unlinked, "preview" feature; we can preview on the web with "show"
         Newsletters are created with far-future sending date
