@@ -3,7 +3,7 @@ require "spec_helper"
 describe NewsTematica::ApplicationHelper, type: :helper do
   describe "link_to_con_estadisticas" do
     let(:redirection_class) { ::NewsTematica::Clases.redirection_extern.constantize }
-    let(:mi_news_tematica) { FactoryGirl.create(:news_tematica) }
+    let(:mi_news_tematica) { create(:news_tematica) }
     let(:request) {
       request = double('source')
       allow(request).to receive(:host).and_return('test.host')
