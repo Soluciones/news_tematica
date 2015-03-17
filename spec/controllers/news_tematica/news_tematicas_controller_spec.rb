@@ -13,20 +13,18 @@ describe NewsTematica::NewsTematicasController, type: :controller do
 
   describe "contenidos_elegidos" do
     let(:mensaje_raso) do
-      mensaje = create(:tema, created_at: 3.days.ago, titulo: 'CAF paga dividendo hoy')
-      mensaje.tap { |mensaje| create(:veces_leido, leido: mensaje, contador: 100) }
+      atributos = { created_at: 3.days.ago, titulo: 'CAF paga dividendo hoy' }
+      create(:tema, atributos).tap { |mensaje| create(:veces_leido, leido: mensaje, contador: 100) }
     end
 
     let(:titular_muy_leido) do
-      mensaje = create(:tema_titular, fecha_titulares: 1.hour.ago, created_at: 3.hours.ago,
-                       bolsa: true, titulo: 'Gana 2% semanal')
-      mensaje.tap { |mensaje| create(:veces_leido, leido: mensaje, contador: 5000) }
+      atributos = { fecha_titulares: 1.hour.ago, created_at: 3.hours.ago, bolsa: true, titulo: 'Gana 2% semanal' }
+      create(:tema_titular, atributos).tap { |mensaje| create(:veces_leido, leido: mensaje, contador: 5000) }
     end
 
     let(:mensaje_muy_recomendado) do
-      mensaje = create(:tema, created_at: 3.days.ago, votos_count: 20, respuestas_count: 3,
-                       titulo: 'El quinto elemento')
-      mensaje.tap { |mensaje| create(:veces_leido, leido: mensaje, contador: 100) }
+      atributos = { created_at: 3.days.ago, votos_count: 20, respuestas_count: 3, titulo: 'El quinto elemento' }
+      create(:tema, atributos).tap { |mensaje| create(:veces_leido, leido: mensaje, contador: 100) }
     end
 
     def post_contenidos_elegidos(prioridades_titulares = nil)
