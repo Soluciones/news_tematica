@@ -39,5 +39,58 @@ describe NewsTematica do
     end
   end
 
-  pending '#enviar!'
+  describe '#enviar!' do
+    let(:news_tematica) { create(:news_tematica) }
+    before do
+      allow(news_tematica).to receive(:enviar_a)
+      allow(news_tematica).to receive(:sleep)
+    end
+
+    shared_examples 'news con estado de envío' do
+      it 'la news queda marcada como enviada' do
+        expect { news_tematica.enviar! }.to change { news_tematica.enviada }.from(false).to(true)
+      end
+    end
+
+    context 'cuando hay suscripciones' do
+      let(:suscripciones) { [double(Suscribir::Suscripcion)] }
+
+      it_behaves_like 'news con estado de envío'
+
+      before do
+        allow(news_tematica)
+          .to receive_message_chain(:suscribible, :suscripciones, :find_in_batches)
+          .and_yield(suscripciones)
+      end
+
+      it 'envia la temática a los suscriptores' do
+        expect(news_tematica).to receive(:enviar_a).with(suscripciones)
+        news_tematica.enviar!
+      end
+
+      it 'descansa entre las peticiones de envío' do
+        expect(news_tematica).to receive(:sleep)
+        news_tematica.enviar!
+      end
+    end
+
+    context 'cuando no hay suscripciones' do
+      it_behaves_like 'news con estado de envío'
+
+      before do
+        allow(news_tematica).to receive_message_chain(:suscribible, :suscripciones)
+          .and_return(Suscribir::Suscripcion.none)
+      end
+
+      it 'no envia la temática a los suscriptores' do
+        expect(news_tematica).not_to receive(:enviar_a)
+        news_tematica.enviar!
+      end
+
+      it 'no realiza descansos' do
+        expect(news_tematica).not_to receive(:sleep)
+        news_tematica.enviar!
+      end
+    end
+  end
 end
