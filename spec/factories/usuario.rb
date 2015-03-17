@@ -2,11 +2,11 @@
 
 FactoryGirl.define do
   factory :usuario do
-    nombre            { Faker::Name.first_name }
-    apellidos         { Faker::Name.last_name }
-    nick              { |u| "a" + Faker::Internet.user_name(u.nombre)[0..12]+SecureRandom.hex(3) }
+    nombre            { FFaker::Name.first_name }
+    apellidos         { FFaker::Name.last_name }
+    nick              { |u| "a" + FFaker::Internet.user_name(u.nombre)[0..12]+SecureRandom.hex(3) }
     nick_limpio       { |u| u.nick.tag2url }
-    email             { Faker::Internet.email }
+    email             { FFaker::Internet.email }
     password          "123456"
     pass_sha          "7c4a8d09ca3762af61e59520943dc26494f8941b" # El resultado de codificar 123456
     pais_id           { 1 }
