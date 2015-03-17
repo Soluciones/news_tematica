@@ -59,7 +59,7 @@ describe NewsTematica do
 
       before do
         allow(news_tematica)
-          .to receive_message_chain(:suscribible, :suscripciones, :find_in_batches)
+          .to receive_message_chain(:suscribible, :suscripciones, :activas, :find_in_batches)
           .and_yield(suscripciones)
       end
 
@@ -78,7 +78,7 @@ describe NewsTematica do
       it_behaves_like 'news con estado de envío'
 
       before do
-        allow(news_tematica).to receive_message_chain(:suscribible, :suscripciones)
+        allow(news_tematica).to receive_message_chain(:suscribible, :suscripciones, :activas)
           .and_return(Suscribir::Suscripcion.none)
       end
 

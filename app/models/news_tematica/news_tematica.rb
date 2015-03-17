@@ -24,7 +24,7 @@ module NewsTematica
     end
 
     def enviar!
-      suscribible.suscripciones.find_in_batches do |grupo_suscripciones|
+      suscribible.suscripciones.activas.find_in_batches do |grupo_suscripciones|
         enviar_a(grupo_suscripciones)
         sleep(1)
       end
