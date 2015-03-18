@@ -8,23 +8,23 @@ describe NewsTematica::NewsTematicaDecorator do
       muchos_clics = 6
       redirection_id_pocos_clics = 124
       redirection_id_muchos_clics = 125
-      FactoryGirl.create_list(:visita, pocos_clics, redirection_id: redirection_id_pocos_clics)
-      FactoryGirl.create_list(:visita, muchos_clics, redirection_id: redirection_id_muchos_clics)
+      create_list(:visita, pocos_clics, redirection_id: redirection_id_pocos_clics)
+      create_list(:visita, muchos_clics, redirection_id: redirection_id_muchos_clics)
       link_con_pocos_clics = "<a href=\"http://midominio.com/redirections/#{redirection_id_pocos_clics}\" style=\"colorlink\">spam</a>"
       link_con_pocos_clics_con_contador = "<span class=\"cuentaclics\">#{pocos_clics}</span><a href=\"http://midominio.com/redirections/#{redirection_id_pocos_clics}\" style=\"colorlink\">spam</a>"
       link_con_muchos_clics = "<a href=\"http://midominio.com/redirections/#{redirection_id_muchos_clics}\">spam</a>"
       link_con_muchos_clics_con_contador = "<span class=\"cuentaclics\">#{muchos_clics}</span><a href=\"http://midominio.com/redirections/#{redirection_id_muchos_clics}\">spam</a>"
       html = "<p>blabla #{link_con_pocos_clics} blabla #{link_con_pocos_clics} otro mas #{link_con_muchos_clics}</p>"
       html_con_contador = "<p>blabla #{link_con_pocos_clics_con_contador} blabla #{link_con_pocos_clics_con_contador} otro mas #{link_con_muchos_clics_con_contador}</p>"
-      news_tematica = FactoryGirl.build(:news_tematica, html: html).decorate
+      news_tematica = build(:news_tematica, html: html).decorate
       expect(news_tematica.html_con_contadores).to eq html_con_contador
     end
   end
 
   describe "#prioriza_como_te_diga" do
     context "con una lista de contenidos seleccionados y unas prioridades establecidas" do
-      let(:news_tematica) { FactoryGirl.create(:news_tematica).decorate }
-      let(:contenidos_seleccionables) { FactoryGirl.create_list(:contenido, 15) }
+      let(:news_tematica) { create(:news_tematica).decorate }
+      let(:contenidos_seleccionables) { create_list(:contenido, 15) }
       let(:prioridades) do
         prioridades = {}
         contenidos_seleccionables.shuffle.each_with_index do |contenido, indice|

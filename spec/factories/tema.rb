@@ -23,7 +23,7 @@ FactoryGirl.define do
 
     factory :tema_titular do
       fecha_titulares { 10.minutes.ago }
-      descripcion     { Faker::Lorem.sentences.join("/r/n") }
+      descripcion     { FFaker::Lorem.sentences.join("/r/n") }
     end
   end
 end
