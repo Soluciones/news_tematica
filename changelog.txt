@@ -1,3 +1,7 @@
+[9.1.0] Send news_tematica only to active subscriptions.
+        Suscribir gem updated.
+        FactoryGirl and FFaker syntax changed.
+        NewsTematica#enviar! test covered.
 [9.0.0] Now "sending" a newsletter doesn't send it, but leaves it scheduled to send by cron tasks
         Sending preview doesn't save the newsletter, avoiding unintended schedules that could be eventually launched
 [8.2.0] Added the "delete newsletter" feature
