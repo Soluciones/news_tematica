@@ -86,7 +86,7 @@ module NewsTematica
       redirect_to edit_news_tematica_path(@news_tematica)
     end
 
-  private
+    private
 
     def newstematica_klass
       NewsTematica.respond_to?(:new) ? NewsTematica : NewsTematica::NewsTematica
@@ -111,7 +111,7 @@ module NewsTematica
 
     def news_tematica_params
       params.require(:news_tematica).
-        permit(:id, :tematica_id, :titulo, :html, :fecha_desde, :fecha_hasta, :fecha_envio,
+        permit(:id, :tematica_id, :titulo, :html, :fecha_desde, :fecha_hasta, :fecha_envio, :dominio_de_envio,
                :banner_1_url_imagen, :banner_1_url_destino, :banner_1_texto_alt,
                :banner_2_url_imagen, :banner_2_url_destino, :banner_2_texto_alt,
                :enviada)
