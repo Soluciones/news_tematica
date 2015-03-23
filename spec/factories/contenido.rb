@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :contenido do
+  factory :contenido, aliases: [:suscribible] do
     transient do
       debo_aceptar_contenido true
     end

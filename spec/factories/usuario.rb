@@ -1,7 +1,5 @@
-# coding: UTF-8
-
 FactoryGirl.define do
-  factory :usuario do
+  factory :usuario, aliases: [:suscriptor] do
     nombre            { FFaker::Name.first_name }
     apellidos         { FFaker::Name.last_name }
     nick              { |u| "a" + FFaker::Internet.user_name(u.nombre)[0..12]+SecureRandom.hex(3) }

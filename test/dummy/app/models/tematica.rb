@@ -1,10 +1,9 @@
-# coding: UTF-8
-
 class Tematica < ActiveRecord::Base
   validates :nombre, presence: true
   validates :seccion_publi, presence: true
 
-  NOMBRE_GENERAL = "General"
+  ID_GENERAL = 0
+  NOMBRE_GENERAL = 'General'
 
   def to_param
     "#{id}-#{nombre.tag2url}"
@@ -29,6 +28,6 @@ class Tematica < ActiveRecord::Base
   end
 
   def self.nombre_suscripcion(id)
-    id.to_i == Suscripcion::ID_GENERAL ? "Newsletter General" : nombre(id)
+    id.to_i == ID_GENERAL ? 'Newsletter General' : nombre(id)
   end
 end
