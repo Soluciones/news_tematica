@@ -1,3 +1,4 @@
+[9.1.1] Send news_tematica per domain.
 [9.1.0] Send news_tematica only to active subscriptions.
         Suscribir gem updated.
         FactoryGirl and FFaker syntax changed.
