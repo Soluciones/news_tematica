@@ -59,7 +59,7 @@ describe NewsTematica do
 
       before do
         allow(news_tematica)
-          .to receive_message_chain(:suscribible, :suscripciones, :activas, :find_in_batches)
+          .to receive_message_chain(:suscribible, :suscripciones, :activas, :en_dominio, :find_in_batches)
           .and_yield(suscripciones)
       end
 

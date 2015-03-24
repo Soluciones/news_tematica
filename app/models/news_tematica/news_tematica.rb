@@ -24,11 +24,11 @@ module NewsTematica
     end
 
     def enviar!
-      suscribible.suscripciones.activas.find_in_batches do |grupo_suscripciones|
+      suscribible.suscripciones.activas.en_dominio(dominio_de_envio).find_in_batches do |grupo_suscripciones|
         enviar_a(grupo_suscripciones)
         sleep(1)
       end
-      self.update_attribute('enviada', true)
+      update_attribute(:enviada, true)
     end
 
     def enviar_preview_a!(yo)
