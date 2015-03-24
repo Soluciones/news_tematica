@@ -15,7 +15,7 @@
       %tr
         %th
           = f.label :dominio_de_envio, 'Dominio de envio:'
-        %td= f.collection_select :dominio_de_envio, NewsTematica::Personalizacion.dominios, :to_s, :to_s, include_blank: 'Todas'
+        %td= f.collection_select :dominio_de_envio, NewsTematica::Personalizacion.dominios, :to_s, :to_s, include_blank: 'Todos'
     %tr
       %th
       %td
