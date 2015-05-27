@@ -9,6 +9,7 @@ v9.1.2 / 2015-06-09
 
   * Update hardcoded company name
 
+[10.0.0] Upgraded to Rails 4.2
 [9.1.1] Send news_tematica per domain.
 [9.1.0] Send news_tematica only to active subscriptions.
         Suscribir gem updated.
