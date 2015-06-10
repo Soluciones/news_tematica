@@ -3,8 +3,9 @@
 = form_for @news_tematica do |f|
   = render 'web/muestra_errores_form', variable: @news_tematica
   %table
-    - tematicas = NewsTematica::NewsTematicaDecorator.tematicas_dropdown
-    = campo f, 'tematica_id', tipo: 'dropdownoptions', datos: tematicas, prompt: 'Selecciona una'
+    - suscribibles = Suscribir::Newsletter.all + Tematica::Tematica.all
+    = f.collection_select :tematica_id, suscribibles, :id_y_clase, :nombre, { selected: params[:tematica_id] }
+
     = campo f, 'titulo', class: 'grande', autofocus: true
     = campo f, 'fecha_envio', tipo: 'datetime'
     = campo f, 'fecha_desde', tipo: 'datetime'
@@ -17,4 +18,3 @@
     = campo f, 'banner_2_texto_alt', class: 'mediogrande', placeholder: 'Cuenta Expansión del Banco Sabadell', label: 'Texto alt'
 
   = submit_tag('Generar', class: 'boton_reborde_naranja_grande')
-
