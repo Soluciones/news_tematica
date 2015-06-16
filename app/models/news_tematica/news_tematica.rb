@@ -44,7 +44,7 @@ module NewsTematica
       tematica_class.nombre_suscripcion(tematica_id)
     end
 
-    def self.nueva_con_fechas_por_defecto(tematica_id)
+    def self.nueva_con_fechas_por_defecto(suscribible)
       new(tematica_id: tematica_id, fecha_hasta: Time.zone.now, fecha_envio: 1.year.from_now)
     end
 

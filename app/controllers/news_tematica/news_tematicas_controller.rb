@@ -16,8 +16,7 @@ module NewsTematica
     end
 
     def new
-      nombre_tematica = tematica_class.nombre_suscripcion(params[:tematica_id])
-      @titulo = "Nueva newsletter de #{ nombre_tematica }"
+      @titulo = "Nueva newsletter de #{ suscribible.nombre }"
       @news_tematica = newstematica_klass.nueva_con_fechas_por_defecto(params[:tematica_id])
       @news_tematica.calcula_fecha_desde
     end
@@ -87,6 +86,10 @@ module NewsTematica
     end
 
     private
+    
+    def suscribible
+      params[:suscribible_type].constantize.find(params[:suscribible_id])
+    end
 
     def newstematica_klass
       NewsTematica.respond_to?(:new) ? NewsTematica : NewsTematica::NewsTematica
