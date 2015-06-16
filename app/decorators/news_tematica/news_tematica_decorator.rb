@@ -3,10 +3,6 @@ module NewsTematica
     include Clases
     delegate_all
 
-    def self.tematicas_dropdown
-      [[tematica_class.nombre_suscripcion(0), 0]] + tematica_class.todas.map { |t| [t.nombre, t.id] }
-    end
-
     def html_con_contadores
       doc = Nokogiri::HTML(source.html)
       doc.css('a').select{ |link| link['href'].match /\/redirections\// }.each do |link|
@@ -20,10 +16,10 @@ module NewsTematica
 
     # Los titulares se apoyan en la sección de titulares, si hay, o si no en la etiqueta correspondiente
     def titulares
-      if source.tematica.try(:seccion_titulares).present?
-        q = contenido_class.where("#{ source.tematica.seccion_titulares } = true").where(created_at: source.fecha_desde..source.fecha_hasta).where(fecha_titulares: source.fecha_desde..source.fecha_hasta)
-      elsif source.tematica.try(:tag_id)
-        taggings = tagging_class.where(tag_id: source.tematica.tag_id).where(created_at: source.fecha_desde..source.fecha_hasta).where(fecha_titulares: source.fecha_desde..source.fecha_hasta)
+      if source.suscribible.try(:seccion_titulares).present?
+        q = contenido_class.where("#{ source.suscribible.seccion_titulares } = true").where(created_at: source.fecha_desde..source.fecha_hasta).where(fecha_titulares: source.fecha_desde..source.fecha_hasta)
+      elsif source.suscribible.try(:tag_id)
+        taggings = tagging_class.where(tag_id: source.suscribible.tag_id).where(created_at: source.fecha_desde..source.fecha_hasta).where(fecha_titulares: source.fecha_desde..source.fecha_hasta)
         q = contenido_class.where(id: taggings.map(&:taggable_id))
       else
         q = contenido_class.where(created_at: source.fecha_desde..source.fecha_hasta).where(fecha_titulares: source.fecha_desde..source.fecha_hasta)
@@ -34,16 +30,16 @@ module NewsTematica
     # Lo más leído se apoyará en los scopes de las portadas temáticas
     def lo_mas_leido
       msgs = contenido_class.publicado.in_locale('es').includes(:veces_leido, :blog).where(created_at: source.fecha_desde..source.fecha_hasta)
-      msgs = msgs.send("de_#{ source.tematica.scope_lo_mas_leido }".to_sym) if source.tematica.try(:scope_lo_mas_leido).present?
+      msgs = msgs.send("de_#{ source.suscribible.scope_lo_mas_leido }".to_sym) if source.suscribible.try(:scope_lo_mas_leido).present?
       msgs.sort_by { |msg| 100 - msg.contador_veces_leido * msg.factor_corrector_para_nuevos }
     end
 
     # Los foros pueden ser foros principales (basados en subtipo_id) o foros temáticos (basados en tag_id)
     def temas
-      if source.tematica.try(:subtipo_id)
-        q = contenido_class.where(tema: source.tematica.subtipo_id).where(created_at: source.fecha_desde..source.fecha_hasta)
-      elsif source.tematica.try(:tag_id)
-        taggings = tagging_class.where(tag_id: source.tematica.tag_id).where(tema: Subtipo::ARRAY_FOROS_NORMALES).where(created_at: source.fecha_desde..source.fecha_hasta)
+      if source.suscribible.try(:subtipo_id)
+        q = contenido_class.where(tema: source.suscribible.subtipo_id).where(created_at: source.fecha_desde..source.fecha_hasta)
+      elsif source.suscribible.try(:tag_id)
+        taggings = tagging_class.where(tag_id: source.suscribible.tag_id).where(tema: Subtipo::ARRAY_FOROS_NORMALES).where(created_at: source.fecha_desde..source.fecha_hasta)
         q = contenido_class.where(id: taggings.map(&:taggable_id))
       else
         q = contenido_class.where(tema: Subtipo::ARRAY_FOROS_NORMALES).where(created_at: source.fecha_desde..source.fecha_hasta)
@@ -79,11 +75,11 @@ module NewsTematica
     end
 
     def titulo_generico
-      general? ? "News de #{ESTA_WEB}" : "News temática de #{tematica.nombre}"
+      general? ? "News de #{ESTA_WEB}" : "News temática de #{suscribible.nombre}"
     end
 
     def titulo_de_foro
-      general? ? "Foros" : "Foro de #{tematica.nombre}"
+      general? ? "Foros" : "Foro de #{suscribible.nombre}"
     end
   end
 end

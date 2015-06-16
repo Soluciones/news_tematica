@@ -4,7 +4,7 @@
   = render 'web/muestra_errores_form', variable: @news_tematica
   %table
     - suscribibles = Suscribir::Newsletter.all + Tematica::Tematica.all
-    = f.collection_select :tematica_id, suscribibles, :id_y_clase, :nombre, { selected: params[:tematica_id] }
+    = f.collection_select :suscribible_id, suscribibles, :id_y_clase, :nombre, { selected: @suscribible.id_y_clase }
 
     = campo f, 'titulo', class: 'grande', autofocus: true
     = campo f, 'fecha_envio', tipo: 'datetime'
