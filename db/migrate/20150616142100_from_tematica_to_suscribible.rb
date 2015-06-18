@@ -12,7 +12,7 @@ class FromTematicaToSuscribible < ActiveRecord::Migration
     execute "UPDATE news_tematica_news_tematicas
              SET suscribible_id = 0
              WHERE suscribible_type = 'Suscribir::Newsletter'"
-    delete_column :news_tematica_news_tematicas, :suscribible_type
+    remove_column :news_tematica_news_tematicas, :suscribible_type
     rename_column :news_tematica_news_tematicas, :suscribible_id, :tematica_id
   end
 end

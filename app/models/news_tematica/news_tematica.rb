@@ -6,7 +6,8 @@ module NewsTematica
     belongs_to :suscribible, polymorphic: true
     has_many :redirections, class_name: ::NewsTematica::Clases.redirection_extern
 
-    validates :suscribible_id, :titulo, :banner_1_url_imagen, :banner_1_url_destino, :banner_1_texto_alt, :banner_2_url_imagen, :banner_2_url_destino, :banner_2_texto_alt, presence: true
+    validates :titulo, :banner_1_url_imagen, :banner_1_url_destino, :banner_1_texto_alt, presence: true
+    validates :suscribible_id, :banner_2_url_imagen, :banner_2_url_destino, :banner_2_texto_alt, presence: true
 
     scope :enviada, -> { where enviada: true}
 
@@ -15,7 +16,7 @@ module NewsTematica
     MAX_ANTIGUEDAD = 7.days
 
     def calcula_fecha_desde
-      ultima_de_misma_tematica = NewsTematica.enviada.where(suscribible_id: suscribible_id, suscribible_type: suscribible_type).order('fecha_hasta DESC').first
+      ultima_de_misma_tematica = NewsTematica.enviada.where(suscribible: suscribible).order(fecha_hasta: :desc).first
       self.fecha_desde = if ultima_de_misma_tematica
                            [ultima_de_misma_tematica.fecha_hasta, MAX_ANTIGUEDAD.ago].max
                          else
@@ -41,10 +42,7 @@ module NewsTematica
     end
 
     def self.nueva_con_fechas_por_defecto(suscribible)
-      new(suscribible_id: suscribible.id, 
-          suscribible_type: suscribible.class.to_s, 
-          fecha_hasta: Time.zone.now, 
-          fecha_envio: 1.year.from_now)
+      new(suscribible: suscribible, fecha_hasta: Time.zone.now, fecha_envio: 1.year.from_now)
     end
 
     private
