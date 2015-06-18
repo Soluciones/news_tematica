@@ -88,7 +88,7 @@ module NewsTematica
     private
 
     def suscribible
-      @suscribible ||= if params[:suscribible_type] 
+      @suscribible ||= if params[:suscribible_type]
                          params[:suscribible_type].constantize.find(params[:suscribible_id])
                        else
                          Suscribir::Newsletter.first
