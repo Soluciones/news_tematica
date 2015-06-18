@@ -6,7 +6,8 @@ module NewsTematica
     belongs_to :suscribible, polymorphic: true
     has_many :redirections, class_name: ::NewsTematica::Clases.redirection_extern
 
-    validates :suscribible_id, :titulo, :banner_1_url_imagen, :banner_1_url_destino, :banner_1_texto_alt, :banner_2_url_imagen, :banner_2_url_destino, :banner_2_texto_alt, presence: true
+    validates :titulo, :banner_1_url_imagen, :banner_1_url_destino, :banner_1_texto_alt, presence: true
+    validates :suscribible_id, :banner_2_url_imagen, :banner_2_url_destino, :banner_2_texto_alt, presence: true
 
     scope :enviada, -> { where enviada: true}
 
