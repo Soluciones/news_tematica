@@ -18,14 +18,14 @@ module NewsTematica
     def titulares
       if suscribible.try(:seccion_titulares).present?
         q = contenido_class
-          .where("#{ suscribible.seccion_titulares } = true")
-          .where(created_at: fecha_desde..fecha_hasta)
-          .where(fecha_titulares: fecha_desde..fecha_hasta)
+            .where("#{ suscribible.seccion_titulares } = true")
+            .where(created_at: fecha_desde..fecha_hasta)
+            .where(fecha_titulares: fecha_desde..fecha_hasta)
       elsif suscribible.try(:tag_id)
         taggings = tagging_class
-          .where(tag_id: suscribible.tag_id)
-          .where(created_at: fecha_desde..fecha_hasta)
-          .where(fecha_titulares: fecha_desde..fecha_hasta)
+                   .where(tag_id: suscribible.tag_id)
+                   .where(created_at: fecha_desde..fecha_hasta)
+                   .where(fecha_titulares: fecha_desde..fecha_hasta)
         q = contenido_class.where(id: taggings.map(&:taggable_id))
       else
         q = contenido_class.where(created_at: fecha_desde..fecha_hasta).where(fecha_titulares: fecha_desde..fecha_hasta)
@@ -45,13 +45,13 @@ module NewsTematica
     def temas
       if suscribible.try(:subtipo_id)
         q = contenido_class
-          .where(tema: suscribible.subtipo_id)
-          .where(created_at: fecha_desde..fecha_hasta)
+            .where(tema: suscribible.subtipo_id)
+            .where(created_at: fecha_desde..fecha_hasta)
       elsif suscribible.try(:tag_id)
         taggings = tagging_class
-          .where(tag_id: suscribible.tag_id)
-          .where(tema: Subtipo::ARRAY_FOROS_NORMALES)
-          .where(created_at: fecha_desde..fecha_hasta)
+                   .where(tag_id: suscribible.tag_id)
+                   .where(tema: Subtipo::ARRAY_FOROS_NORMALES)
+                   .where(created_at: fecha_desde..fecha_hasta)
         q = contenido_class.where(id: taggings.map(&:taggable_id))
       else
         q = contenido_class.where(tema: Subtipo::ARRAY_FOROS_NORMALES).where(created_at: fecha_desde..fecha_hasta)
