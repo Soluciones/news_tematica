@@ -20,14 +20,14 @@ module NewsTematica
         q = contenido_class.where("#{ source.suscribible.seccion_titulares } = true").where(created_at: source.fecha_desde..source.fecha_hasta).where(fecha_titulares: source.fecha_desde..source.fecha_hasta)
       elsif source.suscribible.try(:tag_id)
         taggings = tagging_class
-                     .where(tag_id: source.suscribible.tag_id)
-                     .where(created_at: source.fecha_desde..source.fecha_hasta)
-                     .where(fecha_titulares: source.fecha_desde..source.fecha_hasta)
+          .where(tag_id: source.suscribible.tag_id)
+          .where(created_at: source.fecha_desde..source.fecha_hasta)
+          .where(fecha_titulares: source.fecha_desde..source.fecha_hasta)
         q = contenido_class.where(id: taggings.map(&:taggable_id))
       else
         q = contenido_class
-              .where(created_at: source.fecha_desde..source.fecha_hasta)
-              .where(fecha_titulares: source.fecha_desde..source.fecha_hasta)
+          .where(created_at: source.fecha_desde..source.fecha_hasta)
+          .where(fecha_titulares: source.fecha_desde..source.fecha_hasta)
       end
       prioriza q.publicado.in_locale('es').includes(:fotos, :veces_leido, :blog)
     end
@@ -47,9 +47,9 @@ module NewsTematica
           .where(created_at: source.fecha_desde..source.fecha_hasta)
       elsif source.suscribible.try(:tag_id)
         taggings = tagging_class
-                  .where(tag_id: source.suscribible.tag_id)
-                  .where(tema: Subtipo::ARRAY_FOROS_NORMALES)
-                  .where(created_at: source.fecha_desde..source.fecha_hasta)
+          .where(tag_id: source.suscribible.tag_id)
+          .where(tema: Subtipo::ARRAY_FOROS_NORMALES)
+          .where(created_at: source.fecha_desde..source.fecha_hasta)
         q = contenido_class.where(id: taggings.map(&:taggable_id))
       else
         q = contenido_class.where(tema: Subtipo::ARRAY_FOROS_NORMALES).where(created_at: source.fecha_desde..source.fecha_hasta)
