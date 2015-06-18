@@ -43,13 +43,13 @@ module NewsTematica
     def temas
       if source.suscribible.try(:subtipo_id)
         q = contenido_class
-              .where(tema: source.suscribible.subtipo_id)
-              .where(created_at: source.fecha_desde..source.fecha_hasta)
+          .where(tema: source.suscribible.subtipo_id)
+          .where(created_at: source.fecha_desde..source.fecha_hasta)
       elsif source.suscribible.try(:tag_id)
         taggings = tagging_class
-                    .where(tag_id: source.suscribible.tag_id)
-                    .where(tema: Subtipo::ARRAY_FOROS_NORMALES)
-                    .where(created_at: source.fecha_desde..source.fecha_hasta)
+                  .where(tag_id: source.suscribible.tag_id)
+                  .where(tema: Subtipo::ARRAY_FOROS_NORMALES)
+                  .where(created_at: source.fecha_desde..source.fecha_hasta)
         q = contenido_class.where(id: taggings.map(&:taggable_id))
       else
         q = contenido_class.where(tema: Subtipo::ARRAY_FOROS_NORMALES).where(created_at: source.fecha_desde..source.fecha_hasta)
