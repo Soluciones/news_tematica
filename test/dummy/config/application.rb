@@ -59,8 +59,6 @@ module Dummy
 
     require 'aplicacion.rb' # Precarga de los nuevos metodos que ponemos a las clases estándar: String, Fixnum, etc
     require 'mi_cache.rb'
-
-    config.active_record.raise_in_transactional_callbacks = true
   end
 end
 

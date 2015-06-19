@@ -1,3 +1,3 @@
 module NewsTematica
-  VERSION = '10.0.0'
+  VERSION = '9.1.3'
 end
