@@ -16,9 +16,8 @@ module NewsTematica
     end
 
     def new
-      nombre_tematica = tematica_class.nombre_suscripcion(params[:tematica_id])
-      @titulo = "Nueva newsletter de #{ nombre_tematica }"
-      @news_tematica = newstematica_klass.nueva_con_fechas_por_defecto(params[:tematica_id])
+      @titulo = "Nueva newsletter de #{ suscribible.nombre }"
+      @news_tematica = newstematica_klass.nueva_con_fechas_por_defecto(suscribible)
       @news_tematica.calcula_fecha_desde
     end
 
@@ -88,12 +87,21 @@ module NewsTematica
 
     private
 
+    def suscribible
+      @suscribible ||= if params[:suscribible_type]
+                         params[:suscribible_type].constantize.find(params[:suscribible_id])
+                       else
+                         Suscribir::Newsletter.first
+                       end
+    end
+
     def newstematica_klass
       NewsTematica.respond_to?(:new) ? NewsTematica : NewsTematica::NewsTematica
     end
 
     def carga_variables_preview(news_tematica)
       @news_tematica = news_tematica.decorate
+      @news_tematica.suscribible_type ||= params[:news_tematica][:suscribible_id].split('-').second
       todos_los_titulares = @news_tematica.titulares
       @titulares = ContenidoEnNewsDecorator.decorate_collection(todos_los_titulares[0..4])
       @otros_titulares = (todos_los_titulares - @titulares)[0..4]
@@ -111,7 +119,7 @@ module NewsTematica
 
     def news_tematica_params
       params.require(:news_tematica).
-        permit(:id, :tematica_id, :titulo, :html, :fecha_desde, :fecha_hasta, :fecha_envio, :dominio_de_envio,
+        permit(:id, :suscribible_id, :titulo, :html, :fecha_desde, :fecha_hasta, :fecha_envio, :dominio_de_envio,
                :banner_1_url_imagen, :banner_1_url_destino, :banner_1_texto_alt,
                :banner_2_url_imagen, :banner_2_url_destino, :banner_2_texto_alt,
                :enviada)

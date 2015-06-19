@@ -1,26 +1,27 @@
 module NewsTematica
   class NewsTematica < ActiveRecord::Base
-
     extend Clases
     include Clases
 
-    belongs_to :tematica, class_name: ::NewsTematica::Clases.tematica_extern
+    belongs_to :suscribible, polymorphic: true
     has_many :redirections, class_name: ::NewsTematica::Clases.redirection_extern
-    has_many :suscripciones, foreign_key: 'tematica_id', primary_key: 'tematica_id'
 
-    validates :tematica_id, :titulo, :banner_1_url_imagen, :banner_1_url_destino, :banner_1_texto_alt, :banner_2_url_imagen, :banner_2_url_destino, :banner_2_texto_alt, presence: true
+    validates :titulo, :banner_1_url_imagen, :banner_1_url_destino, :banner_1_texto_alt, presence: true
+    validates :suscribible_id, :banner_2_url_imagen, :banner_2_url_destino, :banner_2_texto_alt, presence: true
 
     scope :enviada, -> { where enviada: true}
+
+    delegate :nombre, to: :suscribible, path_prefix: false
 
     MAX_ANTIGUEDAD = 7.days
 
     def calcula_fecha_desde
-      ultima_de_misma_tematica = NewsTematica.enviada.where(tematica_id: tematica_id).order('fecha_hasta DESC').first
-      self.fecha_desde = ultima_de_misma_tematica ? [ultima_de_misma_tematica.fecha_hasta, MAX_ANTIGUEDAD.ago].max : MAX_ANTIGUEDAD.ago
-    end
-
-    def suscribible
-      general? ? ::NewsTematica::Clases.tematica_extern.constantize.dame_general : tematica
+      ultima_de_misma_tematica = NewsTematica.enviada.where(suscribible: suscribible).order(fecha_hasta: :desc).first
+      self.fecha_desde = if ultima_de_misma_tematica
+                           [ultima_de_misma_tematica.fecha_hasta, MAX_ANTIGUEDAD.ago].max
+                         else
+                           MAX_ANTIGUEDAD.ago
+                         end
     end
 
     def enviar!
@@ -37,15 +38,11 @@ module NewsTematica
     end
 
     def general?
-      !tematica
+      suscribible.is_a?(Suscribir::Newsletter)
     end
 
-    def nombre
-      tematica_class.nombre_suscripcion(tematica_id)
-    end
-
-    def self.nueva_con_fechas_por_defecto(tematica_id)
-      new(tematica_id: tematica_id, fecha_hasta: Time.zone.now, fecha_envio: 1.year.from_now)
+    def self.nueva_con_fechas_por_defecto(suscribible)
+      new(suscribible: suscribible, fecha_hasta: Time.zone.now, fecha_envio: 1.year.from_now)
     end
 
     private

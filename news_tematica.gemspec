@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.name        = 'news_tematica'
   s.version     = NewsTematica::VERSION
   s.authors     = ['Fernan2 & Abby - Rankia']
-  s.email       = ['fernando@emergia.net']
+  s.email       = ['fernando@rankia.com']
   s.homepage    = 'https://github.com/Soluciones/news_tematica'
   s.summary     = 'Permite crear newsletters temáticas y enviarlas por Mandrill.'
   s.description = 'Se apoya en Tematica.'
