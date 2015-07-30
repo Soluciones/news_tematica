@@ -972,7 +972,8 @@ ActiveRecord::Schema.define(version: 20150323131307) do
   end
 
   create_table "news_tematica_news_tematicas", force: true do |t|
-    t.integer  "tematica_id"
+    t.integer  "suscribible_id"
+    t.string   "suscribible_type"
     t.string   "titulo"
     t.text     "html"
     t.datetime "fecha_desde"
