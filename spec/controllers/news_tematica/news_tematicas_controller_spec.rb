@@ -5,7 +5,7 @@ describe NewsTematica::NewsTematicasController, type: :controller do
   routes { NewsTematica::Engine.routes }
 
   let!(:mi_news_tematica) do
-    create(:news_tematica, tematica: Tematica.find_by(nombre: 'Bolsa'),
+    create(:news_tematica, suscribible: Tematica.find_by(nombre: 'Bolsa'),
            fecha_desde: 7.days.ago, fecha_hasta: 1.minute.ago)
   end
   let(:dominio) { 'test.host' }
