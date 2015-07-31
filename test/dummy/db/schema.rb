@@ -1512,6 +1512,7 @@ ActiveRecord::Schema.define(version: 20150323131307) do
     t.string   "texto"
     t.integer  "tag_id"
     t.integer  "subtipo_id"
+    t.integer  "suscripciones_count"
     t.string   "seccion_titulares"
     t.string   "scope_mas_leido"
   end
