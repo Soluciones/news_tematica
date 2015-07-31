@@ -34,8 +34,8 @@ module NewsTematica
 
     def destinatarios
       q = suscribible.suscripciones.activas.en_dominio(dominio_de_envio)
-      q.where("NOT EXISTS (SELECT s.email 
-                             FROM suscribir_suscripciones AS s 
+      q.where("NOT EXISTS (SELECT s.email
+                             FROM suscribir_suscripciones AS s
                             WHERE s.email = suscribir_suscripciones.email
                               AND s.suscribible_id = suscribir_suscripciones.suscribible_id
                               AND s.suscribible_type = suscribir_suscripciones.suscribible_type
