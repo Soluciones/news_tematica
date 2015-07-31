@@ -3,7 +3,7 @@ LineLength:
   Max: 120
   Exclude:
     - app/views/**/*
-    - db/schema.rb
+    - test/dummy/db/schema.rb
     - db/seeds.rb
     - db/seeds/*
 
