@@ -1,3 +1,4 @@
+[9.2.2] Don't send a newsletter twice to the same email
 [9.2.1] Fix test suite
 [9.2.0] More changes to work with general newsletter; we now deal with suscribible instead of tematica
 [9.1.3] Changes select to work with general newsletter
