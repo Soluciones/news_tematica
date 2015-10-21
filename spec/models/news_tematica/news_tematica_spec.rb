@@ -1,7 +1,25 @@
 require 'spec_helper'
 
 describe NewsTematica do
-  let(:tematica) { create(:tematica) }
+  let(:tematica) { build_stubbed(:tematica) }
+
+  describe '#destinatarios' do
+    context 'de una news que se envía a todos los dominios' do
+      let(:news) { build(:news_tematica, suscribible: tematica, dominio_de_envio: nil) }
+
+      context 'con alguien suscrito a ese suscribible desde varios dominios' do
+        let(:alguien) { build_stubbed(:usuario) }
+        before do
+          create(:suscripcion, suscriptor: alguien, suscribible: tematica, dominio_de_alta: 'es')
+          create(:suscripcion, suscriptor: alguien, suscribible: tematica, dominio_de_alta: 'mx')
+        end
+
+        it 'debe recibir un solo email de esta news' do
+          expect(news.destinatarios.pluck(:email)).to eq([alguien.email])
+        end
+      end
+    end
+  end
 
   describe 'calcula_fecha_desde' do
     before { allow(Time).to receive(:now).and_return(Time.parse('Feb 24 2013')) }
@@ -59,7 +77,7 @@ describe NewsTematica do
 
       before do
         allow(news_tematica)
-          .to receive_message_chain(:suscribible, :suscripciones, :activas, :en_dominio, :find_in_batches)
+          .to receive_message_chain(:destinatarios, :find_in_batches)
           .and_yield(suscripciones)
       end
 
