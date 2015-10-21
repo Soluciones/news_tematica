@@ -1,12 +1,13 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe NewsTematica::NewsTematicasController, type: :controller do
   render_views  # Necesario para que funcione el render_to_string usado para generar el html
   routes { NewsTematica::Engine.routes }
 
+
+  let(:tematica_bolsa) { Tematica.find_by!(nombre: 'Bolsa') }
   let!(:mi_news_tematica) do
-    create(:news_tematica, suscribible: Tematica.find_by(nombre: 'Bolsa'),
-           fecha_desde: 7.days.ago, fecha_hasta: 1.minute.ago)
+    create(:news_tematica, suscribible: tematica_bolsa, fecha_desde: 7.days.ago, fecha_hasta: 1.minute.ago)
   end
   let(:dominio) { 'test.host' }
   let(:admin) { create(:admin) }
