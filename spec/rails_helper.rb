@@ -42,8 +42,8 @@ RSpec.configure do |config|
   # https://relishapp.com/rspec/rspec-rails/docs
   config.infer_spec_type_from_file_location!
 
-  # Cargaremos el seed, después evitaremos borrar esas tablas
-  # TODO : Buscar una solución estándar
+  # Cargaremos el seed, despues evitaremos borrar esas tablas
+  # TODO : Buscar una solucion estandar
   load "#{Rails.root}/db/seeds.rb"
 
   config.add_setting :seeded_tables
