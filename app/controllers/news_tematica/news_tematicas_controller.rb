@@ -27,7 +27,8 @@ module NewsTematica
       if @news_tematica.save
         redirect_to edit_news_tematica_path(@news_tematica)
       else
-        @titulo = "Nueva newsletter temática"
+        @suscribible = @news_tematica.suscribible
+        @titulo = "Nueva newsletter de #{ @suscribible.nombre }"
         render 'new'
       end
     end

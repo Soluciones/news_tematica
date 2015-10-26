@@ -34,6 +34,5 @@ group :develoment, :test do
 end
 
 group :test do
-  gem 'temping'
   gem 'launchy'
 end
