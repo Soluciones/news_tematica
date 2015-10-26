@@ -16,7 +16,7 @@ module NewsTematica
     end
 
     def new
-      @titulo = "Nueva newsletter de #{ suscribible.nombre }"
+      @titulo = "Nueva newsletter de #{suscribible.nombre}"
       @news_tematica = newstematica_klass.nueva_con_fechas_por_defecto(suscribible)
       @news_tematica.calcula_fecha_desde
     end
@@ -28,26 +28,26 @@ module NewsTematica
         redirect_to edit_news_tematica_path(@news_tematica)
       else
         @suscribible = @news_tematica.suscribible
-        @titulo = "Nueva newsletter de #{ @suscribible.nombre }"
+        @titulo = "Nueva newsletter de #{@suscribible.nombre}"
         render 'new'
       end
     end
 
     def edit
       @news_tematica = newstematica_klass.find(params[:id])
-      @titulo = "Editar newsletter '#{ @news_tematica.nombre }'"
+      @titulo = "Editar newsletter '#{@news_tematica.nombre}'"
       redirect_to news_tematica_path(@news_tematica) if @news_tematica.enviada
     end
 
     def update
       @news_tematica = newstematica_klass.find(params[:id])
-      @titulo = "Editar newsletter '#{ @news_tematica.nombre }'"
+      @titulo = "Editar newsletter '#{@news_tematica.nombre}'"
       if @news_tematica.enviada
         render(text: 'Esta newsletter ya ha sido enviada, no puede modificarse ni volverse a enviar.')
       elsif params[:commit].downcase =~ /prueba|preview/
         @news_tematica.assign_attributes(news_tematica_params)
         @news_tematica.enviar_preview_a!(@yo)
-        flash[:notice] = "Correo de prueba enviado a #{ @yo.email }"
+        flash[:notice] = "Correo de prueba enviado a #{@yo.email}"
         render('edit')
       else
         @news_tematica.update_attributes(news_tematica_params) or return(render('edit'))
