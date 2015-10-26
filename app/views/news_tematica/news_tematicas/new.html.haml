@@ -5,6 +5,11 @@
   %table
     - suscribibles = Suscribir::Newsletter.all + Tematica::Tematica.all
     = f.collection_select :suscribible_id, suscribibles, :id_y_clase, :nombre, { selected: @suscribible.id_y_clase }
+    - if NewsTematica::Personalizacion.dominios.present?
+      %tr
+        %th
+          = f.label :dominio_de_envio, 'Dominio de envio:'
+        %td= f.collection_select :dominio_de_envio, NewsTematica::Personalizacion.dominios, :to_s, :to_s, include_blank: 'Todos'
 
     = campo f, 'titulo', class: 'grande', autofocus: true
     = campo f, 'fecha_envio', tipo: 'datetime'
