@@ -1,10 +1,10 @@
+sudo: false
 language: ruby
 cache: bundler
 rvm:
-  - "2.1.2"
-addons:
-  postgresql: "9.3"
+  - '2.2.2'
 before_script:
-  - psql -c 'create database ntm_dummy_test;' -U postgres
   - cp test/dummy/config/database.yml.travis test/dummy/config/database.yml
-  - bundle exec rake db:schema:load
+  - bundle exec rake db:setup
+addons:
+  postgresql: '9.3'

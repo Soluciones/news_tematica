@@ -32,3 +32,8 @@ group :develoment, :test do
   gem 'pry'
   gem 'binding_of_caller'
 end
+
+group :test do
+  gem 'temping'
+  gem 'launchy'
+end
