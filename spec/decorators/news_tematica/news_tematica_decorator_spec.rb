@@ -11,7 +11,21 @@ describe NewsTematica::NewsTematicaDecorator do
       expect(build(:news_tematica, dominio_de_envio: 'mx').decorate.locale_para_enlaces).to eq(:mx)
     end
   end
-  
+
+  describe 'remitente' do
+    it 'should return info@midominio.com when dominio_de_envio is :es' do
+      expect(build(:news_tematica, dominio_de_envio: 'es').decorate.remitente).to eq('info@midominio.com')
+    end
+
+    it 'should return info.mx@midominio.com when dominio_de_envio is :mx' do
+      expect(build(:news_tematica, dominio_de_envio: 'mx').decorate.remitente).to eq('info.mx@midominio.com')
+    end
+
+    it 'should return info.xx@midominio.com when dominio_de_envio is :xx' do
+      expect(build(:news_tematica, dominio_de_envio: 'xx').decorate.remitente).to eq('info.xx@midominio.com')
+    end
+  end
+
   describe "html_con_contadores" do
     let(:visita_class) { ::NewsTematica::Clases.visita_extern.constantize }
     it "debe añadir los contadores de visitas a los enlaces" do

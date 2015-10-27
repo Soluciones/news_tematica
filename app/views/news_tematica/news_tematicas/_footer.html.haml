@@ -14,5 +14,4 @@
           t('redes_sociales.facebook', locale: @news_tematica.locale_para_enlaces), @news_tematica,  class: 'icono'
     %td.mail
       CONTACTO:
-      = link_to_con_estadisticas ::NewsTematica::Personalizacion.email_contacto,
-        "mailto:#{::NewsTematica::Personalizacion.email_contacto}", @news_tematica
+      = link_to_con_estadisticas @news_tematica.remitente, "mailto:#{@news_tematica.remitente}", @news_tematica

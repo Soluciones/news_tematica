@@ -18,6 +18,12 @@ module NewsTematica
       (dominio_de_envio.presence || 'es').to_sym
     end
 
+    def remitente
+      cuenta = "info.#{locale_para_enlaces}".sub('.es', '')
+      dominio = HTTP_DOMINIOS[:es].sub('http://', '').sub('www.', '')
+      "#{cuenta}@#{dominio}"
+    end
+
     # Los titulares se apoyan en la sección de titulares, si hay, o si no en la etiqueta correspondiente
     def titulares
       if suscribible.try(:seccion_titulares).present?
