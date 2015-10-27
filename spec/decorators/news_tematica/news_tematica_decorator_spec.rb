@@ -1,6 +1,17 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe NewsTematica::NewsTematicaDecorator do
+  describe 'locale_para_enlaces' do
+    it 'should return :es when dominio_de_envio is blank' do
+      expect(build(:news_tematica, dominio_de_envio: nil).decorate.locale_para_enlaces).to eq(:es)
+      expect(build(:news_tematica, dominio_de_envio: '').decorate.locale_para_enlaces).to eq(:es)
+    end
+
+    it 'should return :mx when dominio_de_envio is "mx"' do
+      expect(build(:news_tematica, dominio_de_envio: 'mx').decorate.locale_para_enlaces).to eq(:mx)
+    end
+  end
+  
   describe "html_con_contadores" do
     let(:visita_class) { ::NewsTematica::Clases.visita_extern.constantize }
     it "debe añadir los contadores de visitas a los enlaces" do

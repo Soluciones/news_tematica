@@ -2,8 +2,8 @@
   %tr
     %td.mas_info{ colspan: 2 }
       Más información en
-      = link_to_con_estadisticas ::NewsTematica::Personalizacion.dominio,
-        "http://#{::NewsTematica::Personalizacion.dominio}", @news_tematica
+      - dominio = HTTP_DOMINIOS[@news_tematica.locale_para_enlaces]
+      = link_to_con_estadisticas dominio.sub('http://', ''), dominio, @news_tematica
   %tr
     %td.social
       %span.texto Síguenos en

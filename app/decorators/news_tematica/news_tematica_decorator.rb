@@ -14,6 +14,10 @@ module NewsTematica
       doc.css('body').inner_html
     end
 
+    def locale_para_enlaces
+      (dominio_de_envio.presence || 'es').to_sym
+    end
+
     # Los titulares se apoyan en la sección de titulares, si hay, o si no en la etiqueta correspondiente
     def titulares
       if suscribible.try(:seccion_titulares).present?
