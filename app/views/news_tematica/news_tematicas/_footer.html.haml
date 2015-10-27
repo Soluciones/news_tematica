@@ -9,9 +9,9 @@
       %span.texto Síguenos en
       .iconos
         = link_to_con_estadisticas image_tag(image_url('iconos/twitter.png'), alt: 'Twitter'),
-          ::NewsTematica::Personalizacion.twitter_url, @news_tematica, class: 'icono'
+          t('redes_sociales.twitter', locale: @news_tematica.locale_para_enlaces), @news_tematica, class: 'icono'
         = link_to_con_estadisticas image_tag(image_url('iconos/facebook.png'), alt: 'Facebook'),
-          ::NewsTematica::Personalizacion.facebook_url, @news_tematica,  class: 'icono'
+          t('redes_sociales.facebook', locale: @news_tematica.locale_para_enlaces), @news_tematica,  class: 'icono'
     %td.mail
       CONTACTO:
       = link_to_con_estadisticas ::NewsTematica::Personalizacion.email_contacto,

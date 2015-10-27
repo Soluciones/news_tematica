@@ -6,7 +6,5 @@ NewsTematica::Clases.tagging_extern = 'Tagging'
 NewsTematica::Clases.visita_extern = 'Visita'
 
 NewsTematica::Personalizacion.logo = '<img src="http://placekitten.com/204/47" alt="Dummy"/>'
-NewsTematica::Personalizacion.twitter_url = 'http://twitter.com/Dummy'
-NewsTematica::Personalizacion.facebook_url = 'http://www.facebook.com/pages/Dummy/27338248988'
 NewsTematica::Personalizacion.email_contacto = 'info@dummy.com'
 NewsTematica::Personalizacion.company = 'Dummy S.L.'
