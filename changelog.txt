@@ -1,3 +1,4 @@
+[9.2.4] Test & fix bug on creating invalid newsletter
 [9.2.3] Wiring things for integration tests, basic test added
 [9.2.2] Don't send a newsletter twice to the same email
 [9.2.1] Fix test suite
