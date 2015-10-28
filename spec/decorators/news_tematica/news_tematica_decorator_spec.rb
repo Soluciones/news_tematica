@@ -30,7 +30,7 @@ describe NewsTematica::NewsTematicaDecorator do
     let!(:titular_mx) { create(:titular, mx: true, es: false, fecha_titulares: 1.day.ago) }
     let!(:titular_es) { create(:titular, mx: false, es: true, fecha_titulares: 1.day.ago) }
     let!(:titular_global) { create(:titular, mx: true, es: true, fecha_titulares: 1.day.ago) }
-    let(:news) { create(:news_tematica, fecha_desde: 1.week.ago, fecha_hasta: Time.now).decorate }
+    let(:news) { create(:news_tematica, fecha_desde: 1.week.ago, fecha_hasta: Time.current).decorate }
 
     context 'en una news mexicana' do
       before { allow(news).to receive(:locale_para_enlaces) { :mx } }
@@ -53,7 +53,7 @@ describe NewsTematica::NewsTematicaDecorator do
     let!(:tema_mx) { create(:tema, mx: true, es: false, created_at: 1.day.ago) }
     let!(:tema_es) { create(:tema, mx: false, es: true, created_at: 1.day.ago) }
     let!(:tema_global) { create(:tema, mx: true, es: true, created_at: 1.day.ago) }
-    let(:news) { create(:news_tematica, fecha_desde: 1.week.ago, fecha_hasta: Time.now).decorate }
+    let(:news) { create(:news_tematica, fecha_desde: 1.week.ago, fecha_hasta: Time.current).decorate }
 
     context 'en una news mexicana' do
       before { allow(news).to receive(:locale_para_enlaces) { :mx } }
