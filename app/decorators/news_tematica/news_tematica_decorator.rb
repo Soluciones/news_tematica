@@ -40,12 +40,12 @@ module NewsTematica
       else
         q = contenido_class.where(created_at: fecha_desde..fecha_hasta).where(fecha_titulares: fecha_desde..fecha_hasta)
       end
-      prioriza q.publicado.in_locale('es').includes(:fotos, :veces_leido, :blog)
+      prioriza q.publicado.in_locale(locale_para_enlaces).includes(:fotos, :veces_leido, :blog)
     end
 
     # Lo más leído se apoyará en los scopes de las portadas temáticas
     def lo_mas_leido
-      msgs = contenido_class.publicado.in_locale('es').includes(:veces_leido, :blog)
+      msgs = contenido_class.publicado.in_locale(locale_para_enlaces).includes(:veces_leido, :blog)
       msgs = msgs.where(created_at: fecha_desde..fecha_hasta)
       msgs = msgs.send("de_#{ suscribible.scope_lo_mas_leido }".to_sym) if suscribible.try(:scope_lo_mas_leido).present?
       msgs.sort_by { |msg| 100 - msg.contador_veces_leido * msg.factor_corrector_para_nuevos }
@@ -66,7 +66,7 @@ module NewsTematica
       else
         q = contenido_class.where(tema: Subtipo::ARRAY_FOROS_NORMALES).where(created_at: fecha_desde..fecha_hasta)
       end
-      prioriza q.publicado.in_locale('es').includes(:veces_leido, :blog)
+      prioriza q.publicado.in_locale(locale_para_enlaces).includes(:veces_leido, :blog)
     end
 
     def banner_lateral

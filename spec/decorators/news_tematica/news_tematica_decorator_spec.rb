@@ -26,6 +26,52 @@ describe NewsTematica::NewsTematicaDecorator do
     end
   end
 
+  describe 'titulares' do
+    let!(:titular_mx) { create(:titular, mx: true, es: false, fecha_titulares: 1.day.ago) }
+    let!(:titular_es) { create(:titular, mx: false, es: true, fecha_titulares: 1.day.ago) }
+    let!(:titular_global) { create(:titular, mx: true, es: true, fecha_titulares: 1.day.ago) }
+    let(:news) { create(:news_tematica, fecha_desde: 1.week.ago, fecha_hasta: Time.now).decorate }
+
+    context 'en una news mexicana' do
+      before { allow(news).to receive(:locale_para_enlaces) { :mx } }
+
+      it 'devuelve titulares visibles en mx' do
+        expect(news.titulares.map(&:id)).to match_array([titular_mx.id, titular_global.id])
+      end
+    end
+
+    context 'en una news global o española' do
+      before { allow(news).to receive(:locale_para_enlaces) { :es } }
+
+      it 'devuelve titulares visibles en es' do
+        expect(news.titulares.map(&:id)).to match_array([titular_es.id, titular_global.id])
+      end
+    end
+  end
+
+  describe 'temas' do
+    let!(:tema_mx) { create(:tema, mx: true, es: false, created_at: 1.day.ago) }
+    let!(:tema_es) { create(:tema, mx: false, es: true, created_at: 1.day.ago) }
+    let!(:tema_global) { create(:tema, mx: true, es: true, created_at: 1.day.ago) }
+    let(:news) { create(:news_tematica, fecha_desde: 1.week.ago, fecha_hasta: Time.now).decorate }
+
+    context 'en una news mexicana' do
+      before { allow(news).to receive(:locale_para_enlaces) { :mx } }
+
+      it 'devuelve temas visibles en mx' do
+        expect(news.temas.map(&:id)).to match_array([tema_mx.id, tema_global.id])
+      end
+    end
+
+    context 'en una news global o española' do
+      before { allow(news).to receive(:locale_para_enlaces) { :es } }
+
+      it 'devuelve temas visibles en es' do
+        expect(news.temas.map(&:id)).to match_array([tema_es.id, tema_global.id])
+      end
+    end
+  end
+
   describe "html_con_contadores" do
     let(:visita_class) { ::NewsTematica::Clases.visita_extern.constantize }
     it "debe añadir los contadores de visitas a los enlaces" do
