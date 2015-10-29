@@ -68,7 +68,7 @@ module NewsTematica
       message = {
         subject: titulo,
         from_name: ESTA_WEB,
-        from_email: ConstantesEmail::INFO,
+        from_email: decorate.remitente,
         to: suscripciones.map { |suscripcion| { email: suscripcion.email } },
         html: html,
         merge_vars: vars_para_newsletter(suscripciones),
