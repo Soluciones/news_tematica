@@ -1,3 +1,5 @@
+[11.0.1] White link on the newsletter's footer, as the orange one was hard to read
+         Sender customized by domain
 [11.0.0] (still Rails 4.1)
          More coupling with the apps to solve internacionalization issues:
            Before: ::NewsTematica::Personalizacion.dominio/facebook_url/twitter_url/email_contacto
