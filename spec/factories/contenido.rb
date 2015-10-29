@@ -10,5 +10,14 @@ FactoryGirl.define do
     usr_nick        { usuario.nick }
     usr_nick_limpio { usuario.nick_limpio }
     es              true
+
+    factory :titular do
+      contenido_link      { FFaker::Internet.http_url }
+      subtipo_id          { Subtipo::TITULARES }
+      tema                { Subtipo::TITULARES }
+      publicado           true
+      fecha_titulares     { 1.minute.ago }
+      created_at          { fecha_titulares }
+    end
   end
 end

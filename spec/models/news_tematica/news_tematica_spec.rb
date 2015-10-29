@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe NewsTematica do
   let(:tematica) { build_stubbed(:tematica) }
