@@ -1,5 +1,3 @@
-# coding: UTF-8
-
 class Blog < ActiveRecord::Base
   has_many :contenidos
   belongs_to :ultimo_post, class_name: 'Contenido'
@@ -15,7 +13,6 @@ class Blog < ActiveRecord::Base
 
   delegate :codigo_iso, to: :pais
 
-  scope :con_ultimo_post, select('blog_id, blogs.titulo as titulo_blog, blogs.descripcion, blogs.url, blogs.posts_count, c.titulo as titulo_contenido, c.contenido_link, c.created_at, c.publicado').where(estado_id: 1).joins('INNER JOIN contenidos c ON blogs.ultimo_post_id = c.id')
   scope :in_locale, lambda { |locale| where(locale => true) }
 
   ESTADO_CERRADO = -1
