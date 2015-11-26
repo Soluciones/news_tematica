@@ -1,3 +1,4 @@
+[12.1.0] Fixes embedded SASS not working (now we embed CSS)
 [12.0.0] Merge Rails 4.2 (10.0) with I18n issues (11.0)
 [11.0.1] White link on the newsletter's footer, as the orange one was hard to read
          Sender customized by domain
