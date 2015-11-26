@@ -11,7 +11,7 @@ gem 'pg'
 gem 'paperclip'
 gem 'aws-sdk', '< 2.0'
 gem 'aws-s3', require: 'aws/s3'
-gem 'suscribir', git: 'https://github.com/Soluciones/suscribir.git', tag: 'v7.1.0'
+gem 'suscribir', git: 'https://github.com/Soluciones/suscribir.git', tag: 'v8.0.0'
 gem 'psique', '= 0.1.0'
 gem 'mandrill-api', require: 'mandrill'
 

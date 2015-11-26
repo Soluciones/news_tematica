@@ -1,11 +1,11 @@
-$:.push File.expand_path("../lib", __FILE__)
+$:.push File.expand_path('../lib', __FILE__)
 
 # Maintain your gem's version:
-require "news_tematica/version"
+require 'news_tematica/version'
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
-  s.name        = "news_tematica"
+  s.name        = 'news_tematica'
   s.version     = NewsTematica::VERSION
   s.authors     = ['Fernan2 & Abby - Rankia']
   s.email       = ['fernando@rankia.com']
@@ -13,10 +13,10 @@ Gem::Specification.new do |s|
   s.summary     = 'Permite crear newsletters temáticas y enviarlas por Mandrill.'
   s.description = 'Se apoya en Tematica.'
 
-  s.files = Dir["{app,config,db,lib}/**/*"] + ["Rakefile"]
-  s.test_files = Dir["test/**/*"]
+  s.files = Dir['{app,config,db,lib}/**/*'] + ['Rakefile']
+  s.test_files = Dir['test/**/*']
 
-  s.add_dependency 'rails', '~> 4.1.5'
+  s.add_dependency 'rails', '~> 4.2.4'
 
   # Gema para transformar bello HTML y CSS en odioso código para emails
   s.add_dependency 'premailer-rails'
