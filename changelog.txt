@@ -1,3 +1,15 @@
+[11.0.1] White link on the newsletter's footer, as the orange one was hard to read
+         Sender customized by domain
+[11.0.0] (still Rails 4.1)
+         More coupling with the apps to solve internacionalization issues:
+           Before: ::NewsTematica::Personalizacion.dominio/facebook_url/twitter_url/email_contacto
+           Now: HTTP_DOMINIOS, t('redes_sociales.facebook'), t('redes_sociales.twitter')
+         SO THE CALLER MUST REMOVE NewsTematica::Personalizacion.dominio/facebook_url/twitter_url/email_contacto FROM config/initializers/engines.rb
+[10.0.0] Rails 4.2
+[9.2.4] Test & fix bug on creating invalid newsletter
+[9.2.3] Wiring things for integration tests, basic test added
+[9.2.2] Don't send a newsletter twice to the same email
+[9.2.1] Fix test suite
 [9.2.0] More changes to work with general newsletter; we now deal with suscribible instead of tematica
 [9.1.3] Changes select to work with general newsletter
 [9.1.2] Update hardcoded company name

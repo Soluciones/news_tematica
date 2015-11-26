@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :news_tematica, class: NewsTematica::NewsTematica do
-    tematica      { FactoryGirl.create(:tematica) }
-    titulo        { "Novedades de #{ tematica.nombre }" }
+    suscribible   { FactoryGirl.create(:tematica) }
+    titulo        { "Novedades de #{ suscribible.nombre }" }
     fecha_envio   { 1.day.from_now }
     html          { "<h1>Hello world!</h1>" }
     banner_1_url_imagen { FFaker::Internet.uri 'http' }

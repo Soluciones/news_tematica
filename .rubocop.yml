@@ -1,0 +1,22 @@
+Metrics/LineLength:
+  Max: 120
+  Exclude:
+    - 'config/routes.rb'
+    - 'test/dummy/config/routes.rb'
+    - 'test/dummy/db/seeds.rb'
+
+StringLiterals:
+  EnforcedStyle: single_quotes
+
+SignalException:
+  EnforcedStyle: only_raise
+
+AllCops:
+  Exclude:
+    - 'test/dummy/db/schema.rb'
+
+Documentation:
+  Enabled: false
+
+Style/FileName:
+  Enabled: false

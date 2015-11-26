@@ -11,7 +11,7 @@ gem 'pg'
 gem 'paperclip'
 gem 'aws-sdk', '< 2.0'
 gem 'aws-s3', require: 'aws/s3'
-gem 'suscribir', git: 'https://github.com/Soluciones/suscribir.git', branch: 'upgrade-rails'
+gem 'suscribir', git: 'https://github.com/Soluciones/suscribir.git', tag: 'v8.0.0'
 gem 'psique', '= 0.1.0'
 gem 'mandrill-api', require: 'mandrill'
 
@@ -26,9 +26,13 @@ gem 'mandrill-api', require: 'mandrill'
 group :develoment, :test do
   gem 'database_cleaner'
   gem 'factory_girl_rails'
-  gem 'ffaker'
+  gem 'ffaker', '~> 2.0'
   gem 'capybara'
   gem 'rspec-rails', '~> 3.0'
   gem 'pry'
   gem 'binding_of_caller'
+end
+
+group :test do
+  gem 'launchy'
 end

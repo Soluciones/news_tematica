@@ -6,6 +6,9 @@ module NewsTematica
         link_to texto, "http://#{request.host}/redirections/#{redireccion.id}", opciones
       end
     end
+
+    def dominios
+      Personalizacion.dominios || [:es]
+    end
   end
 end
-

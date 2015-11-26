@@ -25,11 +25,21 @@ module NewsTematica
     end
 
     def enviar!
-      suscribible.suscripciones.activas.en_dominio(dominio_de_envio).find_in_batches do |grupo_suscripciones|
+      destinatarios.find_in_batches do |grupo_suscripciones|
         enviar_a(grupo_suscripciones)
         sleep(1)
       end
       update_attribute(:enviada, true)
+    end
+
+    def destinatarios
+      q = suscribible.suscripciones.activas.en_dominio(dominio_de_envio)
+      q.where("NOT EXISTS (SELECT s.email
+                             FROM suscribir_suscripciones AS s
+                            WHERE s.email = suscribir_suscripciones.email
+                              AND s.suscribible_id = suscribir_suscripciones.suscribible_id
+                              AND s.suscribible_type = suscribir_suscripciones.suscribible_type
+                              AND s.id < suscribir_suscripciones.id)")
     end
 
     def enviar_preview_a!(yo)
@@ -58,7 +68,7 @@ module NewsTematica
       message = {
         subject: titulo,
         from_name: ESTA_WEB,
-        from_email: ConstantesEmail::INFO,
+        from_email: decorate.remitente,
         to: suscripciones.map { |suscripcion| { email: suscripcion.email } },
         html: html,
         merge_vars: vars_para_newsletter(suscripciones),

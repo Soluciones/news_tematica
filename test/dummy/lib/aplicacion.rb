@@ -1,5 +1,3 @@
-# coding: UTF-8
-
 HTTP_DOMINIOS = {
   ar: "http://www.midominio.com.ar",
   cl: "http://www.midominio.cl",

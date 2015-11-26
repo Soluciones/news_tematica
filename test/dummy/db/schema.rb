@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150323131307) do
+ActiveRecord::Schema.define(version: 20150616142100) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -972,7 +972,7 @@ ActiveRecord::Schema.define(version: 20150323131307) do
   end
 
   create_table "news_tematica_news_tematicas", force: true do |t|
-    t.integer  "tematica_id"
+    t.integer  "suscribible_id"
     t.string   "titulo"
     t.text     "html"
     t.datetime "fecha_desde"
@@ -988,6 +988,7 @@ ActiveRecord::Schema.define(version: 20150323131307) do
     t.string   "banner_2_texto_alt"
     t.boolean  "enviada",              default: false
     t.string   "dominio_de_envio"
+    t.string   "suscribible_type"
   end
 
   create_table "newsletter_en_esperas", force: true do |t|
@@ -1511,6 +1512,7 @@ ActiveRecord::Schema.define(version: 20150323131307) do
     t.string   "texto"
     t.integer  "tag_id"
     t.integer  "subtipo_id"
+    t.integer  "suscripciones_count"
     t.string   "seccion_titulares"
     t.string   "scope_mas_leido"
   end

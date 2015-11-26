@@ -1,23 +1,8 @@
-LineLength:
-  Description: 'Limit lines to 120 characters.'
-  Max: 120
-  Exclude:
-    - app/views/**/*
-    - db/seeds.rb
-    - db/seeds/*
+ruby:
+  config_file: .rubocop.yml
 
-StringLiterals:
-  EnforcedStyle: single_quotes
+scss:
+  config_file: .scss-lint.yml
 
-HashSyntax:
-  EnforcedStyle: ruby19
-
-SignalException:
-  EnforcedStyle: only_raise
-
-DotPosition:
-  EnforcedStyle: leading
-
-AllCops:
-  Exclude:
-    - db/schema.rb
+haml:
+  config_file: .haml-lint.yml
