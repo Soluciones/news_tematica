@@ -103,7 +103,7 @@ module NewsTematica
     def carga_variables_preview(news_tematica)
       @news_tematica = news_tematica.decorate
       @news_tematica.suscribible_type ||= params[:news_tematica][:suscribible_id].split('-').second
-      todos_los_titulares = @news_tematica.titulares
+      todos_los_titulares = ContenidoEnNewsDecorator.decorate_collection(@news_tematica.titulares)
       @titulares = ContenidoEnNewsDecorator.decorate_collection(todos_los_titulares[0..4])
       @otros_titulares = (todos_los_titulares - @titulares)[0..4]
       @masleidos = @news_tematica.lo_mas_leido[0..4]
