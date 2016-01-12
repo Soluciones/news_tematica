@@ -55,6 +55,13 @@ module NewsTematica
       end
     end
 
+    def update_dates
+      @news_tematica = newstematica_klass.find(params[:id])
+      @news_tematica.update_attributes(fecha_desde: params[:news_tematica][:fecha_desde],
+                                       fecha_hasta: params[:news_tematica][:fecha_hasta])
+      redirect_to action: :elegir_contenidos
+    end
+
     def destroy
       newstematica_klass.find(params[:id]).destroy
       redirect_to news_tematicas_path

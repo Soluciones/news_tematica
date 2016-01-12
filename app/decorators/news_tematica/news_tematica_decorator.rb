@@ -48,6 +48,7 @@ module NewsTematica
       msgs = contenido_class.publicado.in_locale(locale_para_enlaces).includes(:veces_leido, :blog)
       msgs = msgs.where(created_at: fecha_desde..fecha_hasta)
       msgs = msgs.send("de_#{ suscribible.scope_lo_mas_leido }".to_sym) if suscribible.try(:scope_lo_mas_leido).present?
+      prioriza msgs
       msgs.sort_by { |msg| 100 - msg.contador_veces_leido * msg.factor_corrector_para_nuevos }
     end
 
