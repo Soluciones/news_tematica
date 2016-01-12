@@ -1,5 +1,12 @@
 %h1= @titulo
 
+= form_for @news_tematica, url: { action: :update_dates } do |f|
+  Desde
+  = f.date_field :fecha_desde
+  hasta
+  = f.date_field :fecha_hasta
+  = f.submit 'Actualizar'
+
 = form_tag contenidos_elegidos_news_tematica_path(@news_tematica) do |f|
 
   %h3
